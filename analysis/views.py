@@ -25,9 +25,4 @@ def table(request):
 def СorrelationСhemistry(request):
     data = Data.GetData()
     cor = Сorrelation.CreateСorrelationСhemistry(data.loc[:, 'О2':'Са+2'])
-    return render(request, 'analysis/СorrelationСhemistry.html')
-
-# пример тупо вызова функции
-# def change(request):
-#     file.SetData(3)
-#     return render(request, 'analysis/index.html', {'data': file.GetData()})
+    return render(request, 'analysis/СorrelationСhemistry.html', {'Сhemistry':data.loc[:, 'О2':'Са+2'].columns})

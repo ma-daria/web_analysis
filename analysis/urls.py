@@ -7,8 +7,6 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('table', views.table, name='table'),
     path('СorrelationСhemistry', views.СorrelationСhemistry, name='СorrelationСhemistry'),
-    # пример тупо вызова функции
-    # path('change', views.change, name='change'),
 ]
 
 if settings.DEBUG:
