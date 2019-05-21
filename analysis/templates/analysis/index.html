@@ -1,9 +1,54 @@
 {% extends "analysis/template.html" %}
 {% block content %}
 
-    <h1>{{ data }}</h1>
-
+{#    <h1>{{ data }}</h1>#}
+{##}
 {#    пример тупо вызова функции #}
-    <a href="/change">text</a>
+{#    <a href="/change">text</a>#}
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-12 order-md-1">
+                <br>
+                <form class="openFile" >
+                    <div class="input-group">
+                        <div class="custom-file">
+{#                              <input type="file" name="f" >#}
+                            <input type="file" class="form-control-file" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
+                            <label class="custom-file-label" for="inputGroupFile04">Выберете файл</label>
+                        </div>
+                         <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Открыть</button>
+                         </div>
+                    </div>
+                </form>
+            </div>
+
+
+
+
+
+{#            <div class="col-md-12 order-md-1">#}
+{#                <br>#}
+{#                <table class="table table-hover">#}
+{#                    <thead>#}
+{#                    <tr>#}
+{#                        <th>№</th>#}
+{#                        <th>Водоем</th>#}
+{#                        <th>Место</th>#}
+{#                        <th>pH</th>#}
+{#                        <th>Температура</th>#}
+{#                        <th> </th>#}
+{#                    </tr>#}
+{#                    </thead>#}
+{#                    <tbody>#}
+{##}
+{#                    </tbody>#}
+{#                </table>#}
+{#            </div>#}
+        </div>
+    </div>
+
 
 {% endblock %}
