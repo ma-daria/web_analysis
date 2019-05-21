@@ -20,7 +20,7 @@
                 <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                     <div class="input-group">
-                        <select class="form-control" id="exampleFormControlSelect1" >
+                        <select class="form-control" id="name" name="name">
                             {% for Сhe in Сhemistry %}
                                 <option >{{ Сhe }}</option>
                             {% endfor %}
