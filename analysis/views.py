@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 
-from pythonCode import ReadFile, Data
+from pythonCode import ReadFile, Data, Сorrelation
 
 
 
@@ -23,6 +23,8 @@ def table(request):
     return render(request, 'analysis/table.html', {'measurement': Data.GetData()})
 
 def СorrelationСhemistry(request):
+    data = Data.GetData()
+    cor = Сorrelation.CreateСorrelationСhemistry(data.loc[:, 'О2':'Са+2'])
     return render(request, 'analysis/СorrelationСhemistry.html')
 
 # пример тупо вызова функции

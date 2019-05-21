@@ -5,7 +5,7 @@ def CreateСorrelationСhemistry(measurement):
     Include.plt.figure(figsize=(15, 15), dpi=200)
     сorrelationСhemistry = measurement.corr()
     Include.sns.heatmap(сorrelationСhemistry, cmap=mapPalette, vmin=-1, vmax=1, annot=True)
-    Include.plt.savefig("Result/СorrelationСhemistry.png")
+    Include.plt.savefig("/home/ma-daria/PycharmProjects/web_analysis/analysis/static/analysis/image/СorrelationСhemistry.png")
     # plt.show()
     # print(measurement.corr())
     return сorrelationСhemistry
@@ -16,7 +16,7 @@ def CreateСorrelationZooplankton(measurement):
     Include.plt.figure(figsize=(20, 20), dpi=200)
     сorrelationZooplankton = measurement.corr()
     Include.sns.heatmap(сorrelationZooplankton, cmap=mapPalette, vmin=-1, vmax=1)
-    Include.plt.savefig("Result/СorrelationZooplankton.png")
+    Include.plt.savefig("/home/ma-daria/PycharmProjects/web_analysis/analysis/static/analysis/image/СorrelationZooplankton.png")
     # plt.show()
     # print(measurement.corr())
     return сorrelationZooplankton
@@ -35,4 +35,4 @@ def CreateСorrelationZooplanktonEnvironment(measurement, environment):
     teste['НСО3–'] = test
     # teste = teste.fillna(0)
     Include.sns.heatmap(teste, cmap=mapPalette, vmin=-1, vmax=1)
-    Include.plt.savefig("Result/СorrelationZooplanktonEnvironment.png")
+    Include.plt.savefig("/home/ma-daria/PycharmProjects/web_analysis/analysis/static/analysis/image/СorrelationZooplanktonEnvironment.png")
