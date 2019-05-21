@@ -1,0 +1,42 @@
+{% extends "analysis/template.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 order-md-1">
+            <div class="col-md-12 order-md-1">
+                <br>
+                {% load staticfiles %}
+                <a href="{% static 'analysis/image/СorrelationСhemistry.png' %}" target="_blank"><img src="{% static 'analysis/image/СorrelationСhemistry.png' %}" style='width: 100%; ' ></a>
+            </div>
+        </div>
+
+        <div class="col-md-6 order-md-1">
+            <div class="col-md-12 order-md-1">
+                <br>
+                <label for="exampleFormControlSelect1">Укажите исследуемый параметр</label>
+                <select class="form-control" id="exampleFormControlSelect1">
+                  <option>1</option>
+                </select>
+            </div>
+
+
+            <div class="col-md-12 order-md-1">
+                <br>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Химия</th>
+                            <th>Значение</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

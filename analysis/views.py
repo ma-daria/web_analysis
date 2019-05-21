@@ -3,7 +3,8 @@ from django.http import HttpResponse
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 
-from pythonCode import ReadFile
+from pythonCode import ReadFile, Data
+
 
 
 def index(request):
@@ -12,13 +13,17 @@ def index(request):
         fs = FileSystemStorage()
         fs.save(file.name, file)
         print(str(settings.MEDIA_ROOT)+'/' + str(file))
-        print(ReadFile.ReadFile(str(settings.MEDIA_ROOT)+'/' + str(file)))
+        Data.SetData(ReadFile.ReadFile(str(settings.MEDIA_ROOT)+'/' + str(file)))
         return redirect('/table')
 
     return render(request, 'analysis/index.html')
 
 def table(request):
-    return render(request, 'analysis/table.html')
+    # return render(request, 'analysis/table.html', {'measurement': [['0', '1'],['2', '3']]})
+    return render(request, 'analysis/table.html', {'measurement': Data.GetData()})
+
+def СorrelationСhemistry(request):
+    return render(request, 'analysis/СorrelationСhemistry.html')
 
 # пример тупо вызова функции
 # def change(request):

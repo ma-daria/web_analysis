@@ -1,4 +1,8 @@
 {% extends "analysis/template.html" %}
 {% block content %}
-
+    {% for meas in measurement %}
+        {% for mea in meas %}
+            <h1>{{  mea }}</h1>
+        {% endfor %}
+    {% endfor %}
 {% endblock %}
