@@ -1,13 +1,19 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.core.files.storage import FileSystemStorage
+from django.conf import settings
+
 # from papka import file
 
 
 def index(request):
     if request.method == 'POST':
         file = request.FILES['document']
-        print(file.path)
+        fs = FileSystemStorage()
+        fs.save(file.name, file)
+        print(str(settings.MEDIA_ROOT) + str(file))
         return redirect('/table')
+
     return render(request, 'analysis/index.html')
 
 def table(request):
