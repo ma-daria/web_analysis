@@ -1,4 +1,4 @@
-import Include
+from pythonCode import Include
 
 def CreatePairplotСhemistry(measurement):
     sns_plot = Include.sns.pairplot(measurement, hue='Место измерения')

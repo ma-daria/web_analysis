@@ -1,5 +1,5 @@
-import Include
-import Сlustering
+from pythonCode import Include
+from pythonCode import Сlustering
 
 def lsa(measurement):
     col = measurement.columns

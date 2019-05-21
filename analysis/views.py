@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 
-# from papka import file
+from pythonCode import ReadFile
 
 
 def index(request):
@@ -11,7 +11,8 @@ def index(request):
         file = request.FILES['document']
         fs = FileSystemStorage()
         fs.save(file.name, file)
-        print(str(settings.MEDIA_ROOT) + str(file))
+        print(str(settings.MEDIA_ROOT)+'/' + str(file))
+        print(ReadFile.ReadFile(str(settings.MEDIA_ROOT)+'/' + str(file)))
         return redirect('/table')
 
     return render(request, 'analysis/index.html')

@@ -1,5 +1,5 @@
-import Include
-
+from pythonCode import Include
+from django.conf import settings
 
 def ToFloat(measurement):
     for name in measurement:
@@ -8,11 +8,11 @@ def ToFloat(measurement):
     return measurement
 
 def CreateFolder():
-    Include.os.mkdir("Result")
+    Include.os.mkdir(str(settings.MEDIA_ROOT)+"/Result")
 
 def ReadFile(name):
-
-    measurement = Include.pd.read_csv(name ,sep=';', decimal=',',  header=1)
+    CreateFolder()
+    measurement = Include.pd.read_csv(name, sep=';', decimal=',',  header=1)
     # measurement.fillna(0, inplace=True)
     measurement = measurement.rename(columns={'Unnamed: 0': 'Водоем'})
     measurement = measurement.rename(columns={'Unnamed: 1': 'Дата'})
@@ -37,3 +37,5 @@ def ReadFile(name):
     measurement = new_measurement
     # print(measurement.loc[0])
     return measurement
+
+

@@ -121,5 +121,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = '/home/ma-daria/PycharmProjects/web_analysis/data'
+MEDIA_ROOT = '/home/ma-daria/PycharmProjects/web_analysis/pythonCode/data'
 MEDIA_URL = '/data/'
