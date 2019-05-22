@@ -1,5 +1,6 @@
 from pythonCode import Include
 from pythonCode import Сlustering
+from django.conf import settings
 
 def lsa(measurement):
     col = measurement.columns
@@ -13,5 +14,6 @@ def lsa(measurement):
     U_S = Include.np.multiply(S, U)
     A_ = Include.np.dot(U_S, Vt)
     cl = Сlustering.СlusteringMetod(A_, 0.2, col)
-    Include.plt.savefig("/home/ma-daria/PycharmProjects/web_analysis/analysis/static/analysis/image/LSA.png")
+    Include.plt.savefig(str(settings.STATIC_ROOT_A) + "/analysis/image/LSA.png")
+    # Include.plt.savefig("/home/ma-daria/PycharmProjects/web_analysis/analysis/static/analysis/image/LSA.png")
     return cl

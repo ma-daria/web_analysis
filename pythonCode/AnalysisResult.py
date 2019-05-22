@@ -1,11 +1,12 @@
 from pythonCode import Include
+from django.conf import settings
 
 def CreatePairplotСhemistry(measurement):
     sns_plot = Include.sns.pairplot(measurement, hue='Место измерения')
-    sns_plot.savefig('Result/pairplotPlace.png')
+    Include.plt.savefig(str(settings.STATIC_ROOT_A) + "/analysis/image/pairplotPlace.png")
 
     sns_plot = Include.sns.pairplot(measurement, hue='Описание точки измерения')
-    sns_plot.savefig('Result/pairplotPoint.png')
+    Include.plt.savefig(str(settings.STATIC_ROOT_A) + "/analysis/image/pairplotPoint.png")
 
 def CreateRegplotZooplankton(сorrelation):
     Include.np.fill_diagonal(сorrelation.values, -2)

@@ -12,7 +12,6 @@ def index(request):
         file = request.FILES['document']
         fs = FileSystemStorage()
         fs.save(file.name, file)
-        print(str(settings.MEDIA_ROOT)+'/' + str(file))
         Data.SetData(ReadFile.ReadFile(str(settings.MEDIA_ROOT)+'/' + str(file)))
         return redirect('/table')
 
