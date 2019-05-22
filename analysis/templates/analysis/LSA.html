@@ -1,0 +1,58 @@
+{% extends "analysis/template.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 order-md-1">
+            <div class="col-md-12 order-md-1">
+                <br>
+                {% load staticfiles %}
+                <a href="{% static 'analysis/image/LSA.png' %}" target="_blank"><img src="{% static 'analysis/image/LSA.png' %}" style='width: 100%; ' ></a>
+            </div>
+        </div>
+
+        <div class="col-md-6 order-md-1">
+            <div class="col-md-12 order-md-1">
+                <br>
+                <label for="exampleFormControlSelect1">Укажите исследуемый параметр</label>
+            </div>
+
+            <div class="col-md-12 order-md-1">
+                <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                    <div class="input-group">
+                        <select class="form-control" id="name" name="name">
+                            {% for Сhe in Zooplankton %}
+                                <option >{{ Сhe }}</option>
+                            {% endfor %}
+                        </select>
+
+                        <div class="input-group-append">
+                            <button class="btn btn-dark " type="submit" style="background-color: #3f294f;" >Показать</button>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+
+            <div class="col-md-12 order-md-1">
+                <br>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Группы</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    $(document).ready(function() { $("#name").select2(); });
+</script>
+{% endblock %}

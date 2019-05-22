@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 
-from pythonCode import ReadFile, Data, Сorrelation, AnalysisResult, Include, Сlustering
+from pythonCode import ReadFile, Data, Сorrelation, AnalysisResult, Include, Сlustering, LSA
 
 
 
@@ -62,3 +62,11 @@ def СlusteringStr(request):
     otvet = []
 
     return render(request, 'analysis/Сlustering.html', {'Zooplankton':data.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'].columns, 'otvet': otvet})
+
+def LSAstr(request):
+    data = Data.GetData()
+    cor = LSA.lsa(data.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'])
+    otvet = []
+
+    return render(request, 'analysis/LSA.html', {'Zooplankton':data.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'].columns, 'otvet': otvet})
+

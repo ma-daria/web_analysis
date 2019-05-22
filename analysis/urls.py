@@ -9,6 +9,7 @@ urlpatterns = [
     path('СorrelationСhemistry', views.СorrelationСhemistry, name='СorrelationСhemistry'),
     path('СorrelationZooplankton', views.СorrelationZooplankton, name='СorrelationZooplankton'),
     path('Сlustering', views.СlusteringStr, name='Сlustering'),
+    path('LSA', views.LSAstr, name='LSA')
 ]
 
 if settings.DEBUG:
