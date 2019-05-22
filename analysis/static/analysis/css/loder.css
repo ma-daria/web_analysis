@@ -1,0 +1,28 @@
+
+
+.loader {
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    width: 150px;
+    height: 150px;
+    border: 2px solid #eae4ea;
+    box-shadow: 0 -2px 2px rgba(0,0,0,.2);
+    border-bottom: 2px solid #3f294f;
+    border-radius: 50%;
+    animation: loader 3s linear infinite;
+}
+
+
+@keyframes loader
+{
+    0%
+    {
+        transform: rotate(0deg);
+    }
+    100%
+    {
+        transform: rotate(360deg);
+    }
+    
+}

@@ -27,7 +27,7 @@
                         </select>
 
                         <div class="input-group-append">
-                            <button class="btn btn-dark " type="submit" style="background-color: #3f294f;" >Показать</button>
+                            <button class="btn btn-dark " id="but" type="submit" style="background-color: #3f294f;" >Показать</button>
                         </div>
                     </div>
 
@@ -61,6 +61,10 @@
     </div>
 </div>
 <script>
-    $(document).ready(function() { $("#name").select2(); });
+$('#but').click(function () {
+        alert("Сообщение");
+});
 </script>
+
+
 {% endblock %}
