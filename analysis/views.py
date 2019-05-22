@@ -19,8 +19,16 @@ def index(request):
     return render(request, 'analysis/index.html')
 
 def table(request):
-    # return render(request, 'analysis/table.html', {'measurement': [['0', '1'],['2', '3']]})
-    return render(request, 'analysis/table.html', {'measurement': Data.GetData()})
+    meas = []
+    measur = Data.GetData()
+    reservoir = measur['Водоем']
+    date = measur['Дата']
+    plase = measur['Место измерения']
+    point = measur['Описание точки измерения']
+    mass = measur['биомасса ФП']
+    for i in range(len(reservoir)):
+        meas.append([reservoir[i], date[i], plase[i], point[i], mass[i]])
+    return render(request, 'analysis/table.html', {'measurement': meas})
 
 def СorrelationСhemistry(request):
     data = Data.GetData()

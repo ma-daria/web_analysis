@@ -1,8 +1,28 @@
 {% extends "analysis/template.html" %}
 {% block content %}
-    {% for meas in measurement %}
-        {% for mea in meas %}
-            <h1>{{  mea }}</h1>
-        {% endfor %}
-    {% endfor %}
+    <div class="col-md-12 order-md-1">
+        <br>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Озеро</th>
+                    <th>Дата замера</th>
+                    <th>Место</th>
+                    <th>Описание точки</th>
+                    <th>Биомасса</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for otv in measurement %}
+                    <tr>
+                        {% for ot in otv %}
+                            <td>{{ ot }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
 {% endblock %}
