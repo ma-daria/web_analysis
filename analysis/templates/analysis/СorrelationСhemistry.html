@@ -35,21 +35,45 @@
                 </form>
             </div>
 
+            <div class="row">
+                <div class="col-md-6 ">
+                    <br>
 
-            <div class="col-md-12 order-md-1">
-                <br>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Химия</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for indd in ind %}
+                                <tr>
+                                    <td>{{ indd }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
 
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Химия</th>
-                            <th>Значение</th>
-                        </tr>
-                    </thead>
+                <div class="col-md-6 ">
+                    <br>
 
-                    <tbody>
-                    </tbody>
-                </table>
+                    <table class="table">
+
+                        <thead>
+                            <tr>
+                                <th>Значение</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for res in resalt %}
+                                <tr>
+                                    <td>{{ res }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 

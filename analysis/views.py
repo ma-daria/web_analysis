@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 
-from pythonCode import ReadFile, Data, Сorrelation, AnalysisResult
+from pythonCode import ReadFile, Data, Сorrelation, AnalysisResult, Include
 
 
 
@@ -26,8 +26,13 @@ def СorrelationСhemistry(request):
     data = Data.GetData()
     cor = Сorrelation.CreateСorrelationСhemistry(data.loc[:, 'О2':'Са+2'])
     res = []
+    ind = []
     if request.method == 'POST':
         names = request.POST['name']
-        res = AnalysisResult.SortingCorrelation(cor[str(names)])
+        ress = AnalysisResult.SortingCorrelation(cor[str(names)])
+        ind = ress.index.tolist()
+        res = ress.tolist()
+        print(ind)
+        # print(res.index)
 
-    return render(request, 'analysis/СorrelationСhemistry.html', {'Сhemistry':data.loc[:, 'О2':'Са+2'].columns, 'resalt': res})
+    return render(request, 'analysis/СorrelationСhemistry.html', {'Сhemistry':data.loc[:, 'О2':'Са+2'].columns, 'resalt': res, 'ind': ind})
