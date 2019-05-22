@@ -12,5 +12,6 @@ def lsa(measurement):
     Vt = Vt[0:k, :]
     U_S = Include.np.multiply(S, U)
     A_ = Include.np.dot(U_S, Vt)
-    Сlustering.СlusteringMetod(A_, 0.2, col)
+    cl = Сlustering.СlusteringMetod(A_, 0.2, col)
     Include.plt.savefig("/home/ma-daria/PycharmProjects/web_analysis/analysis/static/analysis/image/LSA.png")
+    return cl
