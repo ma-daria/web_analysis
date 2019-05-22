@@ -6,7 +6,7 @@
             <div class="col-md-12 order-md-1">
                 <br>
                 {% load staticfiles %}
-                <a href="{% static 'analysis/image/СorrelationСhemistry.png' %}" target="_blank"><img src="{% static 'analysis/image/СorrelationСhemistry.png' %}" style='width: 100%; ' ></a>
+                <a href="{% static 'analysis/image/Сlustering.png' %}" target="_blank"><img src="{% static 'analysis/image/Сlustering.png' %}" style='width: 100%; ' ></a>
             </div>
         </div>
 
@@ -21,7 +21,7 @@
                 {% csrf_token %}
                     <div class="input-group">
                         <select class="form-control" id="name" name="name">
-                            {% for Сhe in Сhemistry %}
+                            {% for Сhe in Zooplankton %}
                                 <option >{{ Сhe }}</option>
                             {% endfor %}
                         </select>
@@ -41,18 +41,10 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Химия</th>
-                            <th>Значение</th>
+                            <th>Группы</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for otv in otvet %}
-                            <tr>
-                                {% for ot in otv %}
-                                    <td>{{ ot }}</td>
-                                {% endfor %}
-                            </tr>
-                        {% endfor %}
                     </tbody>
                 </table>
             </div>
@@ -60,4 +52,7 @@
 
     </div>
 </div>
+<script>
+    $(document).ready(function() { $("#name").select2(); });
+</script>
 {% endblock %}

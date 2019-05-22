@@ -5,7 +5,7 @@ def Сlustering(measurement):
     measurement = measurement.T
     measurementN = Include.preprocessing.normalize(measurement)
     Z = СlusteringMetod(measurementN, 0.5, col)
-    Include.plt.savefig("Result/Сlustering.png")
+    Include.plt.savefig("/home/ma-daria/PycharmProjects/web_analysis/analysis/static/analysis/image/Сlustering.png")
     return Z
 
 def СlusteringMetod(measurement, index, col):
