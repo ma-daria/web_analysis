@@ -58,15 +58,31 @@ def СorrelationZooplankton(request):
 
 def СlusteringStr(request):
     data = Data.GetData()
-    cor = Сlustering.Сlustering(data.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'])
+    cl = Сlustering.Сlustering(data.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'])
     otvet = []
+    col = data.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'].columns
+    if request.method == 'POST':
+        names = request.POST['name']
+        i = 0
+        for i in range(col.size):
+            if col[i] == names:
+                break
+        otvet = AnalysisResult.GropupСlustering(cl, i, col.size, col)
 
     return render(request, 'analysis/Сlustering.html', {'Zooplankton':data.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'].columns, 'otvet': otvet})
 
 def LSAstr(request):
     data = Data.GetData()
-    cor = LSA.lsa(data.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'])
+    cl = LSA.lsa(data.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'])
     otvet = []
+    col = data.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'].columns
+    if request.method == 'POST':
+        names = request.POST['name']
+        i = 0
+        for i in range(col.size):
+            if col[i] == names:
+                break
+        otvet = AnalysisResult.GropupСlustering(cl, i, col.size, col)
 
     return render(request, 'analysis/LSA.html', {'Zooplankton':data.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'].columns, 'otvet': otvet})
 

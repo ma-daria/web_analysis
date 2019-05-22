@@ -37,7 +37,6 @@
 
             <div class="col-md-12 order-md-1">
                 <br>
-
                 <table class="table">
                     <thead>
                         <tr>
@@ -45,6 +44,9 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% for otv in otvet %}
+                            <tr><td>{{ otv }} </td></tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>

@@ -25,14 +25,18 @@ def SortingCorrelation(correlation):
     print(correlation_mod)
     return correlation_mod
 
+otvet = []
+
 def Save(clustering, id, size, col):
     if size > id:
         # print(int(id))
-        print(col[int(id)])
+        return str(col[int(id)])+", "
+        # print(col[int(id)])
 
     else:
-        Save(clustering, clustering.iloc[id - size, 0], size, col)
-        Save(clustering, clustering.iloc[id - size, 1], size, col)
+        st = Save(clustering, clustering.iloc[id - size, 0], size, col)
+        st = st + Save(clustering, clustering.iloc[id - size, 1], size, col)
+        return st
 
 def GropupСlustering(Z, id, size, col):
     ZZ = Include.pd.DataFrame(Z)
@@ -42,24 +46,28 @@ def GropupСlustering(Z, id, size, col):
     for i in range(ZZ[0].size):
         mas[i] = i
     ZZ['id'] = mas
+    global otvet
+    otvet = []
     Bypass(ZZ, id, size, col)
+    return otvet
 
 def Bypass(clustering, id, size, col):
     str = clustering[clustering[0] == id]
     if str.size == 0:
         str = clustering[clustering[1] == id]
         if str.size == 0:
-            return []
+            return ""
         id2 = 0
     else:
         id2 = 1
-    print("\nГруппа")
+    # print("\nГруппа")
+    st = ""
     if size <= id:
-        Save(clustering, clustering.iloc[id - size, 0], size, col)
-        Save(clustering, clustering.iloc[id - size, 1], size, col)
+        st = Save(clustering, clustering.iloc[id - size, 0], size, col)
+        st= st + Save(clustering, clustering.iloc[id - size, 1], size, col)
     else:
-        Save(clustering,id, size, col)
+        st = Save(clustering,id, size, col)
 
-    Save(clustering, str.iloc[0, id2], size, col)
-
+    st = st + Save(clustering, str.iloc[0, id2], size, col)
+    otvet.append(st)
     Bypass(clustering, int(str['id'])+size, size, col)
