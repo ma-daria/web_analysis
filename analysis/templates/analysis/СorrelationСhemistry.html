@@ -35,47 +35,27 @@
                 </form>
             </div>
 
-            <div class="row">
-                <div class="col-md-6 ">
-                    <br>
+            <div class="col-md-12 order-md-1">
+                <br>
 
-                    <table class="table">
-                        <thead>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Химия</th>
+                            <th>Значение</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for otv in otvet %}
                             <tr>
-                                <th>Химия</th>
+                                {% for ot in otv %}
+                                    <td>{{ ot }}</td>
+                                {% endfor %}
                             </tr>
-                        </thead>
-                        <tbody>
-                            {% for indd in ind %}
-                                <tr>
-                                    <td>{{ indd }}</td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="col-md-6 ">
-                    <br>
-
-                    <table class="table">
-
-                        <thead>
-                            <tr>
-                                <th>Значение</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for res in resalt %}
-                                <tr>
-                                    <td>{{ res }}</td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
-        </div>
 
     </div>
 </div>

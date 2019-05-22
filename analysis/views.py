@@ -34,7 +34,11 @@ def СorrelationСhemistry(request):
         res = ress.tolist()
         print(ind)
         # print(res.index)
-    return render(request, 'analysis/СorrelationСhemistry.html', {'Сhemistry':data.loc[:, 'О2':'Са+2'].columns, 'resalt': res, 'ind': ind})
+    otvet = []
+    for i in range(len(res)):
+        otvet.append([ind[i], res[i]])
+    print(otvet)
+    return render(request, 'analysis/СorrelationСhemistry.html', {'Сhemistry':data.loc[:, 'О2':'Са+2'].columns, 'otvet': otvet})
 
 def СorrelationZooplankton(request):
     data = Data.GetData()
@@ -48,4 +52,8 @@ def СorrelationZooplankton(request):
         res = ress.tolist()
         print(ind)
         # print(res.index)
-    return render(request, 'analysis/СorrelationZooplankton.html', {'Zooplankton':data.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'].columns, 'resalt': res, 'ind': ind})
+    otvet = []
+    for i in range(len(res)):
+        otvet.append([ind[i], res[i]])
+    print(otvet)
+    return render(request, 'analysis/СorrelationZooplankton.html', {'Zooplankton':data.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'].columns, 'otvet': otvet})
