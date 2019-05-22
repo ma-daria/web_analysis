@@ -34,5 +34,18 @@ def СorrelationСhemistry(request):
         res = ress.tolist()
         print(ind)
         # print(res.index)
-
     return render(request, 'analysis/СorrelationСhemistry.html', {'Сhemistry':data.loc[:, 'О2':'Са+2'].columns, 'resalt': res, 'ind': ind})
+
+def СorrelationZooplankton(request):
+    data = Data.GetData()
+    cor = Сorrelation.CreateСorrelationZooplankton(data.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'])
+    res = []
+    ind = []
+    if request.method == 'POST':
+        names = request.POST['name']
+        ress = AnalysisResult.SortingCorrelation(cor[str(names)])
+        ind = ress.index.tolist()
+        res = ress.tolist()
+        print(ind)
+        # print(res.index)
+    return render(request, 'analysis/СorrelationZooplankton.html', {'Zooplankton':data.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'].columns, 'resalt': res, 'ind': ind})

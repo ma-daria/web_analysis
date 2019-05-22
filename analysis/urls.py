@@ -7,6 +7,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('table', views.table, name='table'),
     path('СorrelationСhemistry', views.СorrelationСhemistry, name='СorrelationСhemistry'),
+    path('СorrelationZooplankton', views.СorrelationZooplankton, name='СorrelationZooplankton')
 ]
 
 if settings.DEBUG:
