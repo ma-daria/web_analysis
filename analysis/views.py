@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 
-from analysis.static.analysis.pythonCode import Data, ReadFile, AnalysisResult, Сlustering, Сorrelation, LSA
+from analysis.static.analysis.pythonCode import Data, ReadFile, AnalysisResult, Clustering, Correlation, LSA
 import os
 
 
@@ -41,7 +41,7 @@ def table(request):
 
 def СorrelationСhemistry(request):
     data = Data.GetData()
-    cor = Сorrelation.CreateСorrelationСhemistry(data.loc[:, 'О2':'Са+2'])
+    cor = Correlation.CreateСorrelationСhemistry(data.loc[:, 'О2':'Са+2'])
     res = []
     ind = []
     if request.method == 'POST':
@@ -58,7 +58,7 @@ def СorrelationСhemistry(request):
 
 def СorrelationZooplankton(request):
     data = Data.GetData()
-    cor = Сorrelation.CreateСorrelationZooplankton(data.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'])
+    cor = Correlation.CreateСorrelationZooplankton(data.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'])
     res = []
     ind = []
     if request.method == 'POST':
@@ -75,7 +75,7 @@ def СorrelationZooplankton(request):
 
 def СlusteringStr(request):
     data = Data.GetData()
-    cl = Сlustering.Сlustering(data.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'])
+    cl = Clustering.Сlustering(data.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'])
     otvet = []
     col = data.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'].columns
     if request.method == 'POST':

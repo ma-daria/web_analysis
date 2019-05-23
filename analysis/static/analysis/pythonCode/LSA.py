@@ -1,4 +1,4 @@
-from analysis.static.analysis.pythonCode import Include, Сlustering
+from analysis.static.analysis.pythonCode import Include, Clustering
 from django.conf import settings
 
 def lsa(measurement):
@@ -12,7 +12,7 @@ def lsa(measurement):
     Vt = Vt[0:k, :]
     U_S = Include.np.multiply(S, U)
     A_ = Include.np.dot(U_S, Vt)
-    cl = Сlustering.СlusteringMetod(A_, 0.2, col)
+    cl = Clustering.СlusteringMetod(A_, 0.2, col)
     Include.plt.savefig(str(settings.STATIC_ROOT_A) + "/analysis/image/LSA.png")
     # Include.plt.savefig("/home/ma-daria/PycharmProjects/web_analysis/analysis/static/analysis/image/LSA.png")
     return cl
