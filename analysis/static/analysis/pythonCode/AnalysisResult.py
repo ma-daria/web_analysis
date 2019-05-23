@@ -1,4 +1,4 @@
-from pythonCode import Include
+from analysis.static.analysis.pythonCode import Include
 from django.conf import settings
 
 def CreatePairplotСhemistry(measurement):
@@ -43,7 +43,7 @@ def GropupСlustering(Z, id, size, col):
     ZZ = Include.pd.DataFrame(Z)
     ZZ[0] = ZZ[0].astype(Include.np.int64)
     ZZ[1] = ZZ[1].astype(Include.np.int64)
-    mas =Include.pd.Series([])
+    mas = Include.pd.Series([])
     for i in range(ZZ[0].size):
         mas[i] = i
     ZZ['id'] = mas

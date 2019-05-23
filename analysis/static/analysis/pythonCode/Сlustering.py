@@ -1,4 +1,4 @@
-from pythonCode import Include
+from analysis.static.analysis.pythonCode import Include
 from django.conf import settings
 
 def Сlustering(measurement):
@@ -6,7 +6,7 @@ def Сlustering(measurement):
     measurement = measurement.T
     measurementN = Include.preprocessing.normalize(measurement)
     Z = СlusteringMetod(measurementN, 0.5, col)
-    Include.plt.savefig(str(settings.STATIC_ROOT_A)+"/analysis/image/Сlustering.png")
+    Include.plt.savefig(str(settings.STATIC_ROOT_A) + "/analysis/image/Сlustering.png")
     # Include.plt.savefig("/home/ma-daria/PycharmProjects/web_analysis/analysis/static/analysis/image/Сlustering.png")
     return Z
 

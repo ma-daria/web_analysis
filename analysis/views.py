@@ -1,11 +1,9 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 
-from pythonCode import ReadFile, Data, Сorrelation, AnalysisResult, Include, Сlustering, LSA
+from analysis.static.analysis.pythonCode import Data, ReadFile, AnalysisResult, Сlustering, Сorrelation, LSA
 import os
-import shutil
 
 
 def index(request):
@@ -24,7 +22,7 @@ def index(request):
         file = request.FILES['document']
         fs = FileSystemStorage()
         fs.save(file.name, file)
-        Data.SetData(ReadFile.ReadFile(str(settings.MEDIA_ROOT)+'/' + str(file)))
+        Data.SetData(ReadFile.ReadFile(str(settings.MEDIA_ROOT) + '/' + str(file)))
         return redirect('/table')
 
     return render(request, 'analysis/index.html')

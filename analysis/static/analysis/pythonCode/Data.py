@@ -1,5 +1,3 @@
-from pythonCode import Include
-
 def GetData():
     # print(data)
     global data

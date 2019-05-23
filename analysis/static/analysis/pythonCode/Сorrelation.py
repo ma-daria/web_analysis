@@ -1,4 +1,4 @@
-from pythonCode import Include
+from analysis.static.analysis.pythonCode import Include
 from django.conf import settings
 
 def CreateСorrelationСhemistry(measurement):

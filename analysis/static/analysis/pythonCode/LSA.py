@@ -1,5 +1,4 @@
-from pythonCode import Include
-from pythonCode import Сlustering
+from analysis.static.analysis.pythonCode import Include, Сlustering
 from django.conf import settings
 
 def lsa(measurement):
