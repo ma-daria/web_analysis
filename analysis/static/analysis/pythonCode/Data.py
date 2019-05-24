@@ -67,15 +67,24 @@ class Data(object):
         cor = self.CorrelationZooplankton()
         return AnalysisResult.SortingCorrelation(cor[name])
 
-    def AnalysisClustering(self, id):
+    def AnalysisClustering(self, names):
+        id = self.Search(names)
         cl = self.clustering()
         col = self.GetNameZooplankton()
         return AnalysisResult.GropupClustering(cl, id, col.size, col)
 
-    def AnalysisLSA(self, id):
+    def AnalysisLSA(self, names):
+        id = self.Search(names)
         cl = self.lsa()
         col = self.GetNameZooplankton()
         return AnalysisResult.GropupClustering(cl, id, col.size, col)
 
 
 
+
+    def Search(self, names):
+        col = self.GetNameZooplankton()
+        i = 0
+        for i in range(col.size):
+            if col[i] == names:
+                return i

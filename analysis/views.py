@@ -84,11 +84,7 @@ def ClusteringStr(request):
     col = data.GetNameZooplankton()
     if request.method == 'POST':
         names = request.POST['name']
-        i = 0
-        for i in range(col.size):
-            if col[i] == names:
-                break
-        otvet = data.AnalysisClustering(i)
+        otvet = data.AnalysisClustering(names)
 
     return render(request, 'analysis/Сlustering.html', {'Zooplankton': col, 'otvet': otvet})
 
@@ -99,11 +95,7 @@ def LSAstr(request):
     col = data.GetNameZooplankton()
     if request.method == 'POST':
         names = request.POST['name']
-        i = 0
-        for i in range(col.size):
-            if col[i] == names:
-                break
-        otvet = data.AnalysisLSA(i)
+        otvet = data.AnalysisLSA(names)
 
     return render(request, 'analysis/LSA.html', {'Zooplankton': col, 'otvet': otvet})
 
