@@ -61,20 +61,23 @@ class Data(object):
 
     def AnalysisCorrelationChemistry(self, name):
         cor = self.CorrelationChemistry()
-        return AnalysisResult.SortingCorrelation(cor[name])
+        ress = AnalysisResult.SortingCorrelation(cor[name])
+        return self._createMas(ress)
 
     def AnalysisCorrelationZooplankton(self, name):
         cor = self.CorrelationZooplankton()
-        return AnalysisResult.SortingCorrelation(cor[name])
+        ress = AnalysisResult.SortingCorrelation(cor[name])
+        return self._createMas(ress)
+
 
     def AnalysisClustering(self, names):
-        id = self.Search(names)
+        id = self._Search(names)
         cl = self.clustering()
         col = self.GetNameZooplankton()
         return AnalysisResult.GropupClustering(cl, id, col.size, col)
 
     def AnalysisLSA(self, names):
-        id = self.Search(names)
+        id = self._Search(names)
         cl = self.lsa()
         col = self.GetNameZooplankton()
         return AnalysisResult.GropupClustering(cl, id, col.size, col)
@@ -82,9 +85,17 @@ class Data(object):
 
 
 
-    def Search(self, names):
+    def _Search(self, names):
         col = self.GetNameZooplankton()
         i = 0
         for i in range(col.size):
             if col[i] == names:
                 return i
+
+    def _createMas(self, ress):
+        ind = ress.index.tolist()
+        res = ress.tolist()
+        otvet = []
+        for i in range(len(res)):
+            otvet.append([ind[i], res[i]])
+        return otvet

@@ -44,37 +44,21 @@ def table(request):
 def CorrelationChemistry(request):
     data = Data.Data()
     data.CorrelationChemistry()
-    res = []
-    ind = []
+    otvet = []
     chim = data.GetNameChemistry()
     if request.method == 'POST':
         names = request.POST['name']
-        ress = data.AnalysisCorrelationChemistry(str(names))
-        ind = ress.index.tolist()
-        res = ress.tolist()
-        print(ind)
-        # print(res.index)
-    otvet = []
-    for i in range(len(res)):
-        otvet.append([ind[i], res[i]])
+        otvet = data.AnalysisCorrelationChemistry(str(names))
     return render(request, 'analysis/СorrelationСhemistry.html', {'Сhemistry': chim, 'otvet': otvet})
 
 def CorrelationZooplankton(request):
     data = Data.Data()
     data.CorrelationZooplankton()
-    res = []
-    ind = []
+    otvet = []
     col = data.GetNameZooplankton()
     if request.method == 'POST':
         names = request.POST['name']
-        ress = data.AnalysisCorrelationZooplankton(str(names))
-        ind = ress.index.tolist()
-        res = ress.tolist()
-        print(ind)
-        # print(res.index)
-    otvet = []
-    for i in range(len(res)):
-        otvet.append([ind[i], res[i]])
+        otvet = data.AnalysisCorrelationZooplankton(str(names))
     return render(request, 'analysis/СorrelationZooplankton.html', {'Zooplankton': col, 'otvet': otvet})
 
 def ClusteringStr(request):
