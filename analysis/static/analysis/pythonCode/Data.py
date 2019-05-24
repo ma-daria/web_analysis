@@ -1,8 +1,6 @@
 from analysis.static.analysis.pythonCode import Include
-from analysis.static.analysis.pythonCode import ReadFile
 from analysis.static.analysis.pythonCode import LSA
 from analysis.static.analysis.pythonCode import Clustering
-from analysis.static.analysis.pythonCode import AnalysisResult
 from analysis.static.analysis.pythonCode import CorrelationChemistry
 from analysis.static.analysis.pythonCode import CorrelationZooplankton
 
@@ -49,10 +47,27 @@ class Data(object):
         d = self.GetDataZooplankton()
         return d.columns
 
-
-
     def readFile(self, name):
-        self.data = ReadFile.ReadFile(name)
+        measurement = Include.pd.read_csv(name, sep=';', decimal=',', header=1)
+        measurement = measurement.rename(columns={'Unnamed: 0': 'Водоем'})
+        measurement = measurement.rename(columns={'Unnamed: 1': 'Дата'})
+        measurement = measurement.rename(columns={'Unnamed: 2': 'Место измерения'})
+        measurement = measurement.rename(columns={'Unnamed: 3': 'Описание точки измерения'})
+        measurement = measurement.rename(columns={'Unnamed: 4': 'pH'})
+        measurement = measurement.rename(columns={'Unnamed: 5': 'Минерализация'})
+        measurement = measurement.rename(columns={'Unnamed: 6': 't'})
+        measurement = measurement.rename(columns={'Unnamed: 16': 'биомасса ФП'})
+
+        measurement.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'] = self._ToFloat(
+            measurement.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'])
+
+        new_measurement = measurement
+        for number in measurement.columns:
+            if measurement[number].dtypes == 'float64':
+                if measurement[number].sum() == 0:
+                    del new_measurement[number]
+        measurement = new_measurement
+        self.data = measurement
         return self.data
 
     def CorrelationChemistry(self):
@@ -111,3 +126,9 @@ class Data(object):
         for i in range(len(res)):
             otvet.append([ind[i], res[i]])
         return otvet
+
+    def _ToFloat(self, measurement):
+        for name in measurement:
+            measurement[name] = Include.pd.to_numeric(measurement[name], errors='coerce')
+        measurement = measurement.fillna(0)
+        return measurement
