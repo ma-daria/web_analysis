@@ -11,3 +11,10 @@ class Correlation(object):
 
     def toDo(self, measurement):
         return []
+
+    def SortingCorrelation(self, correlati):
+        correlation_mod = correlati.abs()
+        correlation_mod = correlation_mod.sort_values(ascending=False)
+        for name in correlation_mod.index:
+            correlation_mod[name] = correlati[name]
+        return correlation_mod

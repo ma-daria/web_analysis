@@ -73,12 +73,12 @@ class Data(object):
 
     def AnalysisCorrelationChemistry(self, name):
         cor = self.CorrelationChemistry()
-        ress = AnalysisResult.SortingCorrelation(cor[name])
+        ress = self.correlationChemistryData.SortingCorrelation(cor[name])
         return self._createMas(ress)
 
     def AnalysisCorrelationZooplankton(self, name):
         cor = self.CorrelationZooplankton()
-        ress = AnalysisResult.SortingCorrelation(cor[name])
+        ress = self.correlationZooplanktonData.SortingCorrelation(cor[name])
         return self._createMas(ress)
 
 

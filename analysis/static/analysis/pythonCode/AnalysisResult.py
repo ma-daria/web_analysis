@@ -1,7 +1,7 @@
 from analysis.static.analysis.pythonCode import Include
 from django.conf import settings
 
-def CreatePairplotСhemistry(measurement):
+def CreatePairplotChemistry(measurement):
     sns_plot = Include.sns.pairplot(measurement, hue='Место измерения')
     Include.plt.savefig(str(settings.STATIC_ROOT_A) + "/analysis/image/pairplotPlace.png")
 
@@ -17,15 +17,10 @@ def CreateRegplotZooplankton(correlation):
         correlation.loc[id1, id2] = -2
         correlation.loc[id2, id1] = -2
 
-def SortingCorrelation(correlation):
-    print(correlation)
-    correlation_mod = correlation.abs()
-    correlation_mod = correlation_mod.sort_values(ascending=False)
-    for name in correlation_mod.index:
-        correlation_mod[name] = correlation[name]
 
-    print(correlation_mod)
-    return correlation_mod
+
+
+
 
 otvet = []
 
@@ -34,7 +29,6 @@ def Save(clustering, id, size, col):
         # print(int(id))
         return str(col[int(id)])+", "
         # print(col[int(id)])
-
     else:
         st = Save(clustering, clustering.iloc[id - size, 0], size, col)
         st = st + Save(clustering, clustering.iloc[id - size, 1], size, col)
