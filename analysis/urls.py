@@ -6,9 +6,9 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', views.index, name='index'),
     path('table', views.table, name='table'),
-    path('СorrelationСhemistry', views.СorrelationСhemistry, name='СorrelationСhemistry'),
-    path('СorrelationZooplankton', views.СorrelationZooplankton, name='СorrelationZooplankton'),
-    path('Сlustering', views.СlusteringStr, name='Сlustering'),
+    path('СorrelationСhemistry', views.CorrelationChemistry, name='СorrelationСhemistry'),
+    path('СorrelationZooplankton', views.CorrelationZooplankton, name='СorrelationZooplankton'),
+    path('Сlustering', views.ClusteringStr, name='Сlustering'),
     path('LSA', views.LSAstr, name='LSA')
 ]
 

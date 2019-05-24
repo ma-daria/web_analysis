@@ -8,16 +8,17 @@ def CreatePairplotСhemistry(measurement):
     sns_plot = Include.sns.pairplot(measurement, hue='Описание точки измерения')
     Include.plt.savefig(str(settings.STATIC_ROOT_A) + "/analysis/image/pairplotPoint.png")
 
-def CreateRegplotZooplankton(сorrelation):
-    Include.np.fill_diagonal(сorrelation.values, -2)
-    while (сorrelation.max()).max() > 0.8:
-        id1 = (сorrelation.max()).idxmax()
-        id2 = (сorrelation.idxmax())[(сorrelation.max()).idxmax()]
-        print(id1, ' - ', id2, ' - ', (сorrelation.max()).max())
-        сorrelation.loc[id1, id2] = -2
-        сorrelation.loc[id2, id1] = -2
+def CreateRegplotZooplankton(correlation):
+    Include.np.fill_diagonal(correlation.values, -2)
+    while (correlation.max()).max() > 0.8:
+        id1 = (correlation.max()).idxmax()
+        id2 = (correlation.idxmax())[(correlation.max()).idxmax()]
+        print(id1, ' - ', id2, ' - ', (correlation.max()).max())
+        correlation.loc[id1, id2] = -2
+        correlation.loc[id2, id1] = -2
 
 def SortingCorrelation(correlation):
+    print(correlation)
     correlation_mod = correlation.abs()
     correlation_mod = correlation_mod.sort_values(ascending=False)
     for name in correlation_mod.index:
@@ -39,7 +40,7 @@ def Save(clustering, id, size, col):
         st = st + Save(clustering, clustering.iloc[id - size, 1], size, col)
         return st
 
-def GropupСlustering(Z, id, size, col):
+def GropupClustering(Z, id, size, col):
     ZZ = Include.pd.DataFrame(Z)
     ZZ[0] = ZZ[0].astype(Include.np.int64)
     ZZ[1] = ZZ[1].astype(Include.np.int64)

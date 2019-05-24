@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 
-from analysis.static.analysis.pythonCode import Data, ReadFile, AnalysisResult, Clustering, Correlation, LSA
+from analysis.static.analysis.pythonCode import Data
 import os
 
 
@@ -22,14 +22,16 @@ def index(request):
         file = request.FILES['document']
         fs = FileSystemStorage()
         fs.save(file.name, file)
-        Data.SetData(ReadFile.ReadFile(str(settings.MEDIA_ROOT) + '/' + str(file)))
+        data = Data.Data()
+        data.readFile(str(settings.MEDIA_ROOT) + '/' + str(file))
         return redirect('/table')
 
     return render(request, 'analysis/index.html')
 
 def table(request):
     meas = []
-    measur = Data.GetData()
+    data = Data.Data()
+    measur = data.GetData()
     reservoir = measur['Водоем']
     date = measur['Дата']
     plase = measur['Место измерения']
@@ -39,14 +41,15 @@ def table(request):
         meas.append([reservoir[i], date[i], plase[i], point[i], mass[i]])
     return render(request, 'analysis/table.html', {'measurement': meas})
 
-def СorrelationСhemistry(request):
-    data = Data.GetData()
-    cor = Correlation.CreateСorrelationСhemistry(data.loc[:, 'О2':'Са+2'])
+def CorrelationChemistry(request):
+    data = Data.Data()
+    data.CorrelationChemistry()
     res = []
     ind = []
+    chim = data.GetNameChemistry()
     if request.method == 'POST':
         names = request.POST['name']
-        ress = AnalysisResult.SortingCorrelation(cor[str(names)])
+        ress = data.AnalysisCorrelationChemistry(str(names))
         ind = ress.index.tolist()
         res = ress.tolist()
         print(ind)
@@ -54,16 +57,17 @@ def СorrelationСhemistry(request):
     otvet = []
     for i in range(len(res)):
         otvet.append([ind[i], res[i]])
-    return render(request, 'analysis/СorrelationСhemistry.html', {'Сhemistry':data.loc[:, 'О2':'Са+2'].columns, 'otvet': otvet})
+    return render(request, 'analysis/СorrelationСhemistry.html', {'Сhemistry': chim, 'otvet': otvet})
 
-def СorrelationZooplankton(request):
-    data = Data.GetData()
-    cor = Correlation.CreateСorrelationZooplankton(data.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'])
+def CorrelationZooplankton(request):
+    data = Data.Data()
+    data.CorrelationZooplankton()
     res = []
     ind = []
+    col = data.GetNameZooplankton()
     if request.method == 'POST':
         names = request.POST['name']
-        ress = AnalysisResult.SortingCorrelation(cor[str(names)])
+        ress = data.AnalysisCorrelationZooplankton(str(names))
         ind = ress.index.tolist()
         res = ress.tolist()
         print(ind)
@@ -71,35 +75,35 @@ def СorrelationZooplankton(request):
     otvet = []
     for i in range(len(res)):
         otvet.append([ind[i], res[i]])
-    return render(request, 'analysis/СorrelationZooplankton.html', {'Zooplankton':data.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'].columns, 'otvet': otvet})
+    return render(request, 'analysis/СorrelationZooplankton.html', {'Zooplankton': col, 'otvet': otvet})
 
-def СlusteringStr(request):
-    data = Data.GetData()
-    cl = Clustering.Сlustering(data.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'])
+def ClusteringStr(request):
+    data = Data.Data()
+    data.clustering()
     otvet = []
-    col = data.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'].columns
+    col = data.GetNameZooplankton()
     if request.method == 'POST':
         names = request.POST['name']
         i = 0
         for i in range(col.size):
             if col[i] == names:
                 break
-        otvet = AnalysisResult.GropupСlustering(cl, i, col.size, col)
+        otvet = data.AnalysisClustering(i)
 
-    return render(request, 'analysis/Сlustering.html', {'Zooplankton':data.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'].columns, 'otvet': otvet})
+    return render(request, 'analysis/Сlustering.html', {'Zooplankton': col, 'otvet': otvet})
 
 def LSAstr(request):
-    data = Data.GetData()
-    cl = LSA.lsa(data.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'])
+    data = Data.Data()
+    data.lsa()
     otvet = []
-    col = data.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'].columns
+    col = data.GetNameZooplankton()
     if request.method == 'POST':
         names = request.POST['name']
         i = 0
         for i in range(col.size):
             if col[i] == names:
                 break
-        otvet = AnalysisResult.GropupСlustering(cl, i, col.size, col)
+        otvet = data.AnalysisLSA(i)
 
-    return render(request, 'analysis/LSA.html', {'Zooplankton':data.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'].columns, 'otvet': otvet})
+    return render(request, 'analysis/LSA.html', {'Zooplankton': col, 'otvet': otvet})
 

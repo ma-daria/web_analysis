@@ -37,5 +37,3 @@ def ReadFile(name):
     measurement = new_measurement
     # print(measurement.loc[0])
     return measurement
-
-
