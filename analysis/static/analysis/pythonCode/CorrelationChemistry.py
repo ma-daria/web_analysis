@@ -1,5 +1,4 @@
-from analysis.static.analysis.pythonCode import Include
-from analysis.static.analysis.pythonCode import Correlation
+from analysis.static.analysis.pythonCode import Include, Correlation
 from django.conf import settings
 
 class CorrelationChemistry(Correlation.Correlation):

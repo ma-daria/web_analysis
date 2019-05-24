@@ -1,8 +1,4 @@
-from analysis.static.analysis.pythonCode import Include
-from analysis.static.analysis.pythonCode import DentogramLSA
-from analysis.static.analysis.pythonCode import DentogramClustering
-from analysis.static.analysis.pythonCode import CorrelationChemistry
-from analysis.static.analysis.pythonCode import CorrelationZooplankton
+from analysis.static.analysis.pythonCode import Include, DentogramLSA, DentogramClustering, CorrelationChemistry, CorrelationZooplankton
 
 class Data(object):
     data = Include.pd.DataFrame([])

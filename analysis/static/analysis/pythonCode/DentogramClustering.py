@@ -1,5 +1,4 @@
-from analysis.static.analysis.pythonCode import Include
-from analysis.static.analysis.pythonCode import Dentogram
+from analysis.static.analysis.pythonCode import Include, Dentogram
 from django.conf import settings
 
 class DentogramClustering(Dentogram.Dentogram):

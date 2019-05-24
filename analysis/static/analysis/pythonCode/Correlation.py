@@ -1,5 +1,3 @@
-from analysis.static.analysis.pythonCode import Include
-
 class Correlation(object):
     def __init__(self):
         self.data = []
