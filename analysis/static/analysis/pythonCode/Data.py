@@ -86,13 +86,13 @@ class Data(object):
         id = self._Search(names)
         cl = self.clustering()
         col = self.GetNameZooplankton()
-        return AnalysisResult.GropupClustering(cl, id, col.size, col)
+        return self.clusteringData.GropupClustering(cl, id, col.size, col)
 
     def AnalysisLSA(self, names):
         id = self._Search(names)
         cl = self.lsa()
         col = self.GetNameZooplankton()
-        return AnalysisResult.GropupClustering(cl, id, col.size, col)
+        return self.lsaData.GropupClustering(cl, id, col.size, col)
 
 
 
