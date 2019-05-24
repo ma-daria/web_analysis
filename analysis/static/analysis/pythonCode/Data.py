@@ -21,6 +21,18 @@ class Data(object):
     def GetData(self):
         return self.data
 
+    def GetDataTable(self):
+        meas = []
+        measur = self.GetData()
+        reservoir = measur['Водоем']
+        date = measur['Дата']
+        plase = measur['Место измерения']
+        point = measur['Описание точки измерения']
+        mass = measur['биомасса ФП']
+        for i in range(len(reservoir)):
+            meas.append([reservoir[i], date[i], plase[i], point[i], mass[i]])
+        return meas
+
     def GetDataChemistry(self):
         d = self.GetData()
         return d.loc[:, 'О2':'Са+2']

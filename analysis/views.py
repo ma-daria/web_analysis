@@ -29,16 +29,8 @@ def index(request):
     return render(request, 'analysis/index.html')
 
 def table(request):
-    meas = []
     data = Data.Data()
-    measur = data.GetData()
-    reservoir = measur['Водоем']
-    date = measur['Дата']
-    plase = measur['Место измерения']
-    point = measur['Описание точки измерения']
-    mass = measur['биомасса ФП']
-    for i in range(len(reservoir)):
-        meas.append([reservoir[i], date[i], plase[i], point[i], mass[i]])
+    meas = data.GetDataTable()
     return render(request, 'analysis/table.html', {'measurement': meas})
 
 def CorrelationChemistry(request):
