@@ -6,10 +6,10 @@ class Correlation(object):
 
     def correlation(self, measurement):
         if len(self.data) == 0:
-            self.data = self.toDo(measurement)
+            self.data = self._toDo(measurement)
         return self.data
 
-    def toDo(self, measurement):
+    def _toDo(self, measurement):
         return []
 
     def SortingCorrelation(self, correlati):

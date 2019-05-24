@@ -6,7 +6,7 @@ class LSA(Dentogram.Dentogram):
     def __init__(self):
         super().__init__()
 
-    def toDo(self, measurement):
+    def _toDo(self, measurement):
         col = measurement.columns
         measurement = measurement.T
         measurement = Include.preprocessing.normalize(measurement)
@@ -17,6 +17,6 @@ class LSA(Dentogram.Dentogram):
         Vt = Vt[0:k, :]
         U_S = Include.np.multiply(S, U)
         A_ = Include.np.dot(U_S, Vt)
-        cl = self.ClusteringMetod(A_, 0.2, col)
+        cl = self._ClusteringMetod(A_, 0.2, col)
         Include.plt.savefig(str(settings.STATIC_ROOT_A) + "/analysis/image/LSA.png")
         return cl

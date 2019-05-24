@@ -6,13 +6,13 @@ class Dentogram(object):
 
     def dentogram(self, measurement):
         if len(self.data) == 0:
-            self.data = self.toDo(measurement)
+            self.data = self._toDo(measurement)
         return self.data
 
-    def toDo(self, measurement):
+    def _toDo(self, measurement):
         return []
 
-    def ClusteringMetod(self, measurement, index, col):
+    def _ClusteringMetod(self, measurement, index, col):
         distance_mat = Include.distance.pdist(measurement, 'cosine')
         Z = Include.hierarchy.linkage(distance_mat, 'single')
         Include.plt.figure(figsize=(20, 10))

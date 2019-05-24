@@ -6,11 +6,11 @@ class Clustering(Dentogram.Dentogram):
     def __init__(self):
         super().__init__()
 
-    def toDo(self, measurement):
+    def _toDo(self, measurement):
         col = measurement.columns
         measurement = measurement.T
         measurementN = Include.preprocessing.normalize(measurement)
-        Z = self.ClusteringMetod(measurementN, 0.5, col)
+        Z = self._ClusteringMetod(measurementN, 0.5, col)
         Include.plt.savefig(str(settings.STATIC_ROOT_A) + "/analysis/image/Сlustering.png")
         return Z
 

@@ -6,7 +6,7 @@ class CorrelationChemistry(Correlation.Correlation):
     def __init__(self):
         super().__init__()
 
-    def toDo(self, measurement):
+    def _toDo(self, measurement):
         mapPalette = Include.sns.diverging_palette(10, 240, sep=10, as_cmap=True)
         Include.plt.figure(figsize=(15, 15), dpi=200)
         correlationChemistry = measurement.corr()
