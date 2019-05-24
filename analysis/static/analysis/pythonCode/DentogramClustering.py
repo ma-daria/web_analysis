@@ -2,7 +2,7 @@ from analysis.static.analysis.pythonCode import Include
 from analysis.static.analysis.pythonCode import Dentogram
 from django.conf import settings
 
-class Clustering(Dentogram.Dentogram):
+class DentogramClustering(Dentogram.Dentogram):
     def __init__(self):
         super().__init__()
 

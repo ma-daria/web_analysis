@@ -2,7 +2,7 @@ from analysis.static.analysis.pythonCode import Include
 from analysis.static.analysis.pythonCode import Dentogram
 from django.conf import settings
 
-class LSA(Dentogram.Dentogram):
+class DentogramLSA(Dentogram.Dentogram):
     def __init__(self):
         super().__init__()
 

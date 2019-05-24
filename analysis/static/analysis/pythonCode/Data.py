@@ -1,13 +1,13 @@
 from analysis.static.analysis.pythonCode import Include
-from analysis.static.analysis.pythonCode import LSA
-from analysis.static.analysis.pythonCode import Clustering
+from analysis.static.analysis.pythonCode import DentogramLSA
+from analysis.static.analysis.pythonCode import DentogramClustering
 from analysis.static.analysis.pythonCode import CorrelationChemistry
 from analysis.static.analysis.pythonCode import CorrelationZooplankton
 
 class Data(object):
     data = Include.pd.DataFrame([])
-    lsaData = LSA.LSA()
-    clusteringData = Clustering.Clustering()
+    lsaData = DentogramLSA.DentogramLSA()
+    clusteringData = DentogramClustering.DentogramClustering()
     correlationChemistryData = CorrelationChemistry.CorrelationChemistry()
     correlationZooplanktonData = CorrelationZooplankton.CorrelationZooplankton()
 
