@@ -63,6 +63,9 @@ class Data(object):
                 if measurement[number].sum() == 0:
                     del new_measurement[number]
         measurement = new_measurement
+
+        for number in measurement.columns:
+            measurement = measurement.rename(columns={number: number.strip()})
         self.data = measurement
         return self.data
 
