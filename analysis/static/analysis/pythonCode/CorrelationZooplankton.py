@@ -10,7 +10,7 @@ class CorrelationZooplankton(Correlation.Correlation):
         Include.plt.figure(figsize=(20, 20), dpi=200)
         correlationZooplankton = measurement.corr()
         Include.sns.heatmap(correlationZooplankton, cmap=mapPalette, vmin=-1, vmax=1)
-        Include.plt.savefig(str(settings.STATIC_ROOT_A) + "/analysis/image/СorrelationZooplankton.png")
+        Include.plt.savefig(str(settings.STATIC_ROOT_A) + "/analysis/image/CorrelationZooplankton.png")
         # plt.show()
         # print(measurement.corr())
         return correlationZooplankton

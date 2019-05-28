@@ -19,4 +19,4 @@ class CreateCorrelationZooplankton(Correlation.Correlation):
         teste['НСО3–'] = test
         # teste = teste.fillna(0)
         Include.sns.heatmap(teste, cmap=mapPalette, vmin=-1, vmax=1)
-        Include.plt.savefig(str(settings.STATIC_ROOT_A) + "/analysis/image/СorrelationZooplanktonEnvironment.png")
+        Include.plt.savefig(str(settings.STATIC_ROOT_A) + "/analysis/image/CorrelationZooplanktonEnvironment.png")

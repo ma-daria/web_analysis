@@ -10,7 +10,7 @@ class CorrelationChemistry(Correlation.Correlation):
         Include.plt.figure(figsize=(15, 15), dpi=200)
         correlationChemistry = measurement.corr()
         Include.sns.heatmap(correlationChemistry, cmap=mapPalette, vmin=-1, vmax=1, annot=True)
-        Include.plt.savefig(str(settings.STATIC_ROOT_A) + "/analysis/image/СorrelationСhemistry.png")
+        Include.plt.savefig(str(settings.STATIC_ROOT_A) + "/analysis/image/CorrelationChemistry.png")
         # plt.show()
         # print(measurement.corr())
         return correlationChemistry

@@ -10,6 +10,6 @@ class DentogramClustering(Dentogram.Dentogram):
         measurement = measurement.T
         measurementN = Include.preprocessing.normalize(measurement)
         Z = self._ClusteringMetod(measurementN, 0.5, col)
-        Include.plt.savefig(str(settings.STATIC_ROOT_A) + "/analysis/image/Сlustering.png")
+        Include.plt.savefig(str(settings.STATIC_ROOT_A) + "/analysis/image/Clustering.png")
         return Z
 
