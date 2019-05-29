@@ -9,7 +9,9 @@ urlpatterns = [
     path('CorrelationChemistry', views.CorrelationChemistry, name='CorrelationСhemistry'),
     path('CorrelationZooplankton', views.CorrelationZooplankton, name='CorrelationZooplankton'),
     path('Clustering', views.ClusteringStr, name='Clustering'),
-    path('LSA', views.LSAstr, name='LSA')
+    path('LSA', views.LSAstr, name='LSA'),
+    path('CorrelationChemistry.png', views.photoCorrelationChemistry, name='photoCorrelationChemistry'),
+    path('CorrelationZooplankton.png', views.photoCorrelationZooplankton, name='photoCorrelationZooplankton')
 ]
 
 if settings.DEBUG:

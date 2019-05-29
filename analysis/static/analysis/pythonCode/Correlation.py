@@ -1,14 +1,15 @@
+from analysis.static.analysis.pythonCode import Include
+import io
+
 class Correlation(object):
     def __init__(self):
         self.data = []
+        self.buffer = []
 
     def correlation(self, measurement):
         if len(self.data) == 0:
-            self.data = self._toDo(measurement)
+            self.data = measurement.corr()
         return self.data
-
-    def _toDo(self, measurement):
-        return []
 
     def SortingCorrelation(self, correlati):
         correlation_mod = correlati.abs()
@@ -16,3 +17,15 @@ class Correlation(object):
         for name in correlation_mod.index:
             correlation_mod[name] = correlati[name]
         return correlation_mod
+
+    def getPhoto(self):
+        if self.buffer == []:
+            self.drаw()
+        return self.buffer
+
+    def drаw(self):
+        mapPalette = Include.sns.diverging_palette(10, 240, sep=10, as_cmap=True)
+        Include.plt.figure(figsize=(15, 15), dpi=200)
+        Include.sns.heatmap(self.data, cmap=mapPalette, vmin=-1, vmax=1)
+        self.buffer = io.BytesIO()
+        Include.plt.savefig(self.buffer, format='png')

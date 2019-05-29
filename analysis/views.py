@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
+from django.http import HttpResponse
 
-from analysis.static.analysis.pythonCode import Data
+from analysis.static.analysis.pythonCode import Data, Include
 import os
+import io
+
 
 
 def index(request):
@@ -75,3 +78,14 @@ def LSAstr(request):
 
     return render(request, 'analysis/LSA.html', {'Zooplankton': col, 'otvet': otvet})
 
+def photoCorrelationChemistry(request):
+    data = Data.Data()
+    buffer = data.drawCorrelation(0)
+    response = HttpResponse(buffer.getvalue(), content_type='image/png')
+    return response
+
+def photoCorrelationZooplankton(request):
+    data = Data.Data()
+    buffer = data.drawCorrelation(1)
+    response = HttpResponse(buffer.getvalue(), content_type='image/png')
+    return response

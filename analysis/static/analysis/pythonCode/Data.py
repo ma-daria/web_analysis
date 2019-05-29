@@ -1,11 +1,11 @@
-from analysis.static.analysis.pythonCode import Include, DentogramLSA, DentogramClustering, CorrelationChemistry, CorrelationZooplankton
+from analysis.static.analysis.pythonCode import Include, DentogramLSA, DentogramClustering, Correlation
 
 class Data(object):
     data = Include.pd.DataFrame([])
     lsaData = DentogramLSA.DentogramLSA()
     clusteringData = DentogramClustering.DentogramClustering()
-    correlationChemistryData = CorrelationChemistry.CorrelationChemistry()
-    correlationZooplanktonData = CorrelationZooplankton.CorrelationZooplankton()
+    correlationChemistryData = Correlation.Correlation()
+    correlationZooplanktonData = Correlation.Correlation()
 
     def __new__(cls):
         if not hasattr(cls, 'instance'):
@@ -131,3 +131,11 @@ class Data(object):
             measurement[name] = Include.pd.to_numeric(measurement[name], errors='coerce')
         measurement = measurement.fillna(0)
         return measurement
+
+
+    def drawCorrelation(self, fl):
+        if fl == 0:
+            return self.correlationChemistryData.getPhoto()
+        else:
+            return self.correlationZooplanktonData.getPhoto()
+
