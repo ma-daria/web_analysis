@@ -1,5 +1,4 @@
 from analysis.static.analysis.pythonCode import Include
-from django.conf import settings
 
 class Dentogram(object):
     def __init__(self):
@@ -78,7 +77,5 @@ class Dentogram(object):
     def draw(self):
         Include.plt.figure(figsize=(15, 15), dpi=200)
         dn = Include.hierarchy.dendrogram(self.data, labels=self.col, color_threshold=self.index)
-
-        Include.plt.savefig(str(settings.STATIC_ROOT_A) + "/analysis/image/test.png")
         self.buffer = Include.io.BytesIO()
         Include.plt.savefig(self.buffer, format='png')

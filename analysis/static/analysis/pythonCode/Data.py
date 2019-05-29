@@ -12,6 +12,13 @@ class Data(object):
             cls.instance = super(Data, cls).__new__(cls)
         return cls.instance
 
+    def newCl(self):
+        self.data = Include.pd.DataFrame([])
+        self.lsaData = DentogramLSA.DentogramLSA()
+        self.clusteringData = DentogramClustering.DentogramClustering()
+        self.correlationChemistryData = Correlation.Correlation()
+        self.correlationZooplanktonData = Correlation.Correlation()
+
     def GetData(self):
         return self.data
 
@@ -44,6 +51,8 @@ class Data(object):
         return d.columns
 
     def readFile(self, name):
+        self.newCl()
+
         measurement = Include.pd.read_csv(name, sep=';', decimal=',', header=1)
         measurement = measurement.rename(columns={'Unnamed: 0': 'Водоем'})
         measurement = measurement.rename(columns={'Unnamed: 1': 'Дата'})
