@@ -41,7 +41,7 @@ def CorrelationChemistry(request):
     if request.method == 'POST':
         names = request.POST['name']
         otvet = data.AnalysisCorrelationChemistry(str(names))
-    return render(request, 'analysis/СorrelationСhemistry.html', {'Сhemistry': chim, 'otvet': otvet})
+    return render(request, 'analysis/CorrelationСhemistry.html', {'Сhemistry': chim, 'otvet': otvet})
 
 def CorrelationZooplankton(request):
     data = Data.Data()
@@ -51,7 +51,7 @@ def CorrelationZooplankton(request):
     if request.method == 'POST':
         names = request.POST['name']
         otvet = data.AnalysisCorrelationZooplankton(str(names))
-    return render(request, 'analysis/СorrelationZooplankton.html', {'Zooplankton': col, 'otvet': otvet})
+    return render(request, 'analysis/CorrelationZooplankton.html', {'Zooplankton': col, 'otvet': otvet})
 
 def ClusteringStr(request):
     data = Data.Data()
@@ -62,7 +62,7 @@ def ClusteringStr(request):
         names = request.POST['name']
         otvet = data.AnalysisClustering(names)
 
-    return render(request, 'analysis/Сlustering.html', {'Zooplankton': col, 'otvet': otvet})
+    return render(request, 'analysis/Clustering.html', {'Zooplankton': col, 'otvet': otvet})
 
 def LSAstr(request):
     data = Data.Data()
