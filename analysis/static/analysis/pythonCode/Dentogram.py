@@ -75,7 +75,7 @@ class Dentogram(object):
         return self.buffer
 
     def draw(self):
-        Include.plt.figure(figsize=(15, 15), dpi=200)
+        Include.plt.figure(figsize=(20, 15), dpi=200)
         dn = Include.hierarchy.dendrogram(self.data, labels=self.col, color_threshold=self.index)
         self.buffer = Include.io.BytesIO()
         Include.plt.savefig(self.buffer, format='png')
