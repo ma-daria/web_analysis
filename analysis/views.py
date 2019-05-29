@@ -80,24 +80,40 @@ def LSAstr(request):
 
 def photoCorrelationChemistry(request):
     data = Data.Data()
-    buffer = data.drawCorrelation(0)
+    try:
+        buffer = data.drawCorrelation(0)
+    except:
+        buffer = Include.io.BytesIO()
+        print("Не удалось загрузить график")
     response = HttpResponse(buffer.getvalue(), content_type='image/png')
     return response
 
 def photoCorrelationZooplankton(request):
     data = Data.Data()
-    buffer = data.drawCorrelation(1)
+    try:
+        buffer = data.drawCorrelation(1)
+    except:
+        buffer = Include.io.BytesIO()
+        print("Не удалось загрузить график")
     response = HttpResponse(buffer.getvalue(), content_type='image/png')
     return response
 
 def photoClustrering(request):
     data = Data.Data()
-    buffer = data.drawDentogram(0)
+    try:
+        buffer = data.drawDentogram(0)
+    except:
+        buffer = Include.io.BytesIO()
+        print("Не удалось загрузить график")
     response = HttpResponse(buffer.getvalue(), content_type='image/png')
     return response
 
 def photoLSA(request):
     data = Data.Data()
-    buffer = data.drawDentogram(1)
+    try:
+        buffer = data.drawDentogram(1)
+    except:
+        buffer = Include.io.BytesIO()
+        print("Не удалось загрузить график")
     response = HttpResponse(buffer.getvalue(), content_type='image/png')
     return response
