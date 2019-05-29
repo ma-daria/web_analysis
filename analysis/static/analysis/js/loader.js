@@ -5,7 +5,6 @@ function show_loader(){
     $('.container').hide();
     $('.loader').show();
 }
-
 function hide_loader(){
     $('.loader').hide();
     $('.container').show();

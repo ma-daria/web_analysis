@@ -21,14 +21,14 @@
                 <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                     <div class="input-group">
-                        <select class="form-control" id="name" name="name">
+                        <select class="form-control" id="name" name="name" style='width: 75%; '>
                             {% for Сhe in Zooplankton %}
                                 <option >{{ Сhe }}</option>
                             {% endfor %}
                         </select>
 
                         <div class="input-group-append">
-                            <button class="btn btn-dark " id="but" type="submit" style="background-color: #3f294f;" >Показать</button>
+                            <button class="btn btn-dark " id="but" type="submit" style="background-color: #3f294f; " >Показать</button>
                         </div>
                     </div>
 

@@ -21,7 +21,7 @@
                 <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                     <div class="input-group">
-                        <select class="form-control" id="name" name="name">
+                        <select class="form-control" id="name" name="name" style='width: 75%; '>
                             {% for Сhe in Zooplankton %}
                                 <option >{{ Сhe }}</option>
                             {% endfor %}
