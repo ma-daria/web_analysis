@@ -1,11 +1,16 @@
 from analysis.static.analysis.pythonCode import Include
+from django.conf import settings
 
 class Dentogram(object):
     def __init__(self):
-        self.data = []
+        self.data = Include.np.asarray([])
+        self.buffer = []
+        self.index = 0
+        self.col = Include.np.asarray([])
 
     def dentogram(self, measurement):
         if len(self.data) == 0:
+        # if self.data.size == 0:
             self.data = self._toDo(measurement)
         return self.data
 
@@ -15,8 +20,8 @@ class Dentogram(object):
     def _ClusteringMetod(self, measurement, index, col):
         distance_mat = Include.distance.pdist(measurement, 'cosine')
         Z = Include.hierarchy.linkage(distance_mat, 'single')
-        Include.plt.figure(figsize=(15, 15), dpi=200)
-        dn = Include.hierarchy.dendrogram(Z, labels=col, color_threshold=index)
+        # Include.plt.figure(figsize=(15, 15), dpi=200)
+        # dn = Include.hierarchy.dendrogram(Z, labels=col, color_threshold=index)
         return Z
 
     otvet = []
@@ -65,3 +70,15 @@ class Dentogram(object):
         otvet.append(st)
         self._Bypass(clustering, int(str['id']) + size, size, col)
 
+    def getPhoto(self):
+        if self.buffer == []:
+            self.draw()
+        return self.buffer
+
+    def draw(self):
+        Include.plt.figure(figsize=(15, 15), dpi=200)
+        dn = Include.hierarchy.dendrogram(self.data, labels=self.col, color_threshold=self.index)
+
+        Include.plt.savefig(str(settings.STATIC_ROOT_A) + "/analysis/image/test.png")
+        self.buffer = Include.io.BytesIO()
+        Include.plt.savefig(self.buffer, format='png')

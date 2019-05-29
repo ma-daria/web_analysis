@@ -11,7 +11,10 @@ urlpatterns = [
     path('Clustering', views.ClusteringStr, name='Clustering'),
     path('LSA', views.LSAstr, name='LSA'),
     path('CorrelationChemistry.png', views.photoCorrelationChemistry, name='photoCorrelationChemistry'),
-    path('CorrelationZooplankton.png', views.photoCorrelationZooplankton, name='photoCorrelationZooplankton')
+    path('CorrelationZooplankton.png', views.photoCorrelationZooplankton, name='photoCorrelationZooplankton'),
+    path('Clustrering.png', views.photoClustrering, name='photoClustrering'),
+    path('LSA.png', views.photoLSA, name='photoLSA')
+
 ]
 
 if settings.DEBUG:

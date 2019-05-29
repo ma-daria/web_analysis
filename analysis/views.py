@@ -89,3 +89,15 @@ def photoCorrelationZooplankton(request):
     buffer = data.drawCorrelation(1)
     response = HttpResponse(buffer.getvalue(), content_type='image/png')
     return response
+
+def photoClustrering(request):
+    data = Data.Data()
+    buffer = data.drawDentogram(0)
+    response = HttpResponse(buffer.getvalue(), content_type='image/png')
+    return response
+
+def photoLSA(request):
+    data = Data.Data()
+    buffer = data.drawDentogram(1)
+    response = HttpResponse(buffer.getvalue(), content_type='image/png')
+    return response

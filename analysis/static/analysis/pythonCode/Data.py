@@ -139,3 +139,9 @@ class Data(object):
         else:
             return self.correlationZooplanktonData.getPhoto()
 
+    def drawDentogram(self, fl):
+        if fl == 0:
+            return self.clusteringData.getPhoto()
+        else:
+            return self.lsaData.getPhoto()
+

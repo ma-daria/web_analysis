@@ -1,5 +1,4 @@
 from analysis.static.analysis.pythonCode import Include
-import io
 
 class Correlation(object):
     def __init__(self):
@@ -27,5 +26,5 @@ class Correlation(object):
         mapPalette = Include.sns.diverging_palette(10, 240, sep=10, as_cmap=True)
         Include.plt.figure(figsize=(15, 15), dpi=200)
         Include.sns.heatmap(self.data, cmap=mapPalette, vmin=-1, vmax=1)
-        self.buffer = io.BytesIO()
+        self.buffer = Include.io.BytesIO()
         Include.plt.savefig(self.buffer, format='png')
