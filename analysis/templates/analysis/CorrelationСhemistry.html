@@ -5,9 +5,35 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
+{#<div class="container">#}
+    <div class="row" style="width:100%; margin:0 auto;">
         <div class="col-md-6 order-md-1">
+
+            <div class="col-md-12 order-md-1">
+                <br>
+                <label for="exampleFormControlSelect1">Укажите параметры, которые хотите сравнить</label>
+            </div>
+
+            <div class="col-md-12 order-md-1">
+                <form method="get" enctype="multipart/form-data">
+                {% csrf_token %}
+                    <div class="input-group">
+	                    <select class="js-example-basic-multiple" name="states[]" multiple="multiple"  style="width:75%">
+                            {% for Сhe in Сhemistry %}
+                                <option >{{ Сhe }}</option>
+                            {% endfor %}
+                        </select>
+
+                        <div class="input-group-append">
+                            <button class="btn btn-dark " id="but" type="submit" style="background-color: #3f294f;" >Показать</button>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+
+
             <div class="col-md-12 order-md-1">
                 <br>
                 {% load staticfiles %}
@@ -35,8 +61,6 @@
                             <button class="btn btn-dark " id="but" type="submit" style="background-color: #3f294f;" >Показать</button>
                         </div>
                     </div>
-
-
                 </form>
             </div>
 
@@ -64,5 +88,5 @@
         </div>
 
     </div>
-</div>
+{#</div>#}
 {% endblock %}
