@@ -17,14 +17,14 @@ class Correlation(object):
             correlation_mod[name] = correlati[name]
         return correlation_mod
 
-    def getPhoto(self):
+    def getPhoto(self, size):
         if self.buffer == []:
-            self.drаw()
+            self.drаw(size)
         return self.buffer
 
-    def drаw(self):
+    def drаw(self, size):
         mapPalette = Include.sns.diverging_palette(10, 240, sep=10, as_cmap=True)
-        Include.plt.figure(figsize=(15, 15), dpi=200)
+        Include.plt.figure(figsize=(size, size), dpi=200)
         Include.sns.heatmap(self.data, cmap=mapPalette, vmin=-1, vmax=1)
         self.buffer = Include.io.BytesIO()
         Include.plt.savefig(self.buffer, format='png')

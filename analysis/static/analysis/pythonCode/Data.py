@@ -144,9 +144,9 @@ class Data(object):
 
     def drawCorrelation(self, fl):
         if fl == 0:
-            return self.correlationChemistryData.getPhoto()
+            return self.correlationChemistryData.getPhoto(10)
         else:
-            return self.correlationZooplanktonData.getPhoto()
+            return self.correlationZooplanktonData.getPhoto(25)
 
     def drawDentogram(self, fl):
         if fl == 0:
