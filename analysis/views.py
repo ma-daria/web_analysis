@@ -44,7 +44,6 @@ def Correlation(request):
     col = data.GetNameChemistry()
     if request.method == 'POST':
         list = request.POST.getlist('states[]')
-
         tip = request.POST['name3']
         if tip == 'Корреляция химического состава':
             data.SetType(0)
@@ -56,15 +55,34 @@ def Correlation(request):
                 data.CorrelationZooplankton()
                 col = data.GetNameZooplankton()
             else:
-                list = request.POST.getlist('states[]')
                 print(list)
-
-
 
         # обработка вывода списка
         # names = request.POST['name']
         # otvet = data.AnalysisCorrelationChemistry(str(names))
         # otvet = data.AnalysisCorrelationZooplankton(str(names))
+
+    return render(request, 'analysis/Correlation.html', {'col': col, 'otvet': otvet, 'form': form})
+
+def PrintListCorrelation(request):
+    form=[]
+    data = Data.Data()
+    type = data.GetType()
+    data.CorrelationChemistry()
+    otvet = []
+    col = data.GetNameChemistry()
+    if request.method == 'POST':
+        names = request.POST['name']
+        if type == 0:
+            otvet = data.AnalysisCorrelationChemistry(str(names))
+            col = data.GetNameChemistry()
+        else:
+            if type == 1:
+                data.SetType(1)
+                otvet = data.AnalysisCorrelationZooplankton(str(names))
+                col = data.GetNameZooplankton()
+            else:
+                print(type)
 
     return render(request, 'analysis/Correlation.html', {'col': col, 'otvet': otvet, 'form': form})
 

@@ -7,6 +7,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('table', views.table, name='table'),
     path('Correlation', views.Correlation, name='Correlation'),
+    path('PrintListCorrelation', views.PrintListCorrelation, name='PrintListCorrelation'),
     path('Clustering', views.ClusteringStr, name='Clustering'),
     path('LSA', views.LSAstr, name='LSA'),
     path('Correlation.png', views.photoCorrelation, name='photoCorrelation'),
