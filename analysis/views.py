@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from analysis.static.analysis.pythonCode import Data, Include
 import os
 import io
+from analysis import forms
 
 
 
@@ -37,14 +38,19 @@ def table(request):
     return render(request, 'analysis/table.html', {'measurement': meas})
 
 def CorrelationChemistry(request):
+    form=[]
     data = Data.Data()
     data.CorrelationChemistry()
     otvet = []
     chim = data.GetNameChemistry()
     if request.method == 'POST':
-        names = request.POST['name']
-        otvet = data.AnalysisCorrelationChemistry(str(names))
-    return render(request, 'analysis/CorrelationСhemistry.html', {'Сhemistry': chim, 'otvet': otvet})
+        list = request.POST.getlist('states[]')
+        if (list == []):
+            names = request.POST['name']
+            otvet = data.AnalysisCorrelationChemistry(str(names))
+        else:
+            print(list) #потом будет обработка
+    return render(request, 'analysis/CorrelationСhemistry.html', {'Сhemistry': chim, 'otvet': otvet, 'form': form})
 
 def CorrelationZooplankton(request):
     data = Data.Data()
