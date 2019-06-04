@@ -6,7 +6,6 @@ from django.http import HttpResponse
 from analysis.static.analysis.pythonCode import Data, Include
 import os
 import io
-from analysis import forms
 
 
 
