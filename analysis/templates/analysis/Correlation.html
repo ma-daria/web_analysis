@@ -6,7 +6,7 @@
 
 {% block content %}
 <div class="container">
-    <div class="row" style="width:100%; margin:0 auto;">
+    <div class="row" >
         <div class="col-md-7 order-md-1">
             <form action="Correlation" method="post" enctype="multipart/form-data">
                 <div class="row">
@@ -67,7 +67,7 @@
                 <form action="PrintListCorrelation" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                     <div class="input-group">
-                        <select class="form-control" id="name" name="name" style='width: 75%; '>
+                        <select class="form-control" id="name" name="name" style='width: 70%; '>
                             {% for Сhe in col %}
                                 <option >{{ Сhe }}</option>
                             {% endfor %}
