@@ -36,30 +36,35 @@ def table(request):
     meas = data.GetDataTable()
     return render(request, 'analysis/table.html', {'measurement': meas})
 
-def CorrelationChemistry(request):
+def Correlation(request):
     form=[]
     data = Data.Data()
     data.CorrelationChemistry()
     otvet = []
-    chim = data.GetNameChemistry()
+    col = data.GetNameChemistry()
     if request.method == 'POST':
         list = request.POST.getlist('states[]')
         if (list == []):
-            names = request.POST['name']
-            otvet = data.AnalysisCorrelationChemistry(str(names))
+            tip = request.POST['name3']
+            if tip == 'Корреляция химического состава':
+                data.SetType(0)
+                data.CorrelationChemistry()
+                col = data.GetNameChemistry()
+            else:
+                data.SetType(1)
+                data.CorrelationZooplankton()
+                col = data.GetNameZooplankton()
         else:
-            print(list) #потом будет обработка
-    return render(request, 'analysis/Correlation.html', {'Сhemistry': chim, 'otvet': otvet, 'form': form})
+            print(list)  # потом будет обработка
 
-def CorrelationZooplankton(request):
-    data = Data.Data()
-    data.CorrelationZooplankton()
-    otvet = []
-    col = data.GetNameZooplankton()
-    if request.method == 'POST':
-        names = request.POST['name']
-        otvet = data.AnalysisCorrelationZooplankton(str(names))
-    return render(request, 'analysis/CorrelationZooplankton.html', {'Zooplankton': col, 'otvet': otvet})
+
+        # обработка вывода списка
+        # names = request.POST['name']
+        # otvet = data.AnalysisCorrelationChemistry(str(names))
+        # otvet = data.AnalysisCorrelationZooplankton(str(names))
+
+    return render(request, 'analysis/Correlation.html', {'col': col, 'otvet': otvet, 'form': form})
+
 
 def ClusteringStr(request):
     data = Data.Data()
@@ -83,25 +88,18 @@ def LSAstr(request):
 
     return render(request, 'analysis/LSA.html', {'Zooplankton': col, 'otvet': otvet})
 
-def photoCorrelationChemistry(request):
+def photoCorrelation(request):
     data = Data.Data()
+    type = data.GetType()
     try:
-        buffer = data.drawCorrelation(0)
+        buffer = data.drawCorrelation(type)
     except:
         buffer = Include.io.BytesIO()
         print("Не удалось загрузить график")
     response = HttpResponse(buffer.getvalue(), content_type='image/png')
     return response
 
-def photoCorrelationZooplankton(request):
-    data = Data.Data()
-    try:
-        buffer = data.drawCorrelation(1)
-    except:
-        buffer = Include.io.BytesIO()
-        print("Не удалось загрузить график")
-    response = HttpResponse(buffer.getvalue(), content_type='image/png')
-    return response
+
 
 def photoClustrering(request):
     data = Data.Data()

@@ -20,7 +20,6 @@
                                     <select class="custom-select" id="name3" name="name3"  style="width:100%">
                                         <option>Корреляция химического состава</option>
                                         <option>Корреляция видового состава</option>
-                                        <option>Корреляция хим состава и видов</option>
                                     </select>
                                 </div>
                             <br>
@@ -33,7 +32,7 @@
                             {% csrf_token %}
                                 <div class="input-group">
                                     <select class="js-example-basic-multiple" id="name2" name="states[]" multiple="multiple"  style="width:100%">
-                                        {% for Сhe in Сhemistry %}
+                                        {% for Сhe in col %}
                                             <option >{{ Сhe }}</option>
                                         {% endfor %}
                                     </select>
@@ -52,7 +51,7 @@
             </form>
 
                 {% load staticfiles %}
-                <a href="{% url 'photoCorrelationChemistry' %}" target="_blank"><img src="{% url 'photoCorrelationChemistry' %}" style='width: 100%; ' ></a>
+                <a href="{% url 'photoCorrelation' %}" target="_blank"><img src="{% url 'photoCorrelation' %}" style='width: 100%; ' ></a>
 
         </div>
 
@@ -68,7 +67,7 @@
                 {% csrf_token %}
                     <div class="input-group">
                         <select class="form-control" id="name" name="name" style='width: 75%; '>
-                            {% for Сhe in Сhemistry %}
+                            {% for Сhe in col %}
                                 <option >{{ Сhe }}</option>
                             {% endfor %}
                         </select>

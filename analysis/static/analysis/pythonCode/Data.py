@@ -6,6 +6,7 @@ class Data(object):
     clusteringData = DentogramClustering.DentogramClustering()
     correlationChemistryData = Correlation.Correlation()
     correlationZooplanktonData = Correlation.Correlation()
+    type = 0
 
     def __new__(cls):
         if not hasattr(cls, 'instance'):
@@ -18,6 +19,13 @@ class Data(object):
         self.clusteringData = DentogramClustering.DentogramClustering()
         self.correlationChemistryData = Correlation.Correlation()
         self.correlationZooplanktonData = Correlation.Correlation()
+        type = 0
+
+    def GetType(self):
+        return self.type
+
+    def SetType(self, t):
+        self.type = t
 
     def GetData(self):
         return self.data

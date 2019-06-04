@@ -1,4 +1,4 @@
-disabled();
+// disabled();
 function disabled(){
     but = document.getElementById("but");
     but.disabled = true;
@@ -12,7 +12,8 @@ function undisabled(){
 
 $("#name2").change(function(){
     var minimum = 2;
-     if($(".js-example-basic-multiple").select2('data').length>=minimum){
+    len = $(".js-example-basic-multiple").select2('data').length
+     if(len>=minimum || len === 0){
          undisabled();
      }
      else {

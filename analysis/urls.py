@@ -6,12 +6,10 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', views.index, name='index'),
     path('table', views.table, name='table'),
-    path('Correlation', views.CorrelationChemistry, name='CorrelationСhemistry'),
-    # path('CorrelationZooplankton', views.CorrelationZooplankton, name='CorrelationZooplankton'),
+    path('Correlation', views.Correlation, name='Correlation'),
     path('Clustering', views.ClusteringStr, name='Clustering'),
     path('LSA', views.LSAstr, name='LSA'),
-    path('CorrelationChemistry.png', views.photoCorrelationChemistry, name='photoCorrelationChemistry'),
-    path('CorrelationZooplankton.png', views.photoCorrelationZooplankton, name='photoCorrelationZooplankton'),
+    path('Correlation.png', views.photoCorrelation, name='photoCorrelation'),
     path('Clustrering.png', views.photoClustrering, name='photoClustrering'),
     path('LSA.png', views.photoLSA, name='photoLSA')
 
