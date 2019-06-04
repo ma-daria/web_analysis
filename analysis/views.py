@@ -61,7 +61,6 @@ def Correlation(request):
         # names = request.POST['name']
         # otvet = data.AnalysisCorrelationChemistry(str(names))
         # otvet = data.AnalysisCorrelationZooplankton(str(names))
-
     return render(request, 'analysis/Correlation.html', {'col': col, 'otvet': otvet, 'form': form})
 
 def PrintListCorrelation(request):
