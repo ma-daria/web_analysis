@@ -50,7 +50,7 @@ def CorrelationChemistry(request):
             otvet = data.AnalysisCorrelationChemistry(str(names))
         else:
             print(list) #потом будет обработка
-    return render(request, 'analysis/CorrelationСhemistry.html', {'Сhemistry': chim, 'otvet': otvet, 'form': form})
+    return render(request, 'analysis/Correlation.html', {'Сhemistry': chim, 'otvet': otvet, 'form': form})
 
 def CorrelationZooplankton(request):
     data = Data.Data()

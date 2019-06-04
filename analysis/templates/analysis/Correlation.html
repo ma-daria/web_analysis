@@ -1,0 +1,105 @@
+{% extends "analysis/template.html" %}
+
+{% block title %}
+    <title>Корреляция химического состава</title>
+{% endblock %}
+
+{% block content %}
+{#<div class="container">#}
+    <div class="row" style="width:100%; margin:0 auto;">
+        <div class="col-md-7 order-md-1">
+            <form method="post" enctype="multipart/form-data">
+                <div class="row">
+
+                        <div class="col-md-5 order-md-1">
+                            <br>
+                            <label for="exampleFormControlSelect1">Выберете режим кореляции</label>
+
+                            {% csrf_token %}
+                                <div class="input-group">
+                                    <select class="custom-select" id="name3" name="name3"  style="width:100%">
+                                        <option>Корреляция химического состава</option>
+                                        <option>Корреляция видового состава</option>
+                                        <option>Корреляция хим состава и видов</option>
+                                    </select>
+                                </div>
+                            <br>
+                        </div>
+
+                        <div class="col-md-5 order-md-1">
+                            <br>
+                            <label for="exampleFormControlSelect1">или укажите параметры вручную</label>
+
+                            {% csrf_token %}
+                                <div class="input-group">
+                                    <select class="js-example-basic-multiple" id="name2" name="states[]" multiple="multiple"  style="width:100%">
+                                        {% for Сhe in Сhemistry %}
+                                            <option >{{ Сhe }}</option>
+                                        {% endfor %}
+                                    </select>
+
+
+                                </div>
+                        </div>
+
+                        <div class="col-md-2 order-md-1">
+                            <br>
+                            <label for="exampleFormControlSelect1">&nbsp;</label>
+                            <button class="btn btn-dark " id="but" type="submit" style="background-color: #3f294f;" >Показать</button>
+                        </div>
+
+                </div>
+            </form>
+
+                {% load staticfiles %}
+                <a href="{% url 'photoCorrelationChemistry' %}" target="_blank"><img src="{% url 'photoCorrelationChemistry' %}" style='width: 100%; ' ></a>
+
+        </div>
+
+
+        <div class="col-md-1 order-md-1">
+        </div>
+
+        <div class="col-md-4 order-md-1">
+                <br>
+                <label for="exampleFormControlSelect1">Укажите исследуемый параметр</label>
+
+                <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                    <div class="input-group">
+                        <select class="form-control" id="name" name="name" style='width: 75%; '>
+                            {% for Сhe in Сhemistry %}
+                                <option >{{ Сhe }}</option>
+                            {% endfor %}
+                        </select>
+
+                        <div class="input-group-append">
+                            <button class="btn btn-dark " id="but" type="submit" style="background-color: #3f294f;" >Показать</button>
+                        </div>
+                    </div>
+                </form>
+
+                <br>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Наиминование</th>
+                            <th>Кореляция</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for otv in otvet %}
+                            <tr>
+                                {% for ot in otv %}
+                                    <td>{{ ot }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+        </div>
+
+    </div>
+{#</div>#}
+{% endblock %}
