@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-{#<div class="container">#}
+<div class="container">
     <div class="row" style="width:100%; margin:0 auto;">
         <div class="col-md-7 order-md-1">
             <form action="Correlation" method="post" enctype="multipart/form-data">
@@ -13,7 +13,7 @@
 
                         <div class="col-md-5 order-md-1">
                             <br>
-                            <label for="exampleFormControlSelect1">Выберете режим кореляции</label>
+                            <label for="exampleFormControlSelect1">Режим кореляции</label>
 
                             {% csrf_token %}
                                 <div class="input-group">
@@ -28,7 +28,7 @@
 
                         <div class="col-md-5 order-md-1">
                             <br>
-                            <label for="exampleFormControlSelect1">или укажите параметры вручную</label>
+                            <label for="exampleFormControlSelect1">Параметры</label>
 
                             {% csrf_token %}
                                 <div class="input-group">
@@ -101,5 +101,5 @@
         </div>
 
     </div>
-{#</div>#}
+</div>
 {% endblock %}
