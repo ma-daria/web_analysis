@@ -19,7 +19,7 @@ class Data(object):
         self.clusteringData = DentogramClustering.DentogramClustering()
         self.correlationChemistryData = Correlation.Correlation()
         self.correlationZooplanktonData = Correlation.Correlation()
-        type = 0
+        self.type = 0
 
     def GetType(self):
         return self.type
