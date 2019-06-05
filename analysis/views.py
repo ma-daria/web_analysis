@@ -42,6 +42,11 @@ def Correlation(request):
     data.CorrelationChemistry()
     otvet = []
     col = data.GetNameChemistry()
+
+    col1 = data.GetNameChemistry()
+    col2 = data.GetNameZooplankton()
+    colS = col1.tolist() + col2.tolist()
+
     if request.method == 'POST':
         list = request.POST.getlist('states[]')
         tip = request.POST['name3']
@@ -55,13 +60,12 @@ def Correlation(request):
                 data.CorrelationZooplankton()
                 col = data.GetNameZooplankton()
             else:
-                print(list)
+                data.SetType(3)
+                data.CorrelationMix(list)
+                col = list
 
-        # обработка вывода списка
-        # names = request.POST['name']
-        # otvet = data.AnalysisCorrelationChemistry(str(names))
-        # otvet = data.AnalysisCorrelationZooplankton(str(names))
-    return render(request, 'analysis/Correlation.html', {'col': col, 'otvet': otvet, 'form': form})
+
+    return render(request, 'analysis/Correlation.html', {'col': col, 'colS':colS, 'otvet': otvet, 'form': form})
 
 def PrintListCorrelation(request):
     form=[]
@@ -70,6 +74,12 @@ def PrintListCorrelation(request):
     data.CorrelationChemistry()
     otvet = []
     col = data.GetNameChemistry()
+
+    col1 = data.GetNameChemistry()
+    col2 = data.GetNameZooplankton()
+    colS = col1.tolist() + col2.tolist()
+
+
     if request.method == 'POST':
         names = request.POST['name']
         if type == 0:
@@ -77,13 +87,13 @@ def PrintListCorrelation(request):
             col = data.GetNameChemistry()
         else:
             if type == 1:
-                data.SetType(1)
                 otvet = data.AnalysisCorrelationZooplankton(str(names))
                 col = data.GetNameZooplankton()
             else:
-                print(type)
+                otvet = data.AnalysisCorrelationMix(str(names))
+                col = []
 
-    return render(request, 'analysis/Correlation.html', {'col': col, 'otvet': otvet, 'form': form})
+    return render(request, 'analysis/Correlation.html', {'col': col, 'colS':colS, 'otvet': otvet, 'form': form})
 
 
 def ClusteringStr(request):

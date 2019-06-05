@@ -9,6 +9,8 @@ class Correlation(object):
         if len(self.data) == 0:
             self.data = measurement.corr()
         return self.data
+    def getData(self):
+        return self.data
 
     def SortingCorrelation(self, correlati):
         correlation_mod = correlati.abs()

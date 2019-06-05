@@ -6,7 +6,7 @@ class Data(object):
     clusteringData = DentogramClustering.DentogramClustering()
     correlationChemistryData = Correlation.Correlation()
     correlationZooplanktonData = Correlation.Correlation()
-    correlationMix = Correlation.Correlation()
+    correlationMixData = Correlation.Correlation()
     type = 0
 
     def __new__(cls):
@@ -20,7 +20,7 @@ class Data(object):
         self.clusteringData = DentogramClustering.DentogramClustering()
         self.correlationChemistryData = Correlation.Correlation()
         self.correlationZooplanktonData = Correlation.Correlation()
-        self.correlationMix = Correlation.Correlation()
+        self.correlationMixData = Correlation.Correlation()
         self.type = 0
 
     def GetType(self):
@@ -51,6 +51,10 @@ class Data(object):
     def GetDataZooplankton(self):
         d = self.GetData()
         return d.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae']
+
+    def GetDataMix(self, name):
+        d = self.GetData()
+        return d[name]
 
     def GetNameChemistry(self):
         d = self.GetDataChemistry()
@@ -96,6 +100,11 @@ class Data(object):
         d = self.GetDataZooplankton()
         return self.correlationZooplanktonData.correlation(d)
 
+    def CorrelationMix(self, name):
+        d = self.GetDataMix(name)
+        self.correlationMixData = Correlation.Correlation()
+        return self.correlationMixData.correlation(d)
+
     def clustering(self):
         d = self.GetDataZooplankton()
         return self.clusteringData.dentogram(d)
@@ -114,6 +123,10 @@ class Data(object):
         ress = self.correlationZooplanktonData.SortingCorrelation(cor[name])
         return self._createMas(ress)
 
+    def AnalysisCorrelationMix(self, name):
+        cor = self.correlationMixData.getData()
+        ress = self.correlationMixData.SortingCorrelation(cor[name])
+        return self._createMas(ress)
 
     def AnalysisClustering(self, names):
         id = self._Search(names)
@@ -126,7 +139,6 @@ class Data(object):
         cl = self.lsa()
         col = self.GetNameZooplankton()
         return self.lsaData.GropupClustering(cl, id, col.size, col)
-
 
 
 
@@ -156,7 +168,10 @@ class Data(object):
         if fl == 0:
             return self.correlationChemistryData.getPhoto(10)
         else:
-            return self.correlationZooplanktonData.getPhoto(25)
+            if fl == 1:
+                return self.correlationZooplanktonData.getPhoto(25)
+            else:
+                return self.correlationMixData.getPhoto(15)
 
     def drawDentogram(self, fl):
         if fl == 0:
