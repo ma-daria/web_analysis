@@ -11,15 +11,15 @@ function undisabledButton(){
 }
 
 
-hidePairplot();
+
+
 function hidePairplot() {
     $(".pairplot").hide();
 }
 
-function showPairplot() {
-    $(".pairplot").show()
-}
-
+$("img").on( "error", function() {
+  hidePairplot()
+});
 
 function disabledSelect(){
     but = document.getElementById("name2");
@@ -51,10 +51,10 @@ function check_name3() {
     if (text.value === 'Корреляция химического и видового состава') {
         undisabledSelect();
         disabledButton();
-        showPairplot();
+        // showPairplot();
     }else {
         disabledSelect();
         undisabledButton();
-        hidePairplot();
+        // hidePairplot();
     }
 }
