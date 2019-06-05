@@ -11,14 +11,8 @@ function undisabledButton(){
 }
 
 
-
-
-function hidePairplot() {
-    $(".additional").hide();
-}
-
 $("img").on( "error", function() {
-  hidePairplot()
+  $(this).hide();
 });
 
 function disabledSelect(){
