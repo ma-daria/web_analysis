@@ -7,6 +7,7 @@ class Data(object):
     correlationChemistryData = Correlation.Correlation()
     correlationZooplanktonData = Correlation.Correlation()
     correlationMixData = Correlation.Correlation()
+    correlationLSAData = Correlation.Correlation()
     type = 0
     list = []
 
@@ -22,6 +23,7 @@ class Data(object):
         self.correlationChemistryData = Correlation.Correlation()
         self.correlationZooplanktonData = Correlation.Correlation()
         self.correlationMixData = Correlation.Correlation()
+        self.correlationLSAData = Correlation.Correlation()
         self.type = 0
         self.list = []
 
@@ -114,6 +116,17 @@ class Data(object):
         self.correlationMixData = Correlation.Correlation()
         return self.correlationMixData.correlation(d)
 
+    def CorrelationLSA(self):
+        da = self.lsaData.GetMass()
+        db = Include.pd.DataFrame(Include.np.array(da))
+        name = self.GetNameZooplankton()
+        d = db
+        i = 0
+        for n in name:
+            d = d.rename(columns={i: n})
+            i = i + 1
+        return self.correlationLSAData.correlation(d)
+
     def clustering(self):
         d = self.GetDataZooplankton()
         return self.clusteringData.dentogram(d)
@@ -121,6 +134,9 @@ class Data(object):
     def lsa(self):
         d = self.GetDataZooplankton()
         return self.lsaData.dentogram(d)
+
+
+
 
     def AnalysisCorrelationChemistry(self, name):
         cor = self.CorrelationChemistry()
@@ -180,7 +196,12 @@ class Data(object):
             if fl == 1:
                 return self.correlationZooplanktonData.getPhoto(25)
             else:
-                return self.correlationMixData.getPhoto(15)
+                if fl == 2:
+                    return self.correlationMixData.getPhoto(15)
+                else:
+                    return self.correlationLSAData.getPhoto(20)
+
+
 
     def drawDentogram(self, fl):
         if fl == 0:

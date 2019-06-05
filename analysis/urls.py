@@ -14,7 +14,8 @@ urlpatterns = [
     path('Clustrering.png', views.photoClustrering, name='photoClustrering'),
     path('LSA.png', views.photoLSA, name='photoLSA'),
     path('pairplot.png', views.photoPairplot, name='pairplot'),
-    path('pairplot2.png', views.photoPairplot2, name='pairplot2')
+    path('pairplot2.png', views.photoPairplot2, name='pairplot2'),
+    path('corLSA.png', views.photoCorLSA, name='corLSA')
 
 ]
 

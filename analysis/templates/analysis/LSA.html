@@ -9,9 +9,25 @@
     <div class="row">
         <div class="col-md-6 order-md-1">
             <div class="col-md-12 order-md-1">
+{#                <br>#}
+{#                {% load staticfiles %}#}
+{#                <a href="{% url 'photoLSA' %}" target="_blank"><img src="{% url 'photoLSA' %}" style='width: 100%; ' ></a>#}
+{#                {% load staticfiles %}#}
+{#                <br>#}
+{#                <a href="{% url 'corLSA' %}" target="_blank"><img src="{% url 'corLSA' %}" style='width: 100%; ' ></a>#}
+
+
+
+                {% load staticfiles %}
                 <br>
                 <a href="{% url 'photoLSA' %}" target="_blank"><img src="{% url 'photoLSA' %}" style='width: 100%; ' ></a>
-                {% load staticfiles %}
+                <br>
+                <a href="{% url 'corLSA' %}" target="_blank" class="additional"><img src="{% url 'corLSA' %}" style='width: 100%; ' ></a>
+
+
+
+{#                <br>#}
+{#                <a href="{% url 'pairplot2' %}" target="_blank" class="additional"><img src="{% url 'pairplot2' %}" style='width: 100%; ' ></a>#}
 {#                <a href="{% static 'analysis/image/LSA.png' %}" target="_blank"><img src="{% static 'analysis/image/LSA.png' %}" style='width: 100%; ' ></a>#}
             </div>
         </div>

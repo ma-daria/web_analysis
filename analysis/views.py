@@ -7,7 +7,7 @@ from analysis.static.analysis.pythonCode import Data, Include
 import os
 import io
 
-
+import time
 
 def index(request):
     if request.method == 'POST':
@@ -123,6 +123,7 @@ def LSAstr(request):
     data.lsa()
     otvet = []
     col = data.GetNameZooplankton()
+    data.CorrelationLSA()
     if request.method == 'POST':
         names = request.POST['name']
         otvet = data.AnalysisLSA(names)
@@ -193,3 +194,14 @@ def photoPairplot2(request):
         buffer = Include.io.BytesIO()
         response = HttpResponse(buffer.getvalue(), content_type='image/png')
         return response
+
+def photoCorLSA(request):
+    time.sleep(30)  # вот этот говнокод, но я не знаю как решить. Там они паралельно запускаются похоже и мешают друг другу
+    data = Data.Data()
+    try:
+        buffer = data.drawCorrelation(4)
+    except:
+        buffer = Include.io.BytesIO()
+        print("Не удалось загрузить график")
+    response = HttpResponse(buffer.getvalue(), content_type='image/png')
+    return response

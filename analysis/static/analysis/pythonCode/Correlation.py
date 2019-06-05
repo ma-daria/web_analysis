@@ -1,4 +1,5 @@
 from analysis.static.analysis.pythonCode import Include
+from django.conf import settings
 
 class Correlation(object):
     def __init__(self):
@@ -28,5 +29,8 @@ class Correlation(object):
         mapPalette = Include.sns.diverging_palette(10, 240, sep=10, as_cmap=True)
         Include.plt.figure(figsize=(size, size), dpi=200)
         Include.sns.heatmap(self.data, cmap=mapPalette, vmin=-1, vmax=1)
+        Include.plt.savefig(str(settings.STATIC_ROOT_A) + "/analysis/Correlation.png")
         self.buffer = Include.io.BytesIO()
         Include.plt.savefig(self.buffer, format='png')
+
+        Include.plt.close()
