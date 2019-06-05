@@ -14,7 +14,7 @@ function undisabledButton(){
 
 
 function hidePairplot() {
-    $(".pairplot").hide();
+    $(".additional").hide();
 }
 
 $("img").on( "error", function() {
