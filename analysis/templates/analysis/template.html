@@ -64,17 +64,10 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/js/bootstrap.min.js" integrity="sha384-7aThvCh9TypR7fIc2HV4O/nFMVCBwyIUKL8XCtKE+8xgCgl/PQGuFsvShjr74PBp" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
-        <script >
-        $(document).ready(function() {
-            $('.js-example-basic-multiple').select2();
-        });
 
-        $(document).ready(function() {
-            $("#name").select2();
-        });
-        </script>
         {% load staticfiles %}
         <script src="{% static 'analysis/js/loader.js' %}"></script>
         <script src="{% static 'analysis/js/select2.js' %}"></script>
+        <script src="{% static 'analysis/js/disabled_undisabled_object.js' %}"></script>
 </body>
 </html>
