@@ -79,7 +79,6 @@ def PrintListCorrelation(request):
     col2 = data.GetNameZooplankton()
     colS = col1.tolist() + col2.tolist()
 
-
     if request.method == 'POST':
         names = request.POST['name']
         if type == 0:
@@ -92,6 +91,8 @@ def PrintListCorrelation(request):
             else:
                 otvet = data.AnalysisCorrelationMix(str(names))
                 col = []
+        col = col[col != names]
+        col = [names] + col.tolist()
 
     return render(request, 'analysis/Correlation.html', {'col': col, 'colS':colS, 'otvet': otvet, 'form': form})
 
@@ -100,12 +101,15 @@ def ClusteringStr(request):
     data = Data.Data()
     data.clustering()
     otvet = []
+    names = ''
     col = data.GetNameZooplankton()
     if request.method == 'POST':
         names = request.POST['name']
         otvet = data.AnalysisClustering(names)
+        col = col[col != names]
+        col = [names] + col.tolist()
 
-    return render(request, 'analysis/Clustering.html', {'Zooplankton': col, 'otvet': otvet})
+    return render(request, 'analysis/Clustering.html', {'Zooplankton': col, 'otvet': otvet, 'selec': names})
 
 def LSAstr(request):
     data = Data.Data()
@@ -115,6 +119,8 @@ def LSAstr(request):
     if request.method == 'POST':
         names = request.POST['name']
         otvet = data.AnalysisLSA(names)
+        col = col[col != names]
+        col = [names] + col.tolist()
 
     return render(request, 'analysis/LSA.html', {'Zooplankton': col, 'otvet': otvet})
 
