@@ -47,25 +47,30 @@ def Correlation(request):
     col2 = data.GetNameZooplankton()
     colS = col1.tolist() + col2.tolist()
 
+    id = 0
+
     if request.method == 'POST':
         list = request.POST.getlist('states[]')
         tip = request.POST['name3']
         if tip == 'Корреляция химического состава':
             data.SetType(0)
+            id = 0
             data.CorrelationChemistry()
             col = data.GetNameChemistry()
         else:
             if tip == 'Корреляция видового состава':
                 data.SetType(1)
+                id = 1
                 data.CorrelationZooplankton()
                 col = data.GetNameZooplankton()
             else:
-                data.SetType(3)
+                data.SetType(2)
+                id = 2
                 data.CorrelationMix(list)
                 col = list
 
 
-    return render(request, 'analysis/Correlation.html', {'col': col, 'colS':colS, 'otvet': otvet, 'form': form})
+    return render(request, 'analysis/Correlation.html', {'col': col, 'colS':colS, 'otvet': otvet, 'form': form, 'type': id})
 
 def PrintListCorrelation(request):
     form=[]
@@ -94,7 +99,7 @@ def PrintListCorrelation(request):
         col = col[col != names]
         col = [names] + col.tolist()
 
-    return render(request, 'analysis/Correlation.html', {'col': col, 'colS':colS, 'otvet': otvet, 'form': form})
+    return render(request, 'analysis/Correlation.html', {'col': col, 'colS':colS, 'otvet': otvet, 'form': form, 'type': type})
 
 
 def ClusteringStr(request):

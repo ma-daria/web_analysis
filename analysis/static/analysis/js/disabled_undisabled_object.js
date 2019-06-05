@@ -32,6 +32,11 @@ $("#name2").change(function(){
 });
 
 $("#name3").change(function(){
+    check_name3();
+
+});
+check_name3();
+function check_name3() {
     text = document.getElementById("name3");
     if (text.value === 'Корреляция химического и видового состава') {
         undisabledSelect();
@@ -40,5 +45,4 @@ $("#name3").change(function(){
         disabledSelect();
         undisabledButton()
     }
-
-});
+}

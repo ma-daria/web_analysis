@@ -18,9 +18,21 @@
                             {% csrf_token %}
                                 <div class="input-group">
                                     <select class="custom-select" id="name3" name="name3"  style="width:100%">
-                                        <option>Корреляция химического состава</option>
-                                        <option>Корреляция видового состава</option>
-                                        <option>Корреляция химического и видового состава</option>
+                                        {% if type == 0 %}
+                                            <option selected>Корреляция химического состава</option>
+                                        {% else %}
+                                            <option >Корреляция химического состава</option>
+                                        {% endif %}
+                                        {% if type == 1 %}
+                                            <option selected>Корреляция видового состава</option>
+                                        {% else %}
+                                            <option>Корреляция видового состава</option>
+                                        {% endif %}
+                                        {% if type == 2 %}
+                                            <option selected>Корреляция химического и видового состава</option>
+                                        {% else %}
+                                            <option>Корреляция химического и видового состава</option>
+                                        {% endif %}
                                     </select>
                                 </div>
                             <br>
