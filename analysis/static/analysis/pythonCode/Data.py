@@ -8,6 +8,7 @@ class Data(object):
     correlationZooplanktonData = Correlation.Correlation()
     correlationMixData = Correlation.Correlation()
     type = 0
+    list = []
 
     def __new__(cls):
         if not hasattr(cls, 'instance'):
@@ -22,6 +23,7 @@ class Data(object):
         self.correlationZooplanktonData = Correlation.Correlation()
         self.correlationMixData = Correlation.Correlation()
         self.type = 0
+        self.list = []
 
     def GetType(self):
         return self.type
@@ -63,6 +65,13 @@ class Data(object):
     def GetNameZooplankton(self):
         d = self.GetDataZooplankton()
         return d.columns
+
+    def GetList(self):
+        return self.list
+
+    def SetList(self, li):
+        self.list = li
+
 
     def readFile(self, name):
         self.newCl()
@@ -178,4 +187,13 @@ class Data(object):
             return self.clusteringData.getPhoto()
         else:
             return self.lsaData.getPhoto()
+
+    def drawPairplot(self):
+        dat = self.data[ self.list]
+        dat[ 'Описание точки измерения'] = self.data['Описание точки измерения']
+        sns_plot = Include.sns.pairplot(dat, hue='Описание точки измерения')
+        buffer = Include.io.BytesIO()
+        sns_plot.savefig(buffer, format='png')
+        return buffer
+
 

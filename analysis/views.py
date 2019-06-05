@@ -36,7 +36,6 @@ def table(request):
     meas = data.GetDataTable()
     return render(request, 'analysis/table.html', {'measurement': meas})
 
-listBi = []
 
 def Correlation(request):
     form=[]
@@ -70,8 +69,7 @@ def Correlation(request):
                 id = 2
                 data.CorrelationMix(list)
                 col = list
-                global listBi
-                listBi = list
+                data.SetList(list)
 
 
     return render(request, 'analysis/Correlation.html', {'col': col, 'colS':colS, 'otvet': otvet, 'form': form, 'type': id})
@@ -99,7 +97,7 @@ def PrintListCorrelation(request):
                 col = data.GetNameZooplankton()
             else:
                 otvet = data.AnalysisCorrelationMix(str(names))
-                col = Include.pd.Series(listBi)
+                col = Include.pd.Series(data.GetList())
         col = col[col != names]
         col = [names] + col.tolist()
 
@@ -165,3 +163,18 @@ def photoLSA(request):
         print("Не удалось загрузить график")
     response = HttpResponse(buffer.getvalue(), content_type='image/png')
     return response
+
+def photoPairplot(request):
+    data = Data.Data()
+    if data.GetType() == 2:
+        try:
+            buffer = data.drawPairplot()
+        except:
+            buffer = Include.io.BytesIO()
+            print("Не удалось загрузить график")
+        response = HttpResponse(buffer.getvalue(), content_type='image/png')
+        return response
+    else:
+        buffer = Include.io.BytesIO()
+        response = HttpResponse(buffer.getvalue(), content_type='image/png')
+        return response
