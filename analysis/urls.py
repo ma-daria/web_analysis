@@ -13,7 +13,8 @@ urlpatterns = [
     path('Correlation.png', views.photoCorrelation, name='photoCorrelation'),
     path('Clustrering.png', views.photoClustrering, name='photoClustrering'),
     path('LSA.png', views.photoLSA, name='photoLSA'),
-    path('pairplot.png', views.photoPairplot, name='pairplot')
+    path('pairplot.png', views.photoPairplot, name='pairplot'),
+    path('pairplot2.png', views.photoPairplot2, name='pairplot2')
 
 ]
 

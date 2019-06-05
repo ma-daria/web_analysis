@@ -178,3 +178,18 @@ def photoPairplot(request):
         buffer = Include.io.BytesIO()
         response = HttpResponse(buffer.getvalue(), content_type='image/png')
         return response
+
+def photoPairplot2(request):
+    data = Data.Data()
+    if data.GetType() == 2:
+        try:
+            buffer = data.drawPairplot2()
+        except:
+            buffer = Include.io.BytesIO()
+            print("Не удалось загрузить график")
+        response = HttpResponse(buffer.getvalue(), content_type='image/png')
+        return response
+    else:
+        buffer = Include.io.BytesIO()
+        response = HttpResponse(buffer.getvalue(), content_type='image/png')
+        return response

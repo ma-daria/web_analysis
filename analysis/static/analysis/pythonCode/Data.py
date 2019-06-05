@@ -196,4 +196,11 @@ class Data(object):
         sns_plot.savefig(buffer, format='png')
         return buffer
 
+    def drawPairplot2(self):
+        dat = self.data[ self.list]
+        dat[ 'Место измерения'] = self.data['Место измерения']
+        sns_plot = Include.sns.pairplot(dat, hue='Место измерения')
+        buffer = Include.io.BytesIO()
+        sns_plot.savefig(buffer, format='png')
+        return buffer
 
