@@ -10,10 +10,15 @@ function undisabledButton(){
     but.disabled = false;
 }
 
+function hidePairplot() {
+    $(".additional").hide();
+}
 
-$("img").on( "error", function() {
-  $(this).hide();
+$('img').on( "error", function() {
+  // $(this).hide();
+    hidePairplot()
 });
+
 
 function disabledSelect(){
     but = document.getElementById("name2");
