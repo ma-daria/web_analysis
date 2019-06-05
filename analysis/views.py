@@ -36,6 +36,8 @@ def table(request):
     meas = data.GetDataTable()
     return render(request, 'analysis/table.html', {'measurement': meas})
 
+listBi = []
+
 def Correlation(request):
     form=[]
     data = Data.Data()
@@ -68,6 +70,8 @@ def Correlation(request):
                 id = 2
                 data.CorrelationMix(list)
                 col = list
+                global listBi
+                listBi = list
 
 
     return render(request, 'analysis/Correlation.html', {'col': col, 'colS':colS, 'otvet': otvet, 'form': form, 'type': id})
@@ -95,7 +99,7 @@ def PrintListCorrelation(request):
                 col = data.GetNameZooplankton()
             else:
                 otvet = data.AnalysisCorrelationMix(str(names))
-                col = []
+                col = Include.pd.Series(listBi)
         col = col[col != names]
         col = [names] + col.tolist()
 
