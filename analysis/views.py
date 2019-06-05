@@ -48,25 +48,25 @@ def Correlation(request):
     col2 = data.GetNameZooplankton()
     colS = col1.tolist() + col2.tolist()
 
-    id = 0
+    id = Include.СHEMISTRY
 
     if request.method == 'POST':
         list = request.POST.getlist('states[]')
         tip = request.POST['name3']
         if tip == 'Корреляция химического состава':
-            data.SetType(0)
-            id = 0
+            data.SetType(Include.СHEMISTRY)
+            id = Include.СHEMISTRY
             data.CorrelationChemistry()
             col = data.GetNameChemistry()
         else:
             if tip == 'Корреляция видового состава':
-                data.SetType(1)
-                id = 1
+                data.SetType(Include.ZOOPLANKTON)
+                id = Include.ZOOPLANKTON
                 data.CorrelationZooplankton()
                 col = data.GetNameZooplankton()
             else:
-                data.SetType(2)
-                id = 2
+                data.SetType(Include.MIX)
+                id = Include.MIX
                 data.CorrelationMix(list)
                 col = list
                 data.SetList(list)
@@ -88,11 +88,11 @@ def PrintListCorrelation(request):
 
     if request.method == 'POST':
         names = request.POST['name']
-        if type == 0:
+        if type == Include.СHEMISTRY:
             otvet = data.AnalysisCorrelationChemistry(str(names))
             col = data.GetNameChemistry()
         else:
-            if type == 1:
+            if type == Include.ZOOPLANKTON:
                 otvet = data.AnalysisCorrelationZooplankton(str(names))
                 col = data.GetNameZooplankton()
             else:
@@ -166,7 +166,7 @@ def photoLSA(request):
 
 def photoPairplot(request):
     data = Data.Data()
-    if data.GetType() == 2:
+    if data.GetType() == Include.MIX:
         try:
             buffer = data.drawPairplot()
         except:
@@ -181,7 +181,7 @@ def photoPairplot(request):
 
 def photoPairplot2(request):
     data = Data.Data()
-    if data.GetType() == 2:
+    if data.GetType() == Include.MIX:
         try:
             buffer = data.drawPairplot2()
         except:
