@@ -6,6 +6,7 @@ class Data(object):
     clusteringData = DentogramClustering.DentogramClustering()
     correlationChemistryData = Correlation.Correlation()
     correlationZooplanktonData = Correlation.Correlation()
+    correlationMix = Correlation.Correlation()
     type = 0
 
     def __new__(cls):
@@ -19,6 +20,7 @@ class Data(object):
         self.clusteringData = DentogramClustering.DentogramClustering()
         self.correlationChemistryData = Correlation.Correlation()
         self.correlationZooplanktonData = Correlation.Correlation()
+        self.correlationMix = Correlation.Correlation()
         self.type = 0
 
     def GetType(self):
