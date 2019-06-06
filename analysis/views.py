@@ -7,7 +7,7 @@ from analysis.static.analysis.pythonCode import Data, Include
 import os
 import io
 
-import time
+
 
 def index(request):
     if request.method == 'POST':
@@ -196,7 +196,6 @@ def photoPairplot2(request):
         return response
 
 def photoCorLSA(request):
-    time.sleep(30)  # вот этот говнокод, но я не знаю как решить. Там они паралельно запускаются похоже и мешают друг другу
     data = Data.Data()
     try:
         buffer = data.drawCorrelation(4)

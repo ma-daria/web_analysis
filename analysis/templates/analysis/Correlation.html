@@ -62,13 +62,17 @@
 
                 </div>
             </form>
-
-                {% load staticfiles %}
+                <label >Корреляция:</label>
                 <a href="{% url 'photoCorrelation' %}" target="_blank"><img src="{% url 'photoCorrelation' %}" style='width: 100%; ' ></a>
-                <br>
-                <a href="{% url 'pairplot' %}" target="_blank" class="additional"><img src="{% url 'pairplot' %}" style='width: 100%; ' ></a>
-                <br>
-                <a href="{% url 'pairplot2' %}" target="_blank" class="additional"><img src="{% url 'pairplot2' %}" style='width: 100%; ' ></a>
+
+                <div class="additional">
+                    <br>
+                    <label >Попарные диаграммы рассеяния [Описание точки измерения]:</label>
+                    <a href="{% url 'pairplot' %}" target="_blank"><img src="{% url 'pairplot' %}" style='width: 100%; ' ></a>
+                    <br>
+                    <label >Попарные диаграммы рассеяния [Место измерения]:</label>
+                    <a href="{% url 'pairplot2' %}" target="_blank"><img src="{% url 'pairplot2' %}" style='width: 100%; ' ></a>
+                </div>
         </div>
 
 
