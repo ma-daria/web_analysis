@@ -83,5 +83,3 @@ class Dentogram(object):
         self.buffer = Include.io.BytesIO()
         Include.plt.savefig(self.buffer, format='png')
 
-        Include.plt.close()
-

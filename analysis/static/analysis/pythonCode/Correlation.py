@@ -32,5 +32,3 @@ class Correlation(object):
         Include.plt.savefig(str(settings.STATIC_ROOT_A) + "/analysis/Correlation.png")
         self.buffer = Include.io.BytesIO()
         Include.plt.savefig(self.buffer, format='png')
-
-        Include.plt.close()
