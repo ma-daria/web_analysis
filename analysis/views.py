@@ -48,18 +48,18 @@ def Correlation(request):
     col2 = data.GetNameZooplankton()
     colS = col1.tolist() + col2.tolist()
 
-    id = Include.СHEMISTRY
+    id = data.GetType()
 
     if request.method == 'POST':
         list = request.POST.getlist('states[]')
         tip = request.POST['name3']
-        if tip == 'Корреляция химического состава':
+        if tip == 'Химический состав':
             data.SetType(Include.СHEMISTRY)
             id = Include.СHEMISTRY
             data.CorrelationChemistry()
             col = data.GetNameChemistry()
         else:
-            if tip == 'Корреляция видового состава':
+            if tip == 'Видовой состав':
                 data.SetType(Include.ZOOPLANKTON)
                 id = Include.ZOOPLANKTON
                 data.CorrelationZooplankton()

@@ -47,7 +47,7 @@ $("#name3").change(function(){
 check_name3();
 function check_name3() {
     text = document.getElementById("name3");
-    if (text.value === 'Корреляция химического и видового состава') {
+    if (text.value === 'Задать вречную') {
         undisabledSelect();
         disabledButton();
         // showPairplot();

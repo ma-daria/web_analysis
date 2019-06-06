@@ -1,4 +1,5 @@
 from analysis.static.analysis.pythonCode import Include, DentogramLSA, DentogramClustering, Correlation
+import time
 
 class Data(object):
     data = Include.pd.DataFrame([])
@@ -210,14 +211,19 @@ class Data(object):
             return self.lsaData.getPhoto()
 
     def drawPairplot(self):
+        time.sleep(2)  # вот этот говнокод, но я не знаю как решить. Там они паралельно запускаются похоже и мешают друг другу
+        tic = time.time()
         dat = self.data[ self.list]
         dat[ 'Описание точки измерения'] = self.data['Описание точки измерения']
         sns_plot = Include.sns.pairplot(dat, hue='Описание точки измерения')
         buffer = Include.io.BytesIO()
         sns_plot.savefig(buffer, format='png')
+        toc = time.time()
+        print(toc - tic)
         return buffer
 
     def drawPairplot2(self):
+        time.sleep(7)  # вот этот говнокод, но я не знаю как решить. Там они паралельно запускаются похоже и мешают друг другу
         dat = self.data[ self.list]
         dat[ 'Место измерения'] = self.data['Место измерения']
         sns_plot = Include.sns.pairplot(dat, hue='Место измерения')

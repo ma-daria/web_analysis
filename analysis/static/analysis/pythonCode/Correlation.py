@@ -27,7 +27,8 @@ class Correlation(object):
 
     def drаw(self, size):
         if (size == 20):
-            time.sleep(5)  # вот этот говнокод, но я не знаю как решить. Там они паралельно запускаются похоже и мешают друг другу
+            time.sleep(4)  # вот этот говнокод, но я не знаю как решить. Там они паралельно запускаются похоже и мешают друг другу
+
         mapPalette = Include.sns.diverging_palette(10, 240, sep=10, as_cmap=True)
         Include.plt.figure(figsize=(size, size), dpi=200)
         Include.sns.heatmap(self.data, cmap=mapPalette, vmin=-1, vmax=1)

@@ -13,25 +13,25 @@
 
                         <div class="col-md-5 order-md-1">
                             <br>
-                            <label for="exampleFormControlSelect1">Режим кореляции</label>
+                            <label for="exampleFormControlSelect1">Данные кореляции</label>
 
                             {% csrf_token %}
                                 <div class="input-group">
                                     <select class="custom-select" id="name3" name="name3"  style="width:100%">
                                         {% if type == 0 %}
-                                            <option selected>Корреляция химического состава</option>
+                                            <option selected>Химический состав</option>
                                         {% else %}
-                                            <option >Корреляция химического состава</option>
+                                            <option >Химический состав</option>
                                         {% endif %}
                                         {% if type == 1 %}
-                                            <option selected>Корреляция видового состава</option>
+                                            <option selected>Видовой состав</option>
                                         {% else %}
-                                            <option>Корреляция видового состава</option>
+                                            <option>Видовой состав</option>
                                         {% endif %}
                                         {% if type == 2 %}
-                                            <option selected>Корреляция химического и видового состава</option>
+                                            <option selected>Задать вречную</option>
                                         {% else %}
-                                            <option>Корреляция химического и видового состава</option>
+                                            <option>Задать вречную</option>
                                         {% endif %}
                                     </select>
                                 </div>
