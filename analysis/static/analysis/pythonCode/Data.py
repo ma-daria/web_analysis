@@ -142,16 +142,19 @@ class Data(object):
     def AnalysisCorrelationChemistry(self, name):
         cor = self.CorrelationChemistry()
         ress = self.correlationChemistryData.SortingCorrelation(cor[name])
+        ress = Include.np.round_(ress, 4)
         return self._createMas(ress)
 
     def AnalysisCorrelationZooplankton(self, name):
         cor = self.CorrelationZooplankton()
         ress = self.correlationZooplanktonData.SortingCorrelation(cor[name])
+        ress = Include.np.round_(ress, 4)
         return self._createMas(ress)
 
     def AnalysisCorrelationMix(self, name):
         cor = self.correlationMixData.getData()
         ress = self.correlationMixData.SortingCorrelation(cor[name])
+        ress = Include.np.round_(ress, 4)
         return self._createMas(ress)
 
     def AnalysisClustering(self, names):
