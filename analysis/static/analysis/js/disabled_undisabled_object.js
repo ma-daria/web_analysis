@@ -47,7 +47,7 @@ $("#name3").change(function(){
 check_name3();
 function check_name3() {
     text = document.getElementById("name3");
-    if (text.value === 'Задать вречную') {
+    if (text.value === 'Задать вручную') {
         undisabledSelect();
         disabledButton();
         // showPairplot();

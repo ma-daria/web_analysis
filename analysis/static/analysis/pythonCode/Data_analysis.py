@@ -60,6 +60,13 @@ class Data_analysis(object):
         self.newCl()
         return self.data.readFile(name)
 
+    def GetNameChemistry(self):
+        return self.data.GetNameChemistry()
+
+    def GetNameZooplankton(self):
+        return self.data.GetNameZooplankton()
+
+
     def CorrelationChemistry(self):
         d = self.data.GetDataChemistry()
         return self.correlationChemistryData.correlation(d)
@@ -142,11 +149,7 @@ class Data_analysis(object):
             otvet.append([ind[i], res[i]])
         return otvet
 
-    def _ToFloat(self, measurement):
-        for name in measurement:
-            measurement[name] = Include.pd.to_numeric(measurement[name], errors='coerce')
-        measurement = measurement.fillna(0)
-        return measurement
+
 
 
     def drawCorrelation(self, fl):
@@ -172,9 +175,8 @@ class Data_analysis(object):
     def drawPairplot(self):
         time.sleep(2)  # вот этот говнокод, но я не знаю как решить. Там они паралельно запускаются похоже и мешают друг другу
         tic = time.time()
-        da = self.data.GetData()
-        dat = da[ self.list]
-        dat[ 'Описание точки измерения'] = da['Описание точки измерения']
+        dat = self.data.GetDataMix(self.list)
+        dat[ 'Описание точки измерения'] = self.data.GetDataMix(['Описание точки измерения'])
         sns_plot = Include.sns.pairplot(dat, hue='Описание точки измерения')
         buffer = Include.io.BytesIO()
         sns_plot.savefig(buffer, format='png')
@@ -184,9 +186,8 @@ class Data_analysis(object):
 
     def drawPairplot2(self):
         time.sleep(7)  # вот этот говнокод, но я не знаю как решить. Там они паралельно запускаются похоже и мешают друг другу
-        da = self.data.GetData()
-        dat = da[self.list]
-        dat[ 'Место измерения'] = da['Место измерения']
+        dat = self.data.GetDataMix(self.list)
+        dat[ 'Место измерения'] = self.data.GetDataMix(['Место измерения'])
         sns_plot = Include.sns.pairplot(dat, hue='Место измерения')
         buffer = Include.io.BytesIO()
         sns_plot.savefig(buffer, format='png')

@@ -25,21 +25,21 @@ def index(request):
         file = request.FILES['document']
         fs = FileSystemStorage()
         fs.save(file.name, file)
-        data = Data_analysis.Data()
+        data = Data_analysis.Data_analysis()
         data.readFile(str(settings.MEDIA_ROOT) + '/' + str(file))
         return redirect('/table')
 
     return render(request, 'analysis/index.html')
 
 def table(request):
-    data = Data_analysis.Data()
+    data = Data_analysis.Data_analysis()
     meas = data.GetDataTable()
     return render(request, 'analysis/table.html', {'measurement': meas})
 
 
 def Correlation(request):
     form=[]
-    data = Data_analysis.Data()
+    data = Data_analysis.Data_analysis()
     data.CorrelationChemistry()
     otvet = []
     col = data.GetNameChemistry()
@@ -76,7 +76,7 @@ def Correlation(request):
 
 def PrintListCorrelation(request):
     form=[]
-    data = Data_analysis.Data()
+    data = Data_analysis.Data_analysis()
     type = data.GetType()
     data.CorrelationChemistry()
     otvet = []
@@ -105,7 +105,7 @@ def PrintListCorrelation(request):
 
 
 def ClusteringStr(request):
-    data = Data_analysis.Data()
+    data = Data_analysis.Data_analysis()
     data.clustering()
     otvet = []
     names = ''
@@ -119,7 +119,7 @@ def ClusteringStr(request):
     return render(request, 'analysis/Clustering.html', {'Zooplankton': col, 'otvet': otvet, 'selec': names})
 
 def LSAstr(request):
-    data = Data_analysis.Data()
+    data = Data_analysis.Data_analysis()
     data.lsa()
     otvet = []
     col = data.GetNameZooplankton()
@@ -133,7 +133,7 @@ def LSAstr(request):
     return render(request, 'analysis/LSA.html', {'Zooplankton': col, 'otvet': otvet})
 
 def photoCorrelation(request):
-    data = Data_analysis.Data()
+    data = Data_analysis.Data_analysis()
     type = data.GetType()
     try:
         buffer = data.drawCorrelation(type)
@@ -146,7 +146,7 @@ def photoCorrelation(request):
 
 
 def photoClustrering(request):
-    data = Data_analysis.Data()
+    data = Data_analysis.Data_analysis()
     try:
         buffer = data.drawDentogram(0)
     except:
@@ -156,7 +156,7 @@ def photoClustrering(request):
     return response
 
 def photoLSA(request):
-    data = Data_analysis.Data()
+    data = Data_analysis.Data_analysis()
     try:
         buffer = data.drawDentogram(1)
     except:
@@ -166,7 +166,7 @@ def photoLSA(request):
     return response
 
 def photoPairplot(request):
-    data = Data_analysis.Data()
+    data = Data_analysis.Data_analysis()
     if data.GetType() == Include.MIX:
         try:
             buffer = data.drawPairplot()
@@ -181,7 +181,7 @@ def photoPairplot(request):
         return response
 
 def photoPairplot2(request):
-    data = Data_analysis.Data()
+    data = Data_analysis.Data_analysis()
     if data.GetType() == Include.MIX:
         try:
             buffer = data.drawPairplot2()
@@ -196,7 +196,7 @@ def photoPairplot2(request):
         return response
 
 def photoCorLSA(request):
-    data = Data_analysis.Data()
+    data = Data_analysis.Data_analysis()
     try:
         buffer = data.drawCorrelation(4)
     except:

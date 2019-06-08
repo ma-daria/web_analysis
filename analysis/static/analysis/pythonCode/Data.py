@@ -30,6 +30,12 @@ class Data(object):
         self.data = measurement
         return self.data
 
+    def _ToFloat(self, measurement):
+        for name in measurement:
+            measurement[name] = Include.pd.to_numeric(measurement[name], errors='coerce')
+        measurement = measurement.fillna(0)
+        return measurement
+
 
 
     def GetData(self):
@@ -47,6 +53,7 @@ class Data(object):
     def GetDataMix(self, name):
         d = self.GetData()
         return d[name]
+
 
     def GetNameChemistry(self):
         d = self.GetDataChemistry()
