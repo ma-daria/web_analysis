@@ -1,8 +1,8 @@
-from analysis.static.analysis.pythonCode import Include, DentogramLSA, DentogramClustering, Correlation
+from analysis.static.analysis.pythonCode import Include, DentogramLSA, DentogramClustering, Correlation, Data
 import time
 
 class Data_analysis(object):
-    data = Include.pd.DataFrame([])
+    data = Data.Data()
     lsaData = DentogramLSA.DentogramLSA()
     clusteringData = DentogramClustering.DentogramClustering()
     correlationChemistryData = Correlation.Correlation()
@@ -18,7 +18,7 @@ class Data_analysis(object):
         return cls.instance
 
     def newCl(self):
-        self.data = Include.pd.DataFrame([])
+        self.data = Data.Data()
         self.lsaData = DentogramLSA.DentogramLSA()
         self.clusteringData = DentogramClustering.DentogramClustering()
         self.correlationChemistryData = Correlation.Correlation()
@@ -34,12 +34,10 @@ class Data_analysis(object):
     def SetType(self, t):
         self.type = t
 
-    def GetData(self):
-        return self.data
 
     def GetDataTable(self):
         meas = []
-        measur = self.GetData()
+        measur = self.data.GetData()
         reservoir = measur['Водоем']
         date = measur['Дата']
         plase = measur['Место измерения']
@@ -49,25 +47,7 @@ class Data_analysis(object):
             meas.append([reservoir[i], date[i], plase[i], point[i], mass[i]])
         return meas
 
-    def GetDataChemistry(self):
-        d = self.GetData()
-        return d.loc[:, 'О2':'Са+2']
 
-    def GetDataZooplankton(self):
-        d = self.GetData()
-        return d.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae']
-
-    def GetDataMix(self, name):
-        d = self.GetData()
-        return d[name]
-
-    def GetNameChemistry(self):
-        d = self.GetDataChemistry()
-        return d.columns
-
-    def GetNameZooplankton(self):
-        d = self.GetDataZooplankton()
-        return d.columns
 
     def GetList(self):
         return self.list
@@ -78,49 +58,25 @@ class Data_analysis(object):
 
     def readFile(self, name):
         self.newCl()
-
-        measurement = Include.pd.read_csv(name, sep=';', decimal=',', header=1)
-        measurement = measurement.rename(columns={'Unnamed: 0': 'Водоем'})
-        measurement = measurement.rename(columns={'Unnamed: 1': 'Дата'})
-        measurement = measurement.rename(columns={'Unnamed: 2': 'Место измерения'})
-        measurement = measurement.rename(columns={'Unnamed: 3': 'Описание точки измерения'})
-        measurement = measurement.rename(columns={'Unnamed: 4': 'pH'})
-        measurement = measurement.rename(columns={'Unnamed: 5': 'Минерализация'})
-        measurement = measurement.rename(columns={'Unnamed: 6': 't'})
-        measurement = measurement.rename(columns={'Unnamed: 16': 'биомасса ФП'})
-
-        measurement.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'] = self._ToFloat(
-            measurement.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'])
-
-        new_measurement = measurement
-        for number in measurement.columns:
-            if measurement[number].dtypes == 'float64':
-                if measurement[number].sum() == 0:
-                    del new_measurement[number]
-        measurement = new_measurement
-
-        for number in measurement.columns:
-            measurement = measurement.rename(columns={number: number.strip()})
-        self.data = measurement
-        return self.data
+        return self.data.readFile(name)
 
     def CorrelationChemistry(self):
-        d = self.GetDataChemistry()
+        d = self.data.GetDataChemistry()
         return self.correlationChemistryData.correlation(d)
 
     def CorrelationZooplankton(self):
-        d = self.GetDataZooplankton()
+        d = self.data.GetDataZooplankton()
         return self.correlationZooplanktonData.correlation(d)
 
     def CorrelationMix(self, name):
-        d = self.GetDataMix(name)
+        d = self.data.GetDataMix(name)
         self.correlationMixData = Correlation.Correlation()
         return self.correlationMixData.correlation(d)
 
     def CorrelationLSA(self):
         da = self.lsaData.GetMass()
         db = Include.pd.DataFrame(Include.np.array(da))
-        name = self.GetNameZooplankton()
+        name = self.data.GetNameZooplankton()
         d = db
         i = 0
         for n in name:
@@ -129,11 +85,11 @@ class Data_analysis(object):
         return self.correlationLSAData.correlation(d)
 
     def clustering(self):
-        d = self.GetDataZooplankton()
+        d = self.data.GetDataZooplankton()
         return self.clusteringData.dentogram(d)
 
     def lsa(self):
-        d = self.GetDataZooplankton()
+        d = self.data.GetDataZooplankton()
         return self.lsaData.dentogram(d)
 
 
@@ -160,19 +116,19 @@ class Data_analysis(object):
     def AnalysisClustering(self, names):
         id = self._Search(names)
         cl = self.clustering()
-        col = self.GetNameZooplankton()
+        col = self.data.GetNameZooplankton()
         return self.clusteringData.GropupClustering(cl, id, col.size, col)
 
     def AnalysisLSA(self, names):
         id = self._Search(names)
         cl = self.lsa()
-        col = self.GetNameZooplankton()
+        col = self.data.GetNameZooplankton()
         return self.lsaData.GropupClustering(cl, id, col.size, col)
 
 
 
     def _Search(self, names):
-        col = self.GetNameZooplankton()
+        col = self.data.GetNameZooplankton()
         i = 0
         for i in range(col.size):
             if col[i] == names:
@@ -216,8 +172,9 @@ class Data_analysis(object):
     def drawPairplot(self):
         time.sleep(2)  # вот этот говнокод, но я не знаю как решить. Там они паралельно запускаются похоже и мешают друг другу
         tic = time.time()
-        dat = self.data[ self.list]
-        dat[ 'Описание точки измерения'] = self.data['Описание точки измерения']
+        da = self.data.GetData()
+        dat = da[ self.list]
+        dat[ 'Описание точки измерения'] = da['Описание точки измерения']
         sns_plot = Include.sns.pairplot(dat, hue='Описание точки измерения')
         buffer = Include.io.BytesIO()
         sns_plot.savefig(buffer, format='png')
@@ -227,8 +184,9 @@ class Data_analysis(object):
 
     def drawPairplot2(self):
         time.sleep(7)  # вот этот говнокод, но я не знаю как решить. Там они паралельно запускаются похоже и мешают друг другу
-        dat = self.data[ self.list]
-        dat[ 'Место измерения'] = self.data['Место измерения']
+        da = self.data.GetData()
+        dat = da[self.list]
+        dat[ 'Место измерения'] = da['Место измерения']
         sns_plot = Include.sns.pairplot(dat, hue='Место измерения')
         buffer = Include.io.BytesIO()
         sns_plot.savefig(buffer, format='png')
