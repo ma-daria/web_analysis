@@ -1,7 +1,7 @@
 from analysis.static.analysis.pythonCode import Include, DentogramLSA, DentogramClustering, Correlation
 import time
 
-class Data(object):
+class Data_analysis(object):
     data = Include.pd.DataFrame([])
     lsaData = DentogramLSA.DentogramLSA()
     clusteringData = DentogramClustering.DentogramClustering()
@@ -14,7 +14,7 @@ class Data(object):
 
     def __new__(cls):
         if not hasattr(cls, 'instance'):
-            cls.instance = super(Data, cls).__new__(cls)
+            cls.instance = super(Data_analysis, cls).__new__(cls)
         return cls.instance
 
     def newCl(self):
