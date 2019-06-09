@@ -121,6 +121,7 @@ def PrintListCorrelation(request):
 
 def ClusteringStr(request):
     data = Data_analysis.Data_analysis()
+    size = data.GetSizeZooplankton()
     data.clustering()
     otvet = []
     names = ''
@@ -131,7 +132,7 @@ def ClusteringStr(request):
         col = col[col != names]
         col = [names] + col.tolist()
 
-    return render(request, 'analysis/Clustering.html', {'Zooplankton': col, 'otvet': otvet, 'selec': names})
+    return render(request, 'analysis/Clustering.html', {'Zooplankton': col, 'otvet': otvet, 'selec': names, 'size': size})
 
 def LSAstr(request):
 
