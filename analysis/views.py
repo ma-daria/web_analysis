@@ -33,8 +33,12 @@ def index(request):
 
 def table(request):
     data = Data_analysis.Data_analysis()
-    meas = data.GetDataTable()
-    return render(request, 'analysis/table.html', {'measurement': meas})
+    name = data.GetNameAll()
+    size = data.GetSizeData()
+    sizeP = name.size
+    sizeI = data.GetSizeChemistry()
+    sizeV = data.GetSizeZooplankton()
+    return render(request, 'analysis/table.html', { 'nameC': name, 'size': size, 'sizeP': sizeP, 'sizeI': sizeI, 'sizeV': sizeV})
 
 
 def Correlation(request):

@@ -9,26 +9,49 @@
     <div class="container">
         <br>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Озеро</th>
-                    <th>Дата замера</th>
-                    <th>Место</th>
-                    <th>Описание точки</th>
-                    <th>Биомасса</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for otv in measurement %}
-                    <tr>
-                        {% for ot in otv %}
-                            <td>{{ ot }}</td>
-                        {% endfor %}
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <h4>
+            Количество измерений:  {{ size }}
+        </h4>
+
+        <h4>
+            Количество параметров: {{ sizeP }}
+        </h4>
+
+        <h4>
+            Количество ионов: {{ sizeI }}
+        </h4>
+
+        <h4>
+            Количество видов зооплантона: {{ sizeV }}
+        </h4>
+
+        <h4>Список параметров:</h4>
+        <ul>
+            {% for na in nameC %}
+                <li> {{ na }}</li>
+            {% endfor %}
+        </ul>
+
+{#        <table class="table">#}
+{#            <thead>#}
+{#                <tr>#}
+{#                    <th>Озеро</th>#}
+{#                    <th>Дата замера</th>#}
+{#                    <th>Место</th>#}
+{#                    <th>Описание точки</th>#}
+{#                    <th>Биомасса</th>#}
+{#                </tr>#}
+{#            </thead>#}
+{#            <tbody>#}
+{#                {% for otv in measurement %}#}
+{#                    <tr>#}
+{#                        {% for ot in otv %}#}
+{#                            <td>{{ ot }}</td>#}
+{#                        {% endfor %}#}
+{#                    </tr>#}
+{#                {% endfor %}#}
+{#            </tbody>#}
+{#        </table>#}
     </div>
 
 {% endblock %}

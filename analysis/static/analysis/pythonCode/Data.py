@@ -62,3 +62,17 @@ class Data(object):
     def GetNameZooplankton(self):
         d = self.GetDataZooplankton()
         return d.columns
+
+    def GetNameAll(self):
+        d = self.GetData()
+        return d.columns
+
+    def GetSizeData(self):
+        d = self.GetData()
+        return d.index.size
+
+    def GetSizeChemistry(self):
+        return self.GetNameChemistry().size
+
+    def GetSizeZooplankton(self):
+        return self.GetNameZooplankton().size

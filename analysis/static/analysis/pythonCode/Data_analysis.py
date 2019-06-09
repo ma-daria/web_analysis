@@ -47,6 +47,15 @@ class Data_analysis(object):
             meas.append([reservoir[i], date[i], plase[i], point[i], mass[i]])
         return meas
 
+    def GetSizeData(self):
+        return self.data.GetSizeData()
+
+    def GetSizeChemistry(self):
+        return self.data.GetSizeChemistry()
+
+    def GetSizeZooplankton(self):
+        return self.data.GetSizeZooplankton()
+
 
 
     def GetList(self):
@@ -65,6 +74,9 @@ class Data_analysis(object):
 
     def GetNameZooplankton(self):
         return self.data.GetNameZooplankton()
+
+    def GetNameAll(self):
+        return self.data.GetNameAll()
 
 
     def CorrelationChemistry(self):
