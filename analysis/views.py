@@ -47,7 +47,7 @@ def Correlation(request):
     data.CorrelationChemistry()
     otvet = []
     col = data.GetNameChemistry()
-
+    sizeI = data.GetSizeData()
     col1 = data.GetNameChemistry()
     col2 = data.GetNameZooplankton()
     colS = col1.tolist() + col2.tolist()
@@ -81,7 +81,7 @@ def Correlation(request):
                 size = data.GetSizeMix()
 
 
-    return render(request, 'analysis/Correlation.html', {'col': col, 'colS':colS, 'otvet': otvet, 'form': form, 'type': id, 'size': size})
+    return render(request, 'analysis/Correlation.html', {'col': col, 'colS':colS, 'otvet': otvet, 'form': form, 'type': id, 'size': size, 'sizeI': sizeI})
 
 def PrintListCorrelation(request):
 
@@ -93,7 +93,7 @@ def PrintListCorrelation(request):
     data.CorrelationChemistry()
     otvet = []
     col = data.GetNameChemistry()
-
+    sizeI = data.GetSizeData()
     col1 = data.GetNameChemistry()
     col2 = data.GetNameZooplankton()
     colS = col1.tolist() + col2.tolist()
@@ -116,12 +116,13 @@ def PrintListCorrelation(request):
         col = col[col != names]
         col = [names] + col.tolist()
 
-    return render(request, 'analysis/Correlation.html', {'col': col, 'colS':colS, 'otvet': otvet, 'form': form, 'type': type, 'size': size})
+    return render(request, 'analysis/Correlation.html', {'col': col, 'colS':colS, 'otvet': otvet, 'form': form, 'type': type, 'size': size, 'sizeI': sizeI})
 
 
 def ClusteringStr(request):
     data = Data_analysis.Data_analysis()
     size = data.GetSizeZooplankton()
+    sizeI = data.GetSizeData()
     data.clustering()
     otvet = []
     names = ''
@@ -132,12 +133,12 @@ def ClusteringStr(request):
         col = col[col != names]
         col = [names] + col.tolist()
 
-    return render(request, 'analysis/Clustering.html', {'Zooplankton': col, 'otvet': otvet, 'selec': names, 'size': size})
+    return render(request, 'analysis/Clustering.html', {'Zooplankton': col, 'otvet': otvet, 'selec': names, 'size': size, 'sizeI': sizeI})
 
 def LSAstr(request):
 
     data = Data_analysis.Data_analysis()
-
+    sizeI = data.GetSizeData()
     size = data.GetSizeZooplankton()
     data.lsa()
     otvet = []
@@ -149,7 +150,7 @@ def LSAstr(request):
         col = col[col != names]
         col = [names] + col.tolist()
 
-    return render(request, 'analysis/LSA.html', {'Zooplankton': col, 'otvet': otvet, 'size': size})
+    return render(request, 'analysis/LSA.html', {'Zooplankton': col, 'otvet': otvet, 'size': size, 'sizeI': sizeI})
 
 def photoCorrelation(request):
     data = Data_analysis.Data_analysis()
