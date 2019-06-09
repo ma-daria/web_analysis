@@ -27,6 +27,10 @@ class Data(object):
 
         for number in measurement.columns:
             measurement = measurement.rename(columns={number: number.strip()})
+
+        measurement.loc[measurement['Описание точки измерения'] == "заросли тростника, рогоза, погружен раст", 'Описание точки измерения'] = "заросли"
+
+
         self.data = measurement
         return self.data
 
