@@ -84,6 +84,8 @@ def Correlation(request):
     return render(request, 'analysis/Correlation.html', {'col': col, 'colS':colS, 'otvet': otvet, 'form': form, 'type': id, 'size': size})
 
 def PrintListCorrelation(request):
+
+    data = Data_analysis.Data_analysis()
     size = data.GetSizeChemistry()
     form=[]
     data = Data_analysis.Data_analysis()
@@ -132,7 +134,10 @@ def ClusteringStr(request):
     return render(request, 'analysis/Clustering.html', {'Zooplankton': col, 'otvet': otvet, 'selec': names})
 
 def LSAstr(request):
+
     data = Data_analysis.Data_analysis()
+
+    size = data.GetSizeZooplankton()
     data.lsa()
     otvet = []
     col = data.GetNameZooplankton()
@@ -143,7 +148,7 @@ def LSAstr(request):
         col = col[col != names]
         col = [names] + col.tolist()
 
-    return render(request, 'analysis/LSA.html', {'Zooplankton': col, 'otvet': otvet})
+    return render(request, 'analysis/LSA.html', {'Zooplankton': col, 'otvet': otvet, 'size': size})
 
 def photoCorrelation(request):
     data = Data_analysis.Data_analysis()

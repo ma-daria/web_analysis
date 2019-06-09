@@ -10,11 +10,13 @@
         <div class="col-md-6 order-md-1">
             <div class="col-md-12 order-md-1">
                 <br>
-                <label >Дендрограмма:</label>
+                <h4>Количество исследуемых параметров:  {{ size }} </h4>
+                <br>
+                <h4>Дендрограмма:</h4>
                 <a href="{% url 'photoLSA' %}" target="_blank"><img src="{% url 'photoLSA' %}" style='width: 100%; ' ></a>
                 <br>
                 <br>
-                <label >Корреляция:</label>
+                <h4 >Корреляция:</h4>
                 <a href="{% url 'corLSA' %}" target="_blank" class="additional"><img src="{% url 'corLSA' %}" style='width: 100%; ' ></a>
 
             </div>
