@@ -56,6 +56,8 @@ class Data_analysis(object):
     def GetSizeZooplankton(self):
         return self.data.GetSizeZooplankton()
 
+    def GetSizeMix(self):
+        return len(self.list)
 
 
     def GetList(self):

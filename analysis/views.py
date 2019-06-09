@@ -54,6 +54,8 @@ def Correlation(request):
 
     id = data.GetType()
 
+    size = data.GetSizeChemistry()
+
     if request.method == 'POST':
         list = request.POST.getlist('states[]')
         tip = request.POST['name3']
@@ -62,23 +64,27 @@ def Correlation(request):
             id = Include.СHEMISTRY
             data.CorrelationChemistry()
             col = data.GetNameChemistry()
+            size = data.GetSizeChemistry()
         else:
             if tip == 'Видовой состав':
                 data.SetType(Include.ZOOPLANKTON)
                 id = Include.ZOOPLANKTON
                 data.CorrelationZooplankton()
                 col = data.GetNameZooplankton()
+                size = data.GetSizeZooplankton()
             else:
                 data.SetType(Include.MIX)
                 id = Include.MIX
                 data.CorrelationMix(list)
                 col = list
                 data.SetList(list)
+                size = data.GetSizeMix()
 
 
-    return render(request, 'analysis/Correlation.html', {'col': col, 'colS':colS, 'otvet': otvet, 'form': form, 'type': id})
+    return render(request, 'analysis/Correlation.html', {'col': col, 'colS':colS, 'otvet': otvet, 'form': form, 'type': id, 'size': size})
 
 def PrintListCorrelation(request):
+    size = data.GetSizeChemistry()
     form=[]
     data = Data_analysis.Data_analysis()
     type = data.GetType()
@@ -95,17 +101,20 @@ def PrintListCorrelation(request):
         if type == Include.СHEMISTRY:
             otvet = data.AnalysisCorrelationChemistry(str(names))
             col = data.GetNameChemistry()
+            size = data.GetSizeChemistry()
         else:
             if type == Include.ZOOPLANKTON:
                 otvet = data.AnalysisCorrelationZooplankton(str(names))
                 col = data.GetNameZooplankton()
+                size = data.GetSizeZooplankton()
             else:
                 otvet = data.AnalysisCorrelationMix(str(names))
                 col = Include.pd.Series(data.GetList())
+                size = data.GetSizeMix()
         col = col[col != names]
         col = [names] + col.tolist()
 
-    return render(request, 'analysis/Correlation.html', {'col': col, 'colS':colS, 'otvet': otvet, 'form': form, 'type': type})
+    return render(request, 'analysis/Correlation.html', {'col': col, 'colS':colS, 'otvet': otvet, 'form': form, 'type': type, 'size': size})
 
 
 def ClusteringStr(request):

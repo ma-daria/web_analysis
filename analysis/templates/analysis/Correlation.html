@@ -61,16 +61,22 @@
                         </div>
 
                 </div>
+
+            <h4>
+                Количество исследуемых параметров:  {{ size }}
+            </h4>
+
             </form>
-                <label >Корреляция:</label>
+                <br>
+                <h4 >Корреляция:</h4>
                 <a href="{% url 'photoCorrelation' %}" target="_blank"><img src="{% url 'photoCorrelation' %}" style='width: 100%; ' ></a>
 
                 <div class="additional">
                     <br>
-                    <label >Попарные диаграммы рассеяния [Описание точки измерения]:</label>
+                    <h4 >Попарные диаграммы рассеяния [Описание точки измерения]:</h4>
                     <a href="{% url 'pairplot' %}" target="_blank"><img src="{% url 'pairplot' %}" style='width: 100%; ' ></a>
                     <br>
-                    <label >Попарные диаграммы рассеяния [Место измерения]:</label>
+                    <h4 >Попарные диаграммы рассеяния [Место измерения]:</h4>
                     <a href="{% url 'pairplot2' %}" target="_blank"><img src="{% url 'pairplot2' %}" style='width: 100%; ' ></a>
                 </div>
         </div>
