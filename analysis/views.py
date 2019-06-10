@@ -51,7 +51,7 @@ def Correlation(request):
     col1 = data.GetNameChemistry()
     col2 = data.GetNameZooplankton()
     colS = col1.tolist() + col2.tolist()
-
+    corMax = data.CorrelationMaxChemistry()
     id = data.GetType()
 
     size = data.GetSizeChemistry()
@@ -65,6 +65,7 @@ def Correlation(request):
             data.CorrelationChemistry()
             col = data.GetNameChemistry()
             size = data.GetSizeChemistry()
+            corMax = data.CorrelationMaxChemistry()
         else:
             if tip == 'Видовой состав':
                 data.SetType(Include.ZOOPLANKTON)
@@ -72,6 +73,7 @@ def Correlation(request):
                 data.CorrelationZooplankton()
                 col = data.GetNameZooplankton()
                 size = data.GetSizeZooplankton()
+                corMax = data.CorrelationMaxZooplankton()
             else:
                 data.SetType(Include.MIX)
                 id = Include.MIX
@@ -79,9 +81,10 @@ def Correlation(request):
                 col = list
                 data.SetList(list)
                 size = data.GetSizeMix()
+                corMax = data.CorrelationMaxMix()
 
 
-    return render(request, 'analysis/Correlation.html', {'col': col, 'colS':colS, 'otvet': otvet, 'form': form, 'type': id, 'size': size, 'sizeI': sizeI})
+    return render(request, 'analysis/Correlation.html', {'col': col, 'colS':colS, 'otvet': otvet, 'form': form, 'type': id, 'size': size, 'sizeI': sizeI, 'corMax': corMax})
 
 def PrintListCorrelation(request):
 
@@ -97,6 +100,7 @@ def PrintListCorrelation(request):
     col1 = data.GetNameChemistry()
     col2 = data.GetNameZooplankton()
     colS = col1.tolist() + col2.tolist()
+    corMax = []
 
     if request.method == 'POST':
         names = request.POST['name']
@@ -104,19 +108,22 @@ def PrintListCorrelation(request):
             otvet = data.AnalysisCorrelationChemistry(str(names))
             col = data.GetNameChemistry()
             size = data.GetSizeChemistry()
+            corMax = data.CorrelationMaxChemistry()
         else:
             if type == Include.ZOOPLANKTON:
                 otvet = data.AnalysisCorrelationZooplankton(str(names))
                 col = data.GetNameZooplankton()
                 size = data.GetSizeZooplankton()
+                corMax = data.CorrelationMaxZooplankton()
             else:
                 otvet = data.AnalysisCorrelationMix(str(names))
                 col = Include.pd.Series(data.GetList())
                 size = data.GetSizeMix()
+                corMax = data.CorrelationMaxMix()
         col = col[col != names]
         col = [names] + col.tolist()
 
-    return render(request, 'analysis/Correlation.html', {'col': col, 'colS':colS, 'otvet': otvet, 'form': form, 'type': type, 'size': size, 'sizeI': sizeI})
+    return render(request, 'analysis/Correlation.html', {'col': col, 'colS':colS, 'otvet': otvet, 'form': form, 'type': type, 'size': size, 'sizeI': sizeI, 'corMax': corMax})
 
 
 def ClusteringStr(request):

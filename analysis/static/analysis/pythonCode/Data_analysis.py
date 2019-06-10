@@ -134,6 +134,18 @@ class Data_analysis(object):
         ress = Include.np.round_(ress, 4)
         return self._createMas(ress)
 
+    def CorrelationMaxChemistry(self):
+        ress = self.correlationChemistryData.corMax()
+        return self._createMasMax(ress)
+
+    def CorrelationMaxZooplankton(self):
+        ress = self.correlationZooplanktonData.corMax()
+        return self._createMasMax(ress)
+
+    def CorrelationMaxMix(self):
+        ress = self.correlationMixData.corMax()
+        return self._createMasMax(ress)
+
     def AnalysisClustering(self, names):
         id = self._Search(names)
         cl = self.clustering()
@@ -163,6 +175,14 @@ class Data_analysis(object):
             otvet.append([ind[i], res[i]])
         return otvet
 
+    def _createMasMax(self, ress):
+        res = ress[0].tolist()
+        res1 = ress[1].tolist()
+        res2 = ress[2].tolist()
+        otvet = []
+        for i in range(len(res)):
+            otvet.append([res[i], res1[i], res2[i]])
+        return otvet
 
 
 

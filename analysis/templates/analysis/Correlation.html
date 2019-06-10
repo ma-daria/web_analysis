@@ -64,11 +64,31 @@
 
                 <h4>Количество измерений:  {{ sizeI }}</h4>
                 <h4>Количество исследуемых параметров:  {{ size }} </h4>
-
             </form>
+
                 <br>
                 <h4 >Корреляция:</h4>
                 <a href="{% url 'photoCorrelation' %}" target="_blank"><img src="{% url 'photoCorrelation' %}" style='width: 100%; ' ></a>
+
+
+                <h4 >Параметры с большой корреляцией:</h4>
+                <table class="table" id="corMax" >
+                    <thead>
+                        <th>Наименование</th>
+                        <th>Наименование</th>
+                        <th>Значение корреляции</th>
+                    </thead>
+                    <tbody>
+                        {% for cor in corMax %}
+                            <tr>
+                                {% for co in cor %}
+                                    <td>{{ co }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
 
                 <div class="additional">
                     <br>

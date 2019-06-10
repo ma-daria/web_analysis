@@ -57,3 +57,15 @@ function check_name3() {
         // hidePairplot();
     }
 }
+
+tab();
+function tab() {
+
+    var table=document.getElementById('corMax');
+    console.log(table.rows.length);
+    if (table.rows.length === 1){
+
+        $('#corMax tbody').prepend("<tr><td>Таких значений нет</td></tr>")
+    }
+
+}
