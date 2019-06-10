@@ -8,7 +8,32 @@
 {% block content %}
 <div class="container">
     <div class="row">
+
         <div class="col-md-6 order-md-1">
+            <div >
+                <br>
+                <form method="post" enctype="multipart/form-data">
+                    <label for="exampleFormControlSelect1">Данные кластреризации</label>
+                    {% csrf_token %}
+                    <select class="custom-select" id="name3" name="name3"  style="width:80%">
+
+                        {% if type == 0 %}
+                            <option selected>Видовой состав</option>
+                        {% else %}
+                            <option>Видовой состав</option>
+                        {% endif %}
+                        {% if type == 2 %}
+                            <option selected>Химический состав</option>
+                        {% else %}
+                            <option >Химический состав</option>
+                        {% endif %}
+                    </select>
+                    <button class="btn btn-dark " id="but" type="submit" style="background-color: #3f294f;" >Показать</button>
+                </form>
+                <br>
+            </div>
+
+
             <div class="col-md-12 order-md-1">
                 <br>
                 <h4>Количество измерений:  {{ sizeI }}</h4>
@@ -26,7 +51,7 @@
             </div>
 
             <div class="col-md-12 order-md-1">
-                <form method="post" enctype="multipart/form-data">
+                <form action="PrintListClustering" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                     <div class="input-group">
                         <select class="form-control" id="name" name="name" style='width: 75%; '>

@@ -60,8 +60,8 @@ def Correlation(request):
         list = request.POST.getlist('states[]')
         tip = request.POST['name3']
         if tip == 'Химический состав':
-            data.SetType(Include.СHEMISTRY)
-            id = Include.СHEMISTRY
+            data.SetType(Include.CHEMISTRY)
+            id = Include.CHEMISTRY
             data.CorrelationChemistry()
             col = data.GetNameChemistry()
             size = data.GetSizeChemistry()
@@ -104,7 +104,7 @@ def PrintListCorrelation(request):
 
     if request.method == 'POST':
         names = request.POST['name']
-        if type == Include.СHEMISTRY:
+        if type == Include.CHEMISTRY:
             otvet = data.AnalysisCorrelationChemistry(str(names))
             col = data.GetNameChemistry()
             size = data.GetSizeChemistry()
@@ -134,13 +134,51 @@ def ClusteringStr(request):
     otvet = []
     names = ''
     col = data.GetNameZooplankton()
+    type = Include.CL_ZOOPLANKTON
     if request.method == 'POST':
-        names = request.POST['name']
-        otvet = data.AnalysisClustering(names)
-        col = col[col != names]
-        col = [names] + col.tolist()
+        tip = request.POST['name3']
+        if tip == 'Химический состав':
+            data.clusteringChemistry()
+            # col = data.GetName///()
+            size = data.GetSizeData()
+            sizeI = data.GetSizeChemistry()
+            data.SetType_cla(Include.CL_CHEMISTRY)
+            type = Include.CL_CHEMISTRY
+        else:
+            size = data.GetSizeZooplankton()
+            sizeI = data.GetSizeData()
+            data.clustering()
+            col = data.GetNameZooplankton()
+            data.SetType_cla(Include.CL_ZOOPLANKTON)
+            type = Include.CL_ZOOPLANKTON
 
-    return render(request, 'analysis/Clustering.html', {'Zooplankton': col, 'otvet': otvet, 'selec': names, 'size': size, 'sizeI': sizeI})
+    return render(request, 'analysis/Clustering.html', {'Zooplankton': col, 'otvet': otvet, 'selec': names, 'size': size, 'sizeI': sizeI, 'type': type})
+
+def ClusteringPr(request):
+    data = Data_analysis.Data_analysis()
+    size = data.GetSizeZooplankton()
+    sizeI = data.GetSizeData()
+    data.clustering()
+    otvet = []
+    names = ''
+    col = []
+    if request.method == 'POST':
+        type = data.GetType_cla()
+        if (type == Include.CL_ZOOPLANKTON):
+            col = data.GetNameZooplankton()
+            names = request.POST['name']
+            otvet = data.AnalysisClustering(names)
+            col = col[col != names]
+            col = [names] + col.tolist()
+        # else:
+        #     # col = data.GetName///()
+        #     names = request.POST['name']
+        #     otvet = data.AnalysisClustering(names)
+        #     col = col[col != names]
+        #     col = [names] + col.tolist()
+
+    return render(request, 'analysis/Clustering.html', {'Zooplankton': col, 'otvet': otvet, 'selec': names, 'size': size, 'sizeI': sizeI, 'type': type})
+
 
 def LSAstr(request):
 
@@ -175,7 +213,8 @@ def photoCorrelation(request):
 def photoClustrering(request):
     data = Data_analysis.Data_analysis()
     try:
-        buffer = data.drawDentogram(0)
+        type = data.GetType_cla()
+        buffer = data.drawDentogram(type)
     except:
         buffer = Include.io.BytesIO()
         print("Не удалось загрузить график")
