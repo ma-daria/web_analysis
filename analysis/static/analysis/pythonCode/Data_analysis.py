@@ -4,7 +4,6 @@ import time
 class Data_analysis(object):
     data = Data.Data()
     lsaData = DentogramLSA.DentogramLSA()
-    lsaChemistryData = DentogramLSA.DentogramLSA()
     clusteringData = DentogramClustering.DentogramClustering()
     clusteringChemistryData = DentogramClustering.DentogramClustering()
     correlationChemistryData = Correlation.Correlation()
@@ -14,7 +13,6 @@ class Data_analysis(object):
 
     type = 0
     type_cla = 0
-    type_lsa = 0
     list = []
 
     def __new__(cls):
@@ -34,7 +32,6 @@ class Data_analysis(object):
         self.correlationLSAData = Correlation.Correlation()
         self.type = 0
         self.type_cla = 0
-        self.type_lsa = 0
         self.list = []
 
     def GetType(self):
@@ -48,12 +45,6 @@ class Data_analysis(object):
 
     def SetType_cla(self, t):
         self.type_cla = t
-
-    def GetType_lsa(self):
-        return self.type_lsa
-
-    def SetType_lsa(self, t):
-        self.type_lsa = t
 
 
     def GetDataTable(self):
@@ -140,9 +131,6 @@ class Data_analysis(object):
         d = self.data.GetDataChemistryRes()
         return self.clusteringChemistryData.dentogram(d)
 
-    def lsaChemistry(self):
-        d = self.data.GetDataChemistryRes()
-        return self.lsaChemistryData.dentogram(d)
 
 
 
@@ -246,8 +234,6 @@ class Data_analysis(object):
             else:
                 if fl == 2:
                     return self.clusteringChemistryData.getPhoto()
-                else:
-                    return self.lsaChemistryData.getPhoto()
 
     def drawPairplot(self):
         time.sleep(2)  # вот этот говнокод, но я не знаю как решить. Там они паралельно запускаются похоже и мешают друг другу

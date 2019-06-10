@@ -13,7 +13,9 @@ class DentogramLSA(Dentogram.Dentogram):
         measurement = measurement.T
         measurement = Include.preprocessing.normalize(measurement)
         U, S, Vt = Include.np.linalg.svd(measurement)
-        k = int((self.col.size * 10)/100)
+        k = int((len(S) * 10)/100)
+        if k == 0:
+            k = 1
         U = U[:,0:k]
         S = S[0:k]
         Vt = Vt[0:k, :]
