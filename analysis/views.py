@@ -139,7 +139,7 @@ def ClusteringStr(request):
         tip = request.POST['name3']
         if tip == 'Химический состав':
             data.clusteringChemistry()
-            # col = data.GetName///()
+            col = data.GetNameChemistryRes()
             size = data.GetSizeData()
             sizeI = data.GetSizeChemistry()
             data.SetType_cla(Include.CL_CHEMISTRY)
@@ -164,18 +164,15 @@ def ClusteringPr(request):
     col = []
     if request.method == 'POST':
         type = data.GetType_cla()
+        names = request.POST['name']
         if (type == Include.CL_ZOOPLANKTON):
             col = data.GetNameZooplankton()
-            names = request.POST['name']
             otvet = data.AnalysisClustering(names)
-            col = col[col != names]
-            col = [names] + col.tolist()
-        # else:
-        #     # col = data.GetName///()
-        #     names = request.POST['name']
-        #     otvet = data.AnalysisClustering(names)
-        #     col = col[col != names]
-        #     col = [names] + col.tolist()
+        else:
+            col = data.GetNameChemistryRes()
+            otvet = data.AnalysisClusteringChemistry(names)
+        col = col[col != names]
+        col = [names] + col.tolist()
 
     return render(request, 'analysis/Clustering.html', {'Zooplankton': col, 'otvet': otvet, 'selec': names, 'size': size, 'sizeI': sizeI, 'type': type})
 

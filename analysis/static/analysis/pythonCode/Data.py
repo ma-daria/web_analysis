@@ -58,6 +58,16 @@ class Data(object):
         d = self.GetData()
         return d[name]
 
+    def GetDataChemistryRes(self):
+        dd = self.GetData()
+        d = self.GetDataChemistry()
+        d = d.T
+        cl = d.columns
+        for col in cl:
+            name = str(dd.loc[col, 'Водоем']) + '_' + str(dd.loc[col, 'Дата']) + '_' + str(dd.loc[col, 'Место измерения'])+ '_' + str(dd.loc[col, 'Описание точки измерения'])
+            d = d.rename(columns={col: name})
+        return d
+
 
     def GetNameChemistry(self):
         d = self.GetDataChemistry()
@@ -70,6 +80,11 @@ class Data(object):
     def GetNameAll(self):
         d = self.GetData()
         return d.columns
+
+    def GetNameChemistryRes(self):
+        d = self.GetDataChemistryRes()
+        return d.columns
+
 
     def GetSizeData(self):
         d = self.GetData()

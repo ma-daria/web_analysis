@@ -101,6 +101,8 @@ class Data_analysis(object):
     def GetNameAll(self):
         return self.data.GetNameAll()
 
+    def GetNameChemistryRes(self):
+        return self.data.GetNameChemistryRes()
 
     def CorrelationChemistry(self):
         d = self.data.GetDataChemistry()
@@ -128,7 +130,6 @@ class Data_analysis(object):
 
     def clustering(self):
         d = self.data.GetDataZooplankton()
-        print(d)
         return self.clusteringData.dentogram(d)
 
     def lsa(self):
@@ -136,12 +137,12 @@ class Data_analysis(object):
         return self.lsaData.dentogram(d)
 
     def clusteringChemistry(self):
-        d = self.data.GetDataChemistry()
-        return self.clusteringChemistryData.dentogram(d.T)
+        d = self.data.GetDataChemistryRes()
+        return self.clusteringChemistryData.dentogram(d)
 
     def lsaChemistry(self):
-        d = self.data.GetDataChemistry()
-        return self.lsaChemistryData.dentogram(d.T)
+        d = self.data.GetDataChemistryRes()
+        return self.lsaChemistryData.dentogram(d)
 
 
 
@@ -177,21 +178,27 @@ class Data_analysis(object):
         return self._createMasMax(ress)
 
     def AnalysisClustering(self, names):
-        id = self._Search(names)
+
         cl = self.clustering()
         col = self.data.GetNameZooplankton()
+        id = self._Search(names, col)
         return self.clusteringData.GropupClustering(cl, id, col.size, col)
 
     def AnalysisLSA(self, names):
-        id = self._Search(names)
         cl = self.lsa()
         col = self.data.GetNameZooplankton()
+        id = self._Search(names, col)
         return self.lsaData.GropupClustering(cl, id, col.size, col)
 
+    def AnalysisClusteringChemistry(self, names):
+        cl = self.clusteringChemistry()
+        col = self.data.GetNameChemistryRes()
+        id = self._Search(names, col)
+        return self.clusteringChemistryData.GropupClustering(cl, id, col.size, col)
 
 
-    def _Search(self, names):
-        col = self.data.GetNameZooplankton()
+
+    def _Search(self, names, col):
         i = 0
         for i in range(col.size):
             if col[i] == names:
