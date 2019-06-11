@@ -1,4 +1,5 @@
 from analysis.static.analysis.pythonCode import Include
+from django.conf import settings
 import time
 
 class Correlation(object):
@@ -21,12 +22,12 @@ class Correlation(object):
             correlation_mod[name] = correlati[name]
         return correlation_mod
 
-    def getPhoto(self, size):
+    def getPhoto(self, size, name):
         if self.buffer == []:
-            self.drаw(size)
+            self.drаw(size, name)
         return self.buffer
 
-    def drаw(self, size):
+    def drаw(self, size, name):
         if (size == 20):
             time.sleep(4)  # вот этот говнокод, но я не знаю как решить. Там они паралельно запускаются похоже и мешают друг другу
 
@@ -35,6 +36,7 @@ class Correlation(object):
         Include.sns.heatmap(self.data, cmap=mapPalette, vmin=-1, vmax=1)
         self.buffer = Include.io.BytesIO()
         Include.plt.savefig(self.buffer, format='png')
+        Include.plt.savefig(str(settings.STATIC_ROOT_A) + "/analysis/img/" + name)
 
 
     def corMax(self):

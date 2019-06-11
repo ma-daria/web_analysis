@@ -213,27 +213,27 @@ class Data_analysis(object):
 
     def drawCorrelation(self, fl):
         if fl == 0:
-            return self.correlationChemistryData.getPhoto(10)
+            return self.correlationChemistryData.getPhoto(10, "correlationChemistry.png")
         else:
             if fl == 1:
-                return self.correlationZooplanktonData.getPhoto(25)
+                return self.correlationZooplanktonData.getPhoto(25, 'correlationZooplankton.png')
             else:
                 if fl == 2:
-                    return self.correlationMixData.getPhoto(15)
+                    return self.correlationMixData.getPhoto(15, 'correlationMix.png')
                 else:
-                    return self.correlationLSAData.getPhoto(20)
+                    return self.correlationLSAData.getPhoto(20, 'correlationLSA.png')
 
 
 
     def drawDentogram(self, fl):
         if fl == 0:
-            return self.clusteringData.getPhoto()
+            return self.clusteringData.getPhoto('clustering.png')
         else:
             if fl == 1:
-                return self.lsaData.getPhoto()
+                return self.lsaData.getPhoto('lsa.png')
             else:
                 if fl == 2:
-                    return self.clusteringChemistryData.getPhoto()
+                    return self.clusteringChemistryData.getPhoto('clusteringChemistry.png')
 
     def drawPairplot(self):
         time.sleep(2)  # вот этот говнокод, но я не знаю как решить. Там они паралельно запускаются похоже и мешают друг другу

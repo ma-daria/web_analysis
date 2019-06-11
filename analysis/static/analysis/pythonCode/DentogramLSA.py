@@ -1,5 +1,4 @@
 from analysis.static.analysis.pythonCode import Include, Dentogram
-from django.conf import settings
 
 class DentogramLSA(Dentogram.Dentogram):
     mass = []
@@ -23,7 +22,6 @@ class DentogramLSA(Dentogram.Dentogram):
         A_ = Include.np.dot(U_S, Vt)
         self.mass = A_
         cl = self._ClusteringMetod(A_, 0.2, self.col)
-        # Include.plt.savefig(str(settings.STATIC_ROOT_A) + "/analysis/image/LSA.png")
         return cl
 
     def GetMass(self):
