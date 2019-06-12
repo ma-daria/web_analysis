@@ -75,9 +75,6 @@ class Dentogram(object):
         return ZZ
 
     def Group(self, Z, r, size, col):
-
-
-
         ZZ = self._createMas(Z)
         ZZ = ZZ[ZZ[2] <= r]
         global us_couples

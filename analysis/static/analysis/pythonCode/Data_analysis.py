@@ -178,6 +178,12 @@ class Data_analysis(object):
         id = self._Search(names, col)
         return self.lsaData.GropupClustering(cl, id, col.size, col)
 
+    def GroupLSA(self, val):
+        cl = self.lsa()
+        col = self.data.GetNameZooplankton()
+        return self.lsaData.Group(cl, val, col.size, col)
+
+
     def AnalysisClusteringChemistry(self, names):
         cl = self.clusteringChemistry()
         col = self.data.GetNameChemistryRes()

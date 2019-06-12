@@ -11,6 +11,7 @@ urlpatterns = [
     path('Clustering', views.ClusteringStr, name='Clustering'),
     path('PrintListClustering', views.ClusteringPr, name='PrintListClustering'),
     path('LSA', views.LSAstr, name='LSA'),
+    path('LSAgroup', views.LSAgroup, name='LSAgroup'),
     path('Correlation.png', views.photoCorrelation, name='photoCorrelation'),
     path('Clustrering.png', views.photoClustrering, name='photoClustrering'),
     path('LSA.png', views.photoLSA, name='photoLSA'),

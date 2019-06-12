@@ -184,15 +184,34 @@ def LSAstr(request):
     size = data.GetSizeZooplankton()
     data.lsa()
     otvet = []
+    otvet2 = []
     col = data.GetNameZooplankton()
     data.CorrelationLSA()
+    val = str(0.2)
     if request.method == 'POST':
         names = request.POST['name']
         otvet = data.AnalysisLSA(names)
         col = col[col != names]
         col = [names] + col.tolist()
 
-    return render(request, 'analysis/LSA.html', {'Zooplankton': col, 'otvet': otvet, 'size': size, 'sizeI': sizeI})
+    return render(request, 'analysis/LSA.html', {'Zooplankton': col, 'otvet': otvet, 'otvet2': otvet2,'size': size, 'sizeI': sizeI, 'val': val})
+
+
+def LSAgroup(request):
+    data = Data_analysis.Data_analysis()
+    sizeI = data.GetSizeData()
+    size = data.GetSizeZooplankton()
+    data.lsa()
+    otvet = []
+    otvet2 = []
+    col = data.GetNameZooplankton()
+    data.CorrelationLSA()
+    val = str(0.2)
+    if request.method == 'POST':
+        val = request.POST['name']
+        otvet2 = data.GroupLSA( float(val))
+
+    return render(request, 'analysis/LSA.html',{'Zooplankton': col, 'otvet': otvet, 'otvet2': otvet2, 'size': size, 'sizeI': sizeI, 'val': val})
 
 def photoCorrelation(request):
     data = Data_analysis.Data_analysis()
