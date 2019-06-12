@@ -92,7 +92,9 @@ class Dentogram(object):
         global otvet
         otvet = []
 
-        for i in range(ZZ['id'].size):
+        for i in range(ZZ['id'].size + 1):
+            if i == 0:
+                i = 1
             if ZZ.iloc[~i, 0] >= size:
                 # if us_couples.loc[us_couples['id'] == ZZ.iloc[~i, 0], 'fl'] == "True":
                 if us_couples.loc[ZZ.iloc[~i, 0] - size, 'fl'] == "True":
@@ -110,8 +112,8 @@ class Dentogram(object):
                 if us_options.loc[ZZ.iloc[~i, 0], 'fl'] == "True":
                     break
             st = self._serGr(-i, ZZ, size, col)
-            st = st + self._options(col)
             otvet.append(st)
+        self._options(col)
 
         return otvet
 
@@ -119,10 +121,11 @@ class Dentogram(object):
     def _options(self, col):
         st = ''
         global us_options
+        global otvet
         for i in us_options['id']:
             if us_options.loc[i, 'fl'] == "False":
-                st=st + col[us_options.loc[i,'id']] +" | "
-        return st
+                st=col[us_options.loc[i,'id']]
+                otvet.append(st)
 
 
     def _serGr(self, i, ZZ, size, col):
@@ -142,14 +145,14 @@ class Dentogram(object):
             # us_couples.loc[us_couples['id'] == ZZ.iloc[~i, 1], 'fl'] = "True"
             st2 = self._serGr(ZZ.iloc[i, 1] - size, ZZ, size, col)
         else:
-            us_options.loc[ZZ.iloc[i, 0], 'fl'] = "True"
+            us_options.loc[ZZ.iloc[i, 1], 'fl'] = "True"
             # us_options.loc[us_options['id'] == ZZ.iloc[~i, 0], 'fl'] = "True"
             st2 = self._saveGr(ZZ.iloc[i, 1], col)
 
         return st1+st2
 
     def _saveGr(self, id, col):
-        return str(col[id])+" | "
+        return str(col[id])+" || "
 
 
 
