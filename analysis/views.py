@@ -135,6 +135,8 @@ def ClusteringStr(request):
     names = ''
     col = data.GetNameZooplankton()
     type = Include.CL_ZOOPLANKTON
+    otvet2 = []
+    val = str(0.2)
     if request.method == 'POST':
         tip = request.POST['name3']
         if tip == 'Химический состав':
@@ -152,7 +154,7 @@ def ClusteringStr(request):
             data.SetType_cla(Include.CL_ZOOPLANKTON)
             type = Include.CL_ZOOPLANKTON
 
-    return render(request, 'analysis/Clustering.html', {'Zooplankton': col, 'otvet': otvet, 'selec': names, 'size': size, 'sizeI': sizeI, 'type': type})
+    return render(request, 'analysis/Clustering.html', {'Zooplankton': col, 'otvet': otvet, 'selec': names, 'size': size, 'sizeI': sizeI, 'type': type, 'otvet2': otvet2, 'val': val})
 
 def ClusteringPr(request):
     data = Data_analysis.Data_analysis()
@@ -162,6 +164,8 @@ def ClusteringPr(request):
     otvet = []
     names = ''
     col = []
+    otvet2 = []
+    val = str(0.2)
     if request.method == 'POST':
         type = data.GetType_cla()
         names = request.POST['name']
@@ -174,8 +178,28 @@ def ClusteringPr(request):
         col = col[col != names]
         col = [names] + col.tolist()
 
-    return render(request, 'analysis/Clustering.html', {'Zooplankton': col, 'otvet': otvet, 'selec': names, 'size': size, 'sizeI': sizeI, 'type': type})
+    return render(request, 'analysis/Clustering.html', {'Zooplankton': col, 'otvet': otvet, 'selec': names, 'size': size, 'sizeI': sizeI, 'type': type, 'otvet2': otvet2, 'val': val})
 
+def CLUSgroup(request):
+    data = Data_analysis.Data_analysis()
+    size = data.GetSizeZooplankton()
+    sizeI = data.GetSizeData()
+    data.clustering()
+    otvet = []
+    names = ''
+    col = []
+    val = str(0.2)
+    otvet2 = []
+    type = 0
+    if request.method == 'POST':
+        type = data.GetType_cla()
+        val = request.POST['name']
+        if (type == Include.CL_ZOOPLANKTON):
+            otvet2 = data.GroupClustering(float(val))
+        else:
+            otvet2 = data.GroupClusteringChemistry(float(val))
+
+    return render(request, 'analysis/Clustering.html', {'Zooplankton': col, 'otvet': otvet, 'selec': names, 'size': size, 'sizeI': sizeI, 'type': type,'otvet2': otvet2, 'val': val})
 
 def LSAstr(request):
 
@@ -209,7 +233,7 @@ def LSAgroup(request):
     val = str(0.2)
     if request.method == 'POST':
         val = request.POST['name']
-        otvet2 = data.GroupLSA( float(val))
+        otvet2 = data.GroupLSA(float(val))
 
     return render(request, 'analysis/LSA.html',{'Zooplankton': col, 'otvet': otvet, 'otvet2': otvet2, 'size': size, 'sizeI': sizeI, 'val': val})
 

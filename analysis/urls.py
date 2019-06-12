@@ -10,6 +10,7 @@ urlpatterns = [
     path('PrintListCorrelation', views.PrintListCorrelation, name='PrintListCorrelation'),
     path('Clustering', views.ClusteringStr, name='Clustering'),
     path('PrintListClustering', views.ClusteringPr, name='PrintListClustering'),
+    path('CLUSgroup', views.CLUSgroup, name='CLUSgroup'),
     path('LSA', views.LSAstr, name='LSA'),
     path('LSAgroup', views.LSAgroup, name='LSAgroup'),
     path('Correlation.png', views.photoCorrelation, name='photoCorrelation'),

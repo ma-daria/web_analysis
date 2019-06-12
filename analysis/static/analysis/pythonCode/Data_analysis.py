@@ -166,7 +166,6 @@ class Data_analysis(object):
         return self._createMasMax(ress)
 
     def AnalysisClustering(self, names):
-
         cl = self.clustering()
         col = self.data.GetNameZooplankton()
         id = self._Search(names, col)
@@ -182,6 +181,16 @@ class Data_analysis(object):
         cl = self.lsa()
         col = self.data.GetNameZooplankton()
         return self.lsaData.Group(cl, val, col.size, col)
+
+    def GroupClustering(self, val):
+        cl = self.clustering()
+        col = self.data.GetNameZooplankton()
+        return self.clusteringData.Group(cl, val, col.size, col)
+
+    def GroupClusteringChemistry(self, val):
+        cl = self.clusteringChemistry()
+        col = self.data.GetNameChemistryRes()
+        return self.clusteringChemistryData.Group(cl, val, col.size, col)
 
 
     def AnalysisClusteringChemistry(self, names):
