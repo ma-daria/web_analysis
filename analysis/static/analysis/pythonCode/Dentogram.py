@@ -37,7 +37,6 @@ class Dentogram(object):
             return st
 
     def GropupClustering(self, Z, id, size, col):
-        print(self.Group(Z, 0.9, size, col))
         ZZ = self._createMas(Z)
         global otvet
         otvet = []
