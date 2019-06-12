@@ -172,9 +172,13 @@ def ClusteringPr(request):
         if (type == Include.CL_ZOOPLANKTON):
             col = data.GetNameZooplankton()
             otvet = data.AnalysisClustering(names)
+            size = data.GetSizeZooplankton()
+            sizeI = data.GetSizeData()
         else:
             col = data.GetNameChemistryRes()
             otvet = data.AnalysisClusteringChemistry(names)
+            size = data.GetSizeData()
+            sizeI = data.GetSizeChemistry()
         col = col[col != names]
         col = [names] + col.tolist()
 
@@ -196,8 +200,14 @@ def CLUSgroup(request):
         val = request.POST['name']
         if (type == Include.CL_ZOOPLANKTON):
             otvet2 = data.GroupClustering(float(val))
+            size = data.GetSizeZooplankton()
+            sizeI = data.GetSizeData()
+            col = data.GetNameZooplankton()
         else:
             otvet2 = data.GroupClusteringChemistry(float(val))
+            size = data.GetSizeData()
+            sizeI = data.GetSizeChemistry()
+            col = data.GetNameChemistryRes()
 
     return render(request, 'analysis/Clustering.html', {'Zooplankton': col, 'otvet': otvet, 'selec': names, 'size': size, 'sizeI': sizeI, 'type': type,'otvet2': otvet2, 'val': val})
 

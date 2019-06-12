@@ -76,7 +76,10 @@ class Dentogram(object):
 
     def Group(self, Z, r, size, col):
         ZZ = self._createMas(Z)
+        print(ZZ[ZZ[0] == 274])
+        print(ZZ[ZZ[1] == 274])
         ZZ = ZZ[ZZ[2] <= r]
+
         global us_couples
         us_couples = Include.pd.DataFrame(ZZ['id'])
         us_couples['fl'] = "False"
@@ -92,27 +95,30 @@ class Dentogram(object):
         global otvet
         otvet = []
 
-        for i in range(ZZ['id'].size + 1):
+        for i in range(ZZ['id'].size):
+            ind = 0
             if i == 0:
-                i = 1
-            if ZZ.iloc[~i, 0] >= size:
-                # if us_couples.loc[us_couples['id'] == ZZ.iloc[~i, 0], 'fl'] == "True":
-                if us_couples.loc[ZZ.iloc[~i, 0] - size, 'fl'] == "True":
-                    break
+                ind = 1
             else:
-                # if us_options.loc[us_options['id'] == ZZ.iloc[~i, 0], 'fl'] == "True":
-                if us_options.loc[ZZ.iloc[~i, 0], 'fl'] == "True":
-                    break
-            if ZZ.iloc[~i, 1] >= size:
-                # if us_couples.loc[us_couples['id'] == ZZ.iloc[~i, 1], 'fl'] == "True":
-                if us_couples.loc[ZZ.iloc[~i, 1] - size, 'fl'] == "True":
-                    break
-            else:
-                # if us_options.loc[us_options['id'] == ZZ.iloc[~i, 0], 'fl'] == "True":
-                if us_options.loc[ZZ.iloc[~i, 0], 'fl'] == "True":
-                    break
-            st = self._serGr(-i, ZZ, size, col)
-            otvet.append(st)
+                if ZZ.iloc[~i, 0] >= size:
+                    # if us_couples.loc[us_couples['id'] == ZZ.iloc[~i, 0], 'fl'] == "True":
+                    if us_couples.loc[ZZ.iloc[~i, 0] - size, 'fl'] == "True":
+                        ind = 1
+                else:
+                    # if us_options.loc[us_options['id'] == ZZ.iloc[~i, 0], 'fl'] == "True":
+                    if us_options.loc[ZZ.iloc[~i, 0], 'fl'] == "True":
+                        ind = 1
+                if ZZ.iloc[~i, 1] >= size:
+                    # if us_couples.loc[us_couples['id'] == ZZ.iloc[~i, 1], 'fl'] == "True":
+                    if us_couples.loc[ZZ.iloc[~i, 1] - size, 'fl'] == "True":
+                        ind = 1
+                else:
+                    # if us_options.loc[us_options['id'] == ZZ.iloc[~i, 0], 'fl'] == "True":
+                    if us_options.loc[ZZ.iloc[~i, 0], 'fl'] == "True":
+                        ind = 1
+            if ind == 0:
+                st = self._serGr(-i, ZZ, size, col)
+                otvet.append(st)
         self._options(col)
 
         return otvet
