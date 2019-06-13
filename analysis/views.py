@@ -75,11 +75,11 @@ def Correlation(request):
                 size = data.GetSizeZooplankton()
                 corMax = data.CorrelationMaxZooplankton()
             else:
+                data.SetList(list)
                 data.SetType(Include.MIX)
                 id = Include.MIX
                 data.CorrelationMix(list)
                 col = list
-                data.SetList(list)
                 size = data.GetSizeMix()
                 corMax = data.CorrelationMaxMix()
 
@@ -285,7 +285,7 @@ def photoPairplot(request):
     data = Data_analysis.Data_analysis()
     if data.GetType() == Include.MIX:
         try:
-            buffer = data.drawPairplot()
+            buffer = data.drawPairplotDescription()
         except:
             buffer = Include.io.BytesIO()
             print("Не удалось загрузить график")
@@ -300,7 +300,7 @@ def photoPairplot2(request):
     data = Data_analysis.Data_analysis()
     if data.GetType() == Include.MIX:
         try:
-            buffer = data.drawPairplot2()
+            buffer = data.drawPairplotPlace()
         except:
             buffer = Include.io.BytesIO()
             print("Не удалось загрузить график")

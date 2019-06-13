@@ -1,5 +1,4 @@
-from analysis.static.analysis.pythonCode import Include, DentogramLSA, DentogramClustering, Correlation, Data
-import time
+from analysis.static.analysis.pythonCode import Include, DentogramLSA, DentogramClustering, Correlation, Data, Pairplot
 
 class Data_analysis(object):
     data = Data.Data()
@@ -10,6 +9,8 @@ class Data_analysis(object):
     correlationZooplanktonData = Correlation.Correlation()
     correlationMixData = Correlation.Correlation()
     correlationLSAData = Correlation.Correlation()
+    pairplotDescriptionData = Pairplot.Pairplot()
+    pairplotPlaceData = Pairplot.Pairplot()
 
     type = 0
     type_cla = 0
@@ -30,6 +31,8 @@ class Data_analysis(object):
         self.correlationZooplanktonData = Correlation.Correlation()
         self.correlationMixData = Correlation.Correlation()
         self.correlationLSAData = Correlation.Correlation()
+        self.pairplotDescriptionData = Pairplot.Pairplot()
+        self.pairplotPlaceData = Pairplot.Pairplot()
         self.type = 0
         self.type_cla = 0
         self.list = []
@@ -97,16 +100,24 @@ class Data_analysis(object):
 
     def CorrelationChemistry(self):
         d = self.data.GetDataChemistry()
-        return self.correlationChemistryData.correlation(d)
+        otv = self.correlationChemistryData.correlation(d)
+        self.drawCorrelation(0)
+        return otv
 
     def CorrelationZooplankton(self):
         d = self.data.GetDataZooplankton()
-        return self.correlationZooplanktonData.correlation(d)
+        otv = self.correlationZooplanktonData.correlation(d)
+        self.drawCorrelation(1)
+        return otv
 
     def CorrelationMix(self, name):
         d = self.data.GetDataMix(name)
         self.correlationMixData = Correlation.Correlation()
-        return self.correlationMixData.correlation(d)
+        otv = self.correlationMixData.correlation(d)
+        self.drawCorrelation(2)
+        self.drawPairplotDescription()
+        self.drawPairplotPlace()
+        return otv
 
     def CorrelationLSA(self):
         da = self.lsaData.GetMass()
@@ -117,19 +128,27 @@ class Data_analysis(object):
         for n in name:
             d = d.rename(columns={i: n})
             i = i + 1
-        return self.correlationLSAData.correlation(d)
+        otv = self.correlationLSAData.correlation(d)
+        self.drawCorrelation(3)
+        return otv
 
     def clustering(self):
         d = self.data.GetDataZooplankton()
-        return self.clusteringData.dentogram(d)
+        otv = self.clusteringData.dentogram(d)
+        self.drawDentogram(0)
+        return otv
 
     def lsa(self):
         d = self.data.GetDataZooplankton()
-        return self.lsaData.dentogram(d)
+        otv = self.lsaData.dentogram(d)
+        self.drawDentogram(1)
+        return otv
 
     def clusteringChemistry(self):
         d = self.data.GetDataChemistryRes()
-        return self.clusteringChemistryData.dentogram(d)
+        otv = self.clusteringChemistryData.dentogram(d)
+        self.drawDentogram(2)
+        return otv
 
 
 
@@ -228,46 +247,35 @@ class Data_analysis(object):
 
     def drawCorrelation(self, fl):
         if fl == 0:
-            return self.correlationChemistryData.getPhoto(10, "correlationChemistry.png")
+            return self.correlationChemistryData.getPhoto(10)
         else:
             if fl == 1:
-                return self.correlationZooplanktonData.getPhoto(25, 'correlationZooplankton.png')
+                return self.correlationZooplanktonData.getPhoto(25)
             else:
                 if fl == 2:
-                    return self.correlationMixData.getPhoto(15, 'correlationMix.png')
+                    return self.correlationMixData.getPhoto(15)
                 else:
-                    return self.correlationLSAData.getPhoto(20, 'correlationLSA.png')
+                    return self.correlationLSAData.getPhoto(20)
 
 
 
     def drawDentogram(self, fl):
         if fl == 0:
-            return self.clusteringData.getPhoto('clustering.png')
+            return self.clusteringData.getPhoto()
         else:
             if fl == 1:
-                return self.lsaData.getPhoto('lsa.png')
+                return self.lsaData.getPhoto()
             else:
                 if fl == 2:
-                    return self.clusteringChemistryData.getPhoto('clusteringChemistry.png')
+                    return self.clusteringChemistryData.getPhoto()
 
-    def drawPairplot(self):
-        time.sleep(2)  # вот этот говнокод, но я не знаю как решить. Там они паралельно запускаются похоже и мешают друг другу
-        tic = time.time()
+    def drawPairplotDescription(self):
         dat = self.data.GetDataMix(self.list)
-        dat[ 'Описание точки измерения'] = self.data.GetDataMix(['Описание точки измерения'])
-        sns_plot = Include.sns.pairplot(dat, hue='Описание точки измерения')
-        buffer = Include.io.BytesIO()
-        sns_plot.savefig(buffer, format='png')
-        toc = time.time()
-        print(toc - tic)
-        return buffer
+        dat['Описание точки измерения'] = self.data.GetDataMix(['Описание точки измерения'])
+        return self.pairplotDescriptionData.pairplot(dat, 'Описание точки измерения')
 
-    def drawPairplot2(self):
-        time.sleep(7)  # вот этот говнокод, но я не знаю как решить. Там они паралельно запускаются похоже и мешают друг другу
+    def drawPairplotPlace(self):
         dat = self.data.GetDataMix(self.list)
-        dat[ 'Место измерения'] = self.data.GetDataMix(['Место измерения'])
-        sns_plot = Include.sns.pairplot(dat, hue='Место измерения')
-        buffer = Include.io.BytesIO()
-        sns_plot.savefig(buffer, format='png')
-        return buffer
+        dat['Место измерения'] = self.data.GetDataMix(['Место измерения'])
+        return self.pairplotPlaceData.pairplot(dat, 'Место измерения')
 
