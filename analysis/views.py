@@ -10,7 +10,6 @@ import os
 
 def index(request):
     if request.method == 'POST':
-
         folder = settings.MEDIA_ROOT
         for the_file in os.listdir(folder):
             file_path = os.path.join(folder, the_file)
@@ -20,14 +19,12 @@ def index(request):
                 # elif os.path.isdir(file_path): shutil.rmtree(file_path)
             except Exception as e:
                 print(e)
-
         file = request.FILES['document']
         fs = FileSystemStorage()
         fs.save(file.name, file)
         data = Data_analysis.Data_analysis()
         data.readFile(str(settings.MEDIA_ROOT) + '/' + str(file))
         return redirect('/table')
-
     return render(request, 'analysis/index.html')
 
 def table(request):
@@ -52,9 +49,7 @@ def Correlation(request):
     colS = col1.tolist() + col2.tolist()
     corMax = data.CorrelationMaxChemistry()
     id = data.GetType()
-
     size = data.GetSizeChemistry()
-
     if request.method == 'POST':
         list = request.POST.getlist('states[]')
         tip = request.POST['name3']
@@ -81,12 +76,9 @@ def Correlation(request):
                 col = list
                 size = data.GetSizeMix()
                 corMax = data.CorrelationMaxMix()
-
-
     return render(request, 'analysis/Correlation.html', {'col': col, 'colS':colS, 'otvet': otvet, 'form': form, 'type': id, 'size': size, 'sizeI': sizeI, 'corMax': corMax})
 
 def PrintListCorrelation(request):
-
     data = Data_analysis.Data_analysis()
     size = data.GetSizeChemistry()
     form=[]
@@ -100,7 +92,6 @@ def PrintListCorrelation(request):
     col2 = data.GetNameZooplankton()
     colS = col1.tolist() + col2.tolist()
     corMax = []
-
     if request.method == 'POST':
         names = request.POST['name']
         if type == Include.CHEMISTRY:
@@ -121,7 +112,6 @@ def PrintListCorrelation(request):
                 corMax = data.CorrelationMaxMix()
         col = col[col != names]
         col = [names] + col.tolist()
-
     return render(request, 'analysis/Correlation.html', {'col': col, 'colS':colS, 'otvet': otvet, 'form': form, 'type': type, 'size': size, 'sizeI': sizeI, 'corMax': corMax})
 
 
@@ -152,7 +142,6 @@ def ClusteringStr(request):
             col = data.GetNameZooplankton()
             data.SetType_cla(Include.CL_ZOOPLANKTON)
             type = Include.CL_ZOOPLANKTON
-
     return render(request, 'analysis/Clustering.html', {'Zooplankton': col, 'otvet': otvet, 'selec': names, 'size': size, 'sizeI': sizeI, 'type': type, 'otvet2': otvet2, 'val': val})
 
 def ClusteringPr(request):
@@ -180,7 +169,6 @@ def ClusteringPr(request):
             sizeI = data.GetSizeChemistry()
         col = col[col != names]
         col = [names] + col.tolist()
-
     return render(request, 'analysis/Clustering.html', {'Zooplankton': col, 'otvet': otvet, 'selec': names, 'size': size, 'sizeI': sizeI, 'type': type, 'otvet2': otvet2, 'val': val})
 
 def CLUSgroup(request):
@@ -207,11 +195,9 @@ def CLUSgroup(request):
             size = data.GetSizeData()
             sizeI = data.GetSizeChemistry()
             col = data.GetNameChemistryRes()
-
     return render(request, 'analysis/Clustering.html', {'Zooplankton': col, 'otvet': otvet, 'selec': names, 'size': size, 'sizeI': sizeI, 'type': type,'otvet2': otvet2, 'val': val})
 
 def LSAstr(request):
-
     data = Data_analysis.Data_analysis()
     sizeI = data.GetSizeData()
     size = data.GetSizeZooplankton()
@@ -226,7 +212,6 @@ def LSAstr(request):
         otvet = data.AnalysisLSA(names)
         col = col[col != names]
         col = [names] + col.tolist()
-
     return render(request, 'analysis/LSA.html', {'Zooplankton': col, 'otvet': otvet, 'otvet2': otvet2,'size': size, 'sizeI': sizeI, 'val': val})
 
 
@@ -243,7 +228,6 @@ def LSAgroup(request):
     if request.method == 'POST':
         val = request.POST['name']
         otvet2 = data.GroupLSA(float(val))
-
     return render(request, 'analysis/LSA.html',{'Zooplankton': col, 'otvet': otvet, 'otvet2': otvet2, 'size': size, 'sizeI': sizeI, 'val': val})
 
 def photoCorrelation(request):
