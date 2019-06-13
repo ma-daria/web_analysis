@@ -7,7 +7,6 @@ class DentogramLSA(Dentogram.Dentogram):
         super().__init__()
 
     def _toDo(self, measurement):
-        self.index = 0.2
         self.col = measurement.columns
         measurement = measurement.T
         measurement = Include.preprocessing.normalize(measurement)
@@ -21,7 +20,7 @@ class DentogramLSA(Dentogram.Dentogram):
         U_S = Include.np.multiply(S, U)
         A_ = Include.np.dot(U_S, Vt)
         self.mass = A_
-        cl = self._ClusteringMetod(A_, 0.2, self.col)
+        cl = self._ClusteringMetod(A_)
         return cl
 
     def GetMass(self):

@@ -4,7 +4,6 @@ class Dentogram(object):
     def __init__(self):
         self.data = Include.np.asarray([])
         self.buffer = []
-        self.index = 0
         self.col = Include.np.asarray([])
         self.otvet = []
         self.us_couples = Include.np.asarray([])
@@ -19,7 +18,7 @@ class Dentogram(object):
     def _toDo(self, measurement):
         return []
 
-    def _ClusteringMetod(self, measurement, index, col):
+    def _ClusteringMetod(self, measurement):
         distance_mat = Include.distance.pdist(measurement, 'cosine')
         Z = Include.hierarchy.linkage(distance_mat, 'single', metric='cosine')
         return Z
@@ -146,14 +145,14 @@ class Dentogram(object):
 
 
 
-    def getPhoto(self):
+    def getPhoto(self, index):
         if self.buffer == []:
-            self._draw()
+            self._draw(index)
         return self.buffer
 
-    def _draw(self):
+    def _draw(self, index):
         Include.plt.figure(figsize=(20, 15), dpi=200)
-        dn = Include.hierarchy.dendrogram(self.data, labels=self.col, color_threshold=self.index)
+        dn = Include.hierarchy.dendrogram(self.data, labels=self.col, color_threshold=index)
         self.buffer = Include.io.BytesIO()
         Include.plt.savefig(self.buffer, format='png')
 

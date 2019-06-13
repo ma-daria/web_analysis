@@ -257,13 +257,13 @@ class Data_analysis(object):
 
     def drawDentogram(self, fl):
         if fl == 0:
-            return self.clusteringData.getPhoto()
+            return self.clusteringData.getPhoto(0.5)
         else:
             if fl == 1:
-                return self.lsaData.getPhoto()
+                return self.lsaData.getPhoto(0.2)
             else:
                 if fl == 2:
-                    return self.clusteringChemistryData.getPhoto()
+                    return self.clusteringChemistryData.getPhoto(0.021)
 
     def drawPairplotDescription(self):
         dat = self.data.GetDataMix(self.list)
