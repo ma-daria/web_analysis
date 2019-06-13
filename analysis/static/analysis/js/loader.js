@@ -11,10 +11,12 @@ function hide_loader(){
 }
 
 $('#but').click(function () {
+
     show_loader();
 });
 
-$('.dropdown-item').click(function () {
+$('.nav-item').click(function () {
+    console.log('wow');
     show_loader();
 });
 
