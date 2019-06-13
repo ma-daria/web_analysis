@@ -98,23 +98,26 @@ class Dentogram(object):
             if i == 0:
                 ind = 1
             else:
-                if ZZ.iloc[~i, 0] >= size:
+                if us_couples.iloc[-i, 1] == "True":
+                    ind = 1
+                if ZZ.iloc[-i, 0] >= size:
                     # if us_couples.loc[us_couples['id'] == ZZ.iloc[~i, 0], 'fl'] == "True":
-                    if us_couples.loc[ZZ.iloc[~i, 0] - size, 'fl'] == "True":
+                    if us_couples.loc[ZZ.iloc[-i, 0] - size, 'fl'] == "True":
                         ind = 1
                 else:
                     # if us_options.loc[us_options['id'] == ZZ.iloc[~i, 0], 'fl'] == "True":
-                    if us_options.loc[ZZ.iloc[~i, 0], 'fl'] == "True":
+                    if us_options.loc[ZZ.iloc[-i, 0], 'fl'] == "True":
                         ind = 1
-                if ZZ.iloc[~i, 1] >= size:
+                if ZZ.iloc[-i, 1] >= size:
                     # if us_couples.loc[us_couples['id'] == ZZ.iloc[~i, 1], 'fl'] == "True":
-                    if us_couples.loc[ZZ.iloc[~i, 1] - size, 'fl'] == "True":
+                    if us_couples.loc[ZZ.iloc[-i, 1] - size, 'fl'] == "True":
                         ind = 1
                 else:
                     # if us_options.loc[us_options['id'] == ZZ.iloc[~i, 0], 'fl'] == "True":
-                    if us_options.loc[ZZ.iloc[~i, 0], 'fl'] == "True":
+                    if us_options.loc[ZZ.iloc[-i, 1], 'fl'] == "True":
                         ind = 1
             if ind == 0:
+                us_couples.iloc[-i, 1] = "True"
                 st = self._serGr(-i, ZZ, size, col)
                 otvet.append(st)
         self._options(col)
