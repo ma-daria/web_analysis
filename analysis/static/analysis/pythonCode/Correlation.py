@@ -43,7 +43,6 @@ class Correlation(object):
         while (mod.max()).max() >= 0.7:
             id1 = (mod.max()).idxmax()
             id2 = (mod.idxmax())[(mod.max()).idxmax()]
-            # print(id1, ' - ', id2, ' - ', ma.loc[id1, id2])
             otv.loc[i, 0] = id1
             otv.loc[i, 1] = id2
             otv.loc[i, 2] = ma.loc[id1, id2]

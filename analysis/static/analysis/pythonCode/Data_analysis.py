@@ -37,6 +37,14 @@ class Data_analysis(object):
         self.type_cla = 0
         self.list = []
 
+
+    def SetType_cla(self, t):
+        self.type_cla = t
+
+    def SetList(self, li):
+        self.list = li
+
+
     def GetType(self):
         return self.type
 
@@ -45,10 +53,6 @@ class Data_analysis(object):
 
     def GetType_cla(self):
         return self.type_cla
-
-    def SetType_cla(self, t):
-        self.type_cla = t
-
 
     def GetDataTable(self):
         meas = []
@@ -74,17 +78,8 @@ class Data_analysis(object):
     def GetSizeMix(self):
         return len(self.list)
 
-
     def GetList(self):
         return self.list
-
-    def SetList(self, li):
-        self.list = li
-
-
-    def readFile(self, name):
-        self.newCl()
-        return self.data.readFile(name)
 
     def GetNameChemistry(self):
         return self.data.GetNameChemistry()
@@ -97,6 +92,12 @@ class Data_analysis(object):
 
     def GetNameChemistryRes(self):
         return self.data.GetNameChemistryRes()
+
+
+    def readFile(self, name):
+        self.newCl()
+        return self.data.readFile(name)
+
 
     def CorrelationChemistry(self):
         d = self.data.GetDataChemistry()
@@ -132,6 +133,7 @@ class Data_analysis(object):
         self.drawCorrelation(3)
         return otv
 
+
     def clustering(self):
         d = self.data.GetDataZooplankton()
         otv = self.clusteringData.dentogram(d)
@@ -149,9 +151,6 @@ class Data_analysis(object):
         otv = self.clusteringChemistryData.dentogram(d)
         self.drawDentogram(2)
         return otv
-
-
-
 
 
     def AnalysisCorrelationChemistry(self, name):
@@ -172,6 +171,7 @@ class Data_analysis(object):
         ress = Include.np.round_(ress, 4)
         return self._createMas(ress)
 
+
     def CorrelationMaxChemistry(self):
         ress = self.correlationChemistryData.corMax()
         return self._createMasMax(ress)
@@ -184,6 +184,7 @@ class Data_analysis(object):
         ress = self.correlationMixData.corMax()
         return self._createMasMax(ress)
 
+
     def AnalysisClustering(self, names):
         cl = self.clustering()
         col = self.data.GetNameZooplankton()
@@ -195,6 +196,12 @@ class Data_analysis(object):
         col = self.data.GetNameZooplankton()
         id = self._Search(names, col)
         return self.lsaData.GropupClustering(cl, id, col.size, col)
+
+    def AnalysisClusteringChemistry(self, names):
+        cl = self.clusteringChemistry()
+        col = self.data.GetNameChemistryRes()
+        id = self._Search(names, col)
+        return self.clusteringChemistryData.GropupClustering(cl, id, col.size, col)
 
     def GroupLSA(self, val):
         cl = self.lsa()
@@ -210,14 +217,6 @@ class Data_analysis(object):
         cl = self.clusteringChemistry()
         col = self.data.GetNameChemistryRes()
         return self.clusteringChemistryData.Group(cl, val, col.size, col)
-
-
-    def AnalysisClusteringChemistry(self, names):
-        cl = self.clusteringChemistry()
-        col = self.data.GetNameChemistryRes()
-        id = self._Search(names, col)
-        return self.clusteringChemistryData.GropupClustering(cl, id, col.size, col)
-
 
 
     def _Search(self, names, col):
@@ -244,7 +243,6 @@ class Data_analysis(object):
         return otvet
 
 
-
     def drawCorrelation(self, fl):
         if fl == 0:
             return self.correlationChemistryData.getPhoto(10)
@@ -256,8 +254,6 @@ class Data_analysis(object):
                     return self.correlationMixData.getPhoto(15)
                 else:
                     return self.correlationLSAData.getPhoto(20)
-
-
 
     def drawDentogram(self, fl):
         if fl == 0:

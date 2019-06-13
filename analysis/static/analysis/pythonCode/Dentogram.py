@@ -22,8 +22,6 @@ class Dentogram(object):
     def _ClusteringMetod(self, measurement, index, col):
         distance_mat = Include.distance.pdist(measurement, 'cosine')
         Z = Include.hierarchy.linkage(distance_mat, 'single', metric='cosine')
-        # Include.plt.figure(figsize=(15, 15), dpi=200)
-        # dn = Include.hierarchy.dendrogram(Z, labels=col, color_threshold=index)
         return Z
 
 

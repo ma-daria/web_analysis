@@ -5,7 +5,6 @@ from django.http import HttpResponse
 
 from analysis.static.analysis.pythonCode import Data_analysis, Include
 import os
-import io
 
 
 
