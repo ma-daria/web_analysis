@@ -7,6 +7,9 @@ class Dentogram(object):
         self.buffer = []
         self.index = 0
         self.col = Include.np.asarray([])
+        self.otvet = []
+        self.us_couples = Include.np.asarray([])
+        self.us_options = Include.np.asarray([])
 
     def dentogram(self, measurement):
         if len(self.data) == 0:
@@ -24,13 +27,10 @@ class Dentogram(object):
         # dn = Include.hierarchy.dendrogram(Z, labels=col, color_threshold=index)
         return Z
 
-    otvet = []
 
     def _Save(self, clustering, id, size, col):
         if size > id:
-            # print(int(id))
             return str(col[int(id)]) + ", "
-            # print(col[int(id)])
         else:
             st = self._Save(clustering, clustering.iloc[id - size, 0], size, col)
             st = st + self._Save(clustering, clustering.iloc[id - size, 1], size, col)
@@ -38,10 +38,9 @@ class Dentogram(object):
 
     def GropupClustering(self, Z, id, size, col):
         ZZ = self._createMas(Z)
-        global otvet
-        otvet = []
+        self.otvet = []
         self._Bypass(ZZ, id, size, col)
-        return otvet
+        return self.otvet
 
     def _Bypass(self, clustering, id, size, col):
         str = clustering[clustering[0] == id]
@@ -52,7 +51,6 @@ class Dentogram(object):
             id2 = 0
         else:
             id2 = 1
-        # print("\nГруппа")
         st = ""
         if size <= id:
             st = self._Save(clustering, clustering.iloc[id - size, 0], size, col)
@@ -61,7 +59,7 @@ class Dentogram(object):
             st = self._Save(clustering, id, size, col)
 
         st = st + self._Save(clustering, str.iloc[0, id2], size, col)
-        otvet.append(st)
+        self.otvet.append(st)
         self._Bypass(clustering, int(str['id']) + size, size, col)
 
     def _createMas(self, Z):
@@ -78,82 +76,70 @@ class Dentogram(object):
         ZZ = self._createMas(Z)
         ZZ = ZZ[ZZ[2] <= r]
 
-        global us_couples
-        us_couples = Include.pd.DataFrame(ZZ['id'])
-        us_couples['fl'] = "False"
-        us_couples['id'] = us_couples['id'] + size
 
-        global us_options
+        self.us_couples = Include.pd.DataFrame(ZZ['id'])
+        self.us_couples['fl'] = "False"
+        self.us_couples['id'] = self.us_couples['id'] + size
+
+
         lis = []
         for i in range(size):
             lis.append(i)
-        us_options = Include.pd.DataFrame({'id': lis})
-        us_options['fl'] = "False"
+        self.us_options = Include.pd.DataFrame({'id': lis})
+        self.us_options['fl'] = "False"
 
-        global otvet
-        otvet = []
+
+        self.otvet = []
 
         for i in range(ZZ['id'].size):
             ind = 0
             if i == 0:
                 ind = 1
             else:
-                if us_couples.iloc[-i, 1] == "True":
+                if self.us_couples.iloc[-i, 1] == "True":
                     ind = 1
                 if ZZ.iloc[-i, 0] >= size:
-                    # if us_couples.loc[us_couples['id'] == ZZ.iloc[~i, 0], 'fl'] == "True":
-                    if us_couples.loc[ZZ.iloc[-i, 0] - size, 'fl'] == "True":
+                    if self.us_couples.loc[ZZ.iloc[-i, 0] - size, 'fl'] == "True":
                         ind = 1
                 else:
-                    # if us_options.loc[us_options['id'] == ZZ.iloc[~i, 0], 'fl'] == "True":
-                    if us_options.loc[ZZ.iloc[-i, 0], 'fl'] == "True":
+                    if self.us_options.loc[ZZ.iloc[-i, 0], 'fl'] == "True":
                         ind = 1
                 if ZZ.iloc[-i, 1] >= size:
-                    # if us_couples.loc[us_couples['id'] == ZZ.iloc[~i, 1], 'fl'] == "True":
-                    if us_couples.loc[ZZ.iloc[-i, 1] - size, 'fl'] == "True":
+                    if self.us_couples.loc[ZZ.iloc[-i, 1] - size, 'fl'] == "True":
                         ind = 1
                 else:
-                    # if us_options.loc[us_options['id'] == ZZ.iloc[~i, 0], 'fl'] == "True":
-                    if us_options.loc[ZZ.iloc[-i, 1], 'fl'] == "True":
+                    if self.us_options.loc[ZZ.iloc[-i, 1], 'fl'] == "True":
                         ind = 1
             if ind == 0:
-                us_couples.iloc[-i, 1] = "True"
+                self.us_couples.iloc[-i, 1] = "True"
                 st = self._serGr(-i, ZZ, size, col)
-                otvet.append(st)
+                self.otvet.append(st)
         self._options(col)
 
-        return otvet
+        return self.otvet
 
 
     def _options(self, col):
         st = ''
-        global us_options
-        global otvet
-        for i in us_options['id']:
-            if us_options.loc[i, 'fl'] == "False":
-                st=col[us_options.loc[i,'id']]
-                otvet.append(st)
+        for i in self.us_options['id']:
+            if self.us_options.loc[i, 'fl'] == "False":
+                st=col[self.us_options.loc[i,'id']]
+                self.otvet.append(st)
 
 
     def _serGr(self, i, ZZ, size, col):
-        global us_couples
-        global us_options
         if ZZ.iloc[i, 0] >= size:
-            us_couples.loc[ZZ.iloc[i, 0] - size, 'fl'] = "True"
-            # us_couples.loc[us_couples['id'] == ZZ.iloc[~i, 0], 'fl'] = "True"
+            self.us_couples.loc[ZZ.iloc[i, 0] - size, 'fl'] = "True"
             st1 = self._serGr(ZZ.iloc[i, 0] - size, ZZ, size, col)
         else:
-            us_options.loc[ZZ.iloc[i, 0], 'fl'] = "True"
-            # us_options.loc[us_options['id'] == ZZ.iloc[~i, 0], 'fl'] = "True"
+            self.us_options.loc[ZZ.iloc[i, 0], 'fl'] = "True"
             st1 = self._saveGr(ZZ.iloc[i, 0], col)
 
         if ZZ.iloc[i, 1] >= size:
-            us_couples.loc[ZZ.iloc[i, 1] - size, 'fl'] = "True"
-            # us_couples.loc[us_couples['id'] == ZZ.iloc[~i, 1], 'fl'] = "True"
+            self.us_couples.loc[ZZ.iloc[i, 1] - size, 'fl'] = "True"
             st2 = self._serGr(ZZ.iloc[i, 1] - size, ZZ, size, col)
         else:
-            us_options.loc[ZZ.iloc[i, 1], 'fl'] = "True"
-            # us_options.loc[us_options['id'] == ZZ.iloc[~i, 0], 'fl'] = "True"
+            self.us_options.loc[ZZ.iloc[i, 1], 'fl'] = "True"
             st2 = self._saveGr(ZZ.iloc[i, 1], col)
 
         return st1+st2
