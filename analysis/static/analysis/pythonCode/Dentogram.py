@@ -150,10 +150,10 @@ class Dentogram(object):
 
     def getPhoto(self):
         if self.buffer == []:
-            self.draw()
+            self._draw()
         return self.buffer
 
-    def draw(self):
+    def _draw(self):
         Include.plt.figure(figsize=(20, 15), dpi=200)
         dn = Include.hierarchy.dendrogram(self.data, labels=self.col, color_threshold=self.index)
         self.buffer = Include.io.BytesIO()

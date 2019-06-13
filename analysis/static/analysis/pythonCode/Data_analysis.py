@@ -272,10 +272,10 @@ class Data_analysis(object):
     def drawPairplotDescription(self):
         dat = self.data.GetDataMix(self.list)
         dat['Описание точки измерения'] = self.data.GetDataMix(['Описание точки измерения'])
-        return self.pairplotDescriptionData.pairplot(dat, 'Описание точки измерения')
+        return self.pairplotDescriptionData.getPhoto(dat, 'Описание точки измерения')
 
     def drawPairplotPlace(self):
         dat = self.data.GetDataMix(self.list)
         dat['Место измерения'] = self.data.GetDataMix(['Место измерения'])
-        return self.pairplotPlaceData.pairplot(dat, 'Место измерения')
+        return self.pairplotPlaceData.getPhoto(dat, 'Место измерения')
 

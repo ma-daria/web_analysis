@@ -5,13 +5,13 @@ class Pairplot(object):
         self.buffer= Include.io.BytesIO()
         self.flag = 0
 
-    def pairplot(self, dat, name):
+    def getPhoto(self, dat, name):
         if self.flag == 0:
             self.flag = 1
-            self._toDo(dat, name)
+            self._drаw(dat, name)
         return self.buffer
 
-    def _toDo(self, dat, name):
+    def _drаw(self, dat, name):
         print(name)
         sns_plot = Include.sns.pairplot(dat, hue=name)
         sns_plot.savefig(self.buffer, format='png')

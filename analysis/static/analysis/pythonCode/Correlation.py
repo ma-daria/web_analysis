@@ -22,10 +22,10 @@ class Correlation(object):
 
     def getPhoto(self, size):
         if self.buffer == []:
-            self.drаw(size)
+            self._drаw(size)
         return self.buffer
 
-    def drаw(self, size):
+    def _drаw(self, size):
         mapPalette = Include.sns.diverging_palette(10, 240, sep=10, as_cmap=True)
         Include.plt.figure(figsize=(size, size), dpi=200)
         Include.sns.heatmap(self.data, cmap=mapPalette, vmin=-1, vmax=1)
