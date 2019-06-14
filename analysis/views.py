@@ -129,18 +129,18 @@ def ClusteringStr(request):
     if request.method == 'POST':
         tip = request.POST['name3']
         if tip == 'Точки измерения':
+            data.SetType_cla(Include.CL_CHEMISTRY)
             data.clusteringChemistry()
             col = data.GetNameChemistryRes()
             size = data.GetSizeData()
             sizeI = data.GetSizeChemistry()
-            data.SetType_cla(Include.CL_CHEMISTRY)
             type = Include.CL_CHEMISTRY
         else:
+            data.SetType_cla(Include.CL_ZOOPLANKTON)
             size = data.GetSizeZooplankton()
             sizeI = data.GetSizeData()
             data.clustering()
             col = data.GetNameZooplankton()
-            data.SetType_cla(Include.CL_ZOOPLANKTON)
             type = Include.CL_ZOOPLANKTON
     return render(request, 'analysis/Clustering.html', {'Zooplankton': col, 'otvet': otvet, 'selec': names, 'size': size, 'sizeI': sizeI, 'type': type, 'otvet2': otvet2, 'val': val})
 
@@ -298,6 +298,29 @@ def photoCorLSA(request):
     data = Data_analysis.Data_analysis()
     try:
         buffer = data.drawCorrelation(4)
+    except:
+        buffer = Include.io.BytesIO()
+        print("Не удалось загрузить график")
+    response = HttpResponse(buffer.getvalue(), content_type='image/png')
+    return response
+
+def photoPCA(request):
+    data = Data_analysis.Data_analysis()
+    try:
+        type = data.GetType_cla()
+        if type == 2:
+            print('')
+        buffer = data.drawPCA(type)
+    except:
+        buffer = Include.io.BytesIO()
+        print("Не удалось загрузить график")
+    response = HttpResponse(buffer.getvalue(), content_type='image/png')
+    return response
+
+def photoPCAlsa(request):
+    data = Data_analysis.Data_analysis()
+    try:
+        buffer = data.drawPCA(1)
     except:
         buffer = Include.io.BytesIO()
         print("Не удалось загрузить график")

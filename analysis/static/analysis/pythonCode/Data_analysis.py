@@ -143,18 +143,21 @@ class Data_analysis(object):
         d = self.data.GetDataZooplankton()
         otv = self.clusteringData.dentogram(d)
         self.drawDentogram(0)
+        self.pca()
         return otv
 
     def lsa(self):
         d = self.data.GetDataZooplankton()
         otv = self.lsaData.dentogram(d)
         self.drawDentogram(1)
+        self.pcaLSA()
         return otv
 
     def clusteringChemistry(self):
         d = self.data.GetDataChemistryRes()
         otv = self.clusteringChemistryData.dentogram(d)
         self.drawDentogram(2)
+        self.pcaChemistry()
         return otv
 
 
@@ -162,19 +165,19 @@ class Data_analysis(object):
         d = self.data.GetDataZooplankton()
         d['pH'] = self.data.GetDataMix(['pH'])
         self.pcaData.gr_pca(d, 'pH')
-        self.drawRSA(0)
+        self.drawPCA(0)
 
     def pcaLSA(self):
         d = self.data.GetDataZooplankton()
         d['pH'] = self.data.GetDataMix(['pH'])
         self.pcaLsaData.gr_pca(d, 'pH')
-        self.drawRSA(1)
+        self.drawPCA(1)
 
     def pcaChemistry(self):
-        d = self.data.GetDataZooplankton()
+        d = self.data.GetDataChemistryRes()
         d['pH'] = self.data.GetDataMix(['pH'])
-        self.pcaLsaData.gr_pca(d, 'pH')
-        self.drawRSA(2)
+        self.pcaChemistryData.gr_pca(d, 'pH')
+        self.drawPCA(2)
 
 
     def AnalysisCorrelationChemistry(self, name):
@@ -299,7 +302,7 @@ class Data_analysis(object):
         dat['Место измерения'] = self.data.GetDataMix(['Место измерения'])
         return self.pairplotPlaceData.getPhoto(dat, 'Место измерения')
 
-    def drawRSA(self, fl):
+    def drawPCA(self, fl):
         if fl == 0:
             name = self.data.GetNameZooplankton()
             return self.pcaData.getPhoto(name, 0, 1)
@@ -309,6 +312,6 @@ class Data_analysis(object):
                 return self.pcaLsaData.getPhoto(name, 0, 1)
             else:
                 name = self.data.GetNameChemistryRes()
-                self.pcaLsaData.getPhoto(name, 0, 1)
+                self.pcaChemistryData.getPhoto(name, 0, 1)
 
 
