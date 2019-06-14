@@ -306,13 +306,13 @@ class Data_analysis(object):
     def drawPCA(self, fl):
         if fl == 0:
             name = self.data.GetNameZooplankton()
-            return self.pcaData.getPhoto(name, 0, 1)
+            return self.pcaData.getPhoto(name, 0, 1, [-0.5, 0.5, -0.04, 0.35])
         else:
             if fl == 1:
                 name = self.data.GetNameZooplankton()
-                return self.pcaLsaData.getPhoto(name, 0, 1)
+                return self.pcaLsaData.getPhoto(name, 0, 1, [-0.5, 0.5, -0.04, 0.35])
             else:
                 name = self.data.GetNameChemistryRes()
-                return self.pcaChemistryData.getPhoto(name, 0, 1)
+                return self.pcaChemistryData.getPhoto(name, 0, 1, [-0.6, 0.6, 0.02, 0.115])
 
 

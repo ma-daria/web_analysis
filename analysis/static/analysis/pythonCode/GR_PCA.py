@@ -22,16 +22,16 @@ class GR_PCA(object):
         self.X_pca = self.pca.fit_transform(X)
         self.c = Include.np.asarray(y)
 
-    def getPhoto(self, col, component1, component2):
+    def getPhoto(self, col, component1, component2, size):
         if self.buffer == []:
-            self._draw(col, component1, component2)
+            self._draw(col, component1, component2, size)
         return self.buffer
 
-    def _draw(self, col, component1, component2):
+    def _draw(self, col, component1, component2, size):
         coeff = Include.np.transpose(self.pca.components_[[component1 - 1, component2 - 1], :])
         Include.plt.figure(figsize=(16, 16))
-        Include.plt.xlim(-0.75, 0.75)
-        Include.plt.ylim(-0.75, 0.75)
+        Include.plt.xlim(size[0], size[1])
+        Include.plt.ylim(size[2], size[3])
         Include.plt.xlabel("PC{}".format(component1))
         Include.plt.ylabel("PC{}".format(component2))
         Include.plt.grid()
