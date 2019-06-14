@@ -12,6 +12,5 @@ class Pairplot(object):
         return self.buffer
 
     def _drаw(self, dat, name):
-        print(name)
         sns_plot = Include.sns.pairplot(dat, hue=name)
         sns_plot.savefig(self.buffer, format='png')

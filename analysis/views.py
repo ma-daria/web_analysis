@@ -308,8 +308,6 @@ def photoPCA(request):
     data = Data_analysis.Data_analysis()
     try:
         type = data.GetType_cla()
-        if type == 2:
-            print('')
         buffer = data.drawPCA(type)
     except:
         buffer = Include.io.BytesIO()

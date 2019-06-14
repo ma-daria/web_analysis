@@ -1,5 +1,5 @@
 from analysis.static.analysis.pythonCode import Include
-from django.conf import settings
+
 class GR_PCA(object):
 
     def __init__(self):
@@ -40,7 +40,6 @@ class GR_PCA(object):
 
         self.buffer = Include.io.BytesIO()
         Include.plt.savefig(self.buffer, format='png')
-        Include.plt.savefig(str(settings.STATIC_ROOT_A) + "/analysis/img/test.png")
 
     def _biplot(self, score, coeff, labels=None, colors=None):
         xs = score[:, 0]

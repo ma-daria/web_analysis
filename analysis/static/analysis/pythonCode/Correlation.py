@@ -30,7 +30,6 @@ class Correlation(object):
         Include.plt.figure(figsize=(size, size), dpi=200)
         Include.sns.heatmap(self.data, cmap=mapPalette, vmin=-1, vmax=1)
         self.buffer = Include.io.BytesIO()
-        print(self.buffer)
         Include.plt.savefig(self.buffer, format='png')
 
 
