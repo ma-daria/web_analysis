@@ -1,10 +1,13 @@
-from analysis.static.analysis.pythonCode import Include, DentogramLSA, DentogramClustering, Correlation, Data, Pairplot
+from analysis.static.analysis.pythonCode import Include, DentogramLSA, DentogramClustering, Correlation, Data, Pairplot, GR_PCA
 
 class Data_analysis(object):
     data = Data.Data()
     lsaData = DentogramLSA.DentogramLSA()
     clusteringData = DentogramClustering.DentogramClustering()
     clusteringChemistryData = DentogramClustering.DentogramClustering()
+    pcaData = GR_PCA.GR_PCA()
+    pcaLsaData = GR_PCA.GR_PCA()
+    pcaChemistryData = GR_PCA.GR_PCA()
     correlationChemistryData = Correlation.Correlation()
     correlationZooplanktonData = Correlation.Correlation()
     correlationMixData = Correlation.Correlation()
@@ -24,9 +27,11 @@ class Data_analysis(object):
     def newCl(self):
         self.data = Data.Data()
         self.lsaData = DentogramLSA.DentogramLSA()
-        self.lsaChemistryData = DentogramLSA.DentogramLSA()
         self.clusteringChemistryData = DentogramClustering.DentogramClustering()
         self.clusteringData = DentogramClustering.DentogramClustering()
+        self.pcaData = GR_PCA.GR_PCA()
+        self.pcaLsaData = GR_PCA.GR_PCA()
+        self.pcaChemistryData = GR_PCA.GR_PCA()
         self.correlationChemistryData = Correlation.Correlation()
         self.correlationZooplanktonData = Correlation.Correlation()
         self.correlationMixData = Correlation.Correlation()
@@ -153,6 +158,25 @@ class Data_analysis(object):
         return otv
 
 
+    def pca(self):
+        d = self.data.GetDataZooplankton()
+        d['pH'] = self.data.GetDataMix(['pH'])
+        self.pcaData.gr_pca(d, 'pH')
+        self.drawRSA(0)
+
+    def pcaLSA(self):
+        d = self.data.GetDataZooplankton()
+        d['pH'] = self.data.GetDataMix(['pH'])
+        self.pcaLsaData.gr_pca(d, 'pH')
+        self.drawRSA(1)
+
+    def pcaChemistry(self):
+        d = self.data.GetDataZooplankton()
+        d['pH'] = self.data.GetDataMix(['pH'])
+        self.pcaLsaData.gr_pca(d, 'pH')
+        self.drawRSA(2)
+
+
     def AnalysisCorrelationChemistry(self, name):
         cor = self.CorrelationChemistry()
         ress = self.correlationChemistryData.SortingCorrelation(cor[name])
@@ -274,4 +298,17 @@ class Data_analysis(object):
         dat = self.data.GetDataMix(self.list)
         dat['Место измерения'] = self.data.GetDataMix(['Место измерения'])
         return self.pairplotPlaceData.getPhoto(dat, 'Место измерения')
+
+    def drawRSA(self, fl):
+        if fl == 0:
+            name = self.data.GetNameZooplankton()
+            return self.pcaData.getPhoto(name, 0, 1)
+        else:
+            if fl == 1:
+                name = self.data.GetNameZooplankton()
+                return self.pcaLsaData.getPhoto(name, 0, 1)
+            else:
+                name = self.data.GetNameChemistryRes()
+                self.pcaLsaData.getPhoto(name, 0, 1)
+
 
