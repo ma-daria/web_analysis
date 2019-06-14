@@ -128,7 +128,7 @@ def ClusteringStr(request):
     val = str(0.2)
     if request.method == 'POST':
         tip = request.POST['name3']
-        if tip == 'Химический состав':
+        if tip == 'Точки измерения':
             data.clusteringChemistry()
             col = data.GetNameChemistryRes()
             size = data.GetSizeData()
