@@ -10,6 +10,8 @@ from sklearn import preprocessing
 from scipy.cluster import hierarchy
 import os
 import io
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
 
 
 
