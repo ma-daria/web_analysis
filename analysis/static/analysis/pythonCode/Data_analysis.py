@@ -312,6 +312,6 @@ class Data_analysis(object):
                 return self.pcaLsaData.getPhoto(name, 0, 1)
             else:
                 name = self.data.GetNameChemistryRes()
-                self.pcaChemistryData.getPhoto(name, 0, 1)
+                return self.pcaChemistryData.getPhoto(name, 0, 1)
 
 
