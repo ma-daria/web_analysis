@@ -175,7 +175,8 @@ class Data_analysis(object):
 
     def pcaChemistry(self):
         d = self.data.GetDataChemistryRes()
-        d['pH'] = self.data.GetDataMix(['pH'])
+        # d['pH'] = self.data.GetDataMix(['pH'])
+        d['pH'] = Include.pd.Series([1,1,1,1,1,1,1,1,1])
         self.pcaChemistryData.gr_pca(d, 'pH')
         self.drawPCA(2)
 
