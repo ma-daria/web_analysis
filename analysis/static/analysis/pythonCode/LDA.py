@@ -5,6 +5,7 @@ class LDA(object):
     def __init__(self):
         self.lda_data = Include.LatentDirichletAllocation()
         self.fla = 0
+        self.gro = ''
 
     def lda(self, toTopics, no_topics = 5):
         if self.fla ==0:
@@ -17,7 +18,12 @@ class LDA(object):
         self.lda_data = self.lda_data.fit(toTopics)
 
 
-    def group_n(self,  names, no_top_words = 5):
+    def group_n(self,  names, no_top_words = 5 ):
+        if self.gro == '':
+            self.gro = self._group_N(names, no_top_words)
+        return self.gro
+
+    def _group_N(self,  names, no_top_words):
         names = names.tolist()
         otvet =[]
         for topic_idx, topic in enumerate(self.lda_data.components_):
