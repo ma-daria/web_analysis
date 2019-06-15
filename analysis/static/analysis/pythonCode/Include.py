@@ -12,7 +12,7 @@ import os
 import io
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
-
+from sklearn.decomposition import LatentDirichletAllocation
 
 
 CHEMISTRY = 0
