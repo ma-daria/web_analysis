@@ -1,4 +1,4 @@
-from analysis.static.analysis.pythonCode import Include, DentogramLSA, DentogramClustering, Correlation, Data, Pairplot, GR_PCA
+from analysis.static.analysis.pythonCode import Include, DentogramLSA, DentogramClustering, Correlation, Data, Pairplot, GR_PCA, LDA
 
 class Data_analysis(object):
     data = Data.Data()
@@ -14,6 +14,7 @@ class Data_analysis(object):
     correlationLSAData = Correlation.Correlation()
     pairplotDescriptionData = Pairplot.Pairplot()
     pairplotPlaceData = Pairplot.Pairplot()
+    ldaData= LDA.LDA()
 
     type = 0
     type_cla = 0
@@ -245,6 +246,19 @@ class Data_analysis(object):
         cl = self.clusteringChemistry()
         col = self.data.GetNameChemistryRes()
         return self.clusteringChemistryData.Group(cl, val, col.size, col)
+
+    def LDA(self):
+        d = self.data.GetDataZooplankton()
+        self.ldaData.lda(d)
+
+    def NAnalysisLDA(self):
+        col = self.data.GetNameZooplankton()
+        return self.ldaData.group_n(col)
+
+    def AnalysisLDA(self, val):
+        col = self.data.GetNameZooplankton()
+        return self.ldaData.group(col, val)
+
 
 
     def _Search(self, names, col):

@@ -17,13 +17,13 @@ class LDA(object):
         self.lda_data = self.lda_data.fit(toTopics)
 
 
-    def group_n(self,  names, no_top_words):
+    def group_n(self,  names, no_top_words = 5):
         names = names.tolist()
         otvet =[]
         for topic_idx, topic in enumerate(self.lda_data.components_):
             top_ag = topic.argsort()
             st = ''
-            for i in range(len(no_top_words+1)):
+            for i in range(no_top_words):
                 if i != 0:
                     st =st + str(names[top_ag[-i]]) + ' [' + str(topic[top_ag[-i]]) + '] ||'
             otvet.append(st)
@@ -36,7 +36,7 @@ class LDA(object):
         for topic_idx, topic in enumerate(self.lda_data.components_):
             top_ag = topic.argsort()
             st = ''
-            for i in range(len(top_ag+1)):
+            for i in range(len(top_ag)):
                 if i !=0:
                     if topic[top_ag[-i]] >= value:
                         st =st + str(names[top_ag[-i]]) + ' [' + str(topic[top_ag[-i]]) + '] ||'

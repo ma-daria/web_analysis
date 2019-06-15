@@ -230,12 +230,21 @@ def LSAgroup(request):
         otvet2 = data.GroupLSA(float(val))
     return render(request, 'analysis/LSA.html',{'Zooplankton': col, 'otvet': otvet, 'otvet2': otvet2, 'size': size, 'sizeI': sizeI, 'val': val})
 
-
+idr = 0
 def LDA(request):
-    otvet = []
+    global idr
+    idr = idr + 1
+    if idr == 2:
+        print('v')
+    data = Data_analysis.Data_analysis()
+    data.LDA()
+    otvet = data.NAnalysisLDA()
     otvet2 =[]
-
-    return render(request, 'analysis/LDA.html', {'otvet':  otvet, ' otvet2':  otvet2})
+    val = str(300)
+    if request.method == 'POST':
+        val = request.POST['vali']
+        otvet2 = data.AnalysisLDA(float(val))
+    return render(request, 'analysis/LDA.html', {'otvet':  otvet, 'otvet2':  otvet2, 'val':val})
 
 
 def photoCorrelation(request):
