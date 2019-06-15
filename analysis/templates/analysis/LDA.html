@@ -1,0 +1,59 @@
+{% extends "analysis/template.html" %}
+
+{% block title %}
+    <title>Латентно-семантический анализ</title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 order-md-1">
+            <h5>&nbsp;&nbsp;</h5>
+            <h5>&nbsp;&nbsp;</h5>
+            <br>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Группы</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for otv in otvet %}
+                        <tr><td>{{ otv }} </td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-6 order-md-1">
+            <br>
+            <form method="post" enctype="multipart/form-data">
+                <div class="row">
+                {% csrf_token %}
+                    <div class="col-md-8">
+                        <input class="form-control" id="name" name="name" type="number" min="0.05" step="10" style='width: 105%;' value={{ val }}>
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn btn-dark" id="but" type="submit" style="background-color: #3f294f; " >Показать</button>
+                    </div>
+                </div>
+            </form>
+            <br>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Группы</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for otv in otvet2 %}
+                        <tr><td>{{ otv }} </td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+</div>
+{% endblock %}

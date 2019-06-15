@@ -230,6 +230,14 @@ def LSAgroup(request):
         otvet2 = data.GroupLSA(float(val))
     return render(request, 'analysis/LSA.html',{'Zooplankton': col, 'otvet': otvet, 'otvet2': otvet2, 'size': size, 'sizeI': sizeI, 'val': val})
 
+
+def LDA(request):
+    otvet = []
+    otvet2 =[]
+
+    return render(request, 'analysis/LDA.html', {'otvet':  otvet, ' otvet2':  otvet2})
+
+
 def photoCorrelation(request):
     data = Data_analysis.Data_analysis()
     type = data.GetType()

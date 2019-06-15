@@ -13,6 +13,7 @@ urlpatterns = [
     path('CLUSgroup', views.CLUSgroup, name='CLUSgroup'),
     path('LSA', views.LSAstr, name='LSA'),
     path('LSAgroup', views.LSAgroup, name='LSAgroup'),
+    path('LDA', views.LDA, name='LDA'),
     path('Correlation.png', views.photoCorrelation, name='photoCorrelation'),
     path('Clustrering.png', views.photoClustrering, name='photoClustrering'),
     path('LSA.png', views.photoLSA, name='photoLSA'),

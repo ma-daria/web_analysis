@@ -6,12 +6,12 @@ class LDA(object):
         self.lda_data = Include.LatentDirichletAllocation()
         self.fla = 0
 
-    def lda(self, toTopics):
+    def lda(self, toTopics, no_topics = 5):
         if self.fla ==0:
             self.fla = 1
-            self.toDo(toTopics)
+            self.toDo(toTopics, no_topics)
 
-    def toDo(self, toTopics, no_topics = 5):
+    def toDo(self, toTopics, no_topics):
         self.lda_data = Include.LatentDirichletAllocation(n_components=no_topics, max_iter=5, learning_method='online',
                                                           learning_offset=50., random_state=0)
         self.lda_data = self.lda_data.fit(toTopics)
