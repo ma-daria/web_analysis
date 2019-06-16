@@ -33,7 +33,7 @@
                 <div class="row">
                 {% csrf_token %}
                     <div class="col-md-8">
-                        <input class="form-control" id="vali" name="vali" type="number" min="0.5" max="1000" step="0.5" style='width: 105%;' value={{ val }}>
+                        <input class="form-control" id="vali" name="vali" type="number" min="0.5" max="10000000000" step="0.5" style='width: 105%;' value={{ val }}>
                     </div>
                     <div class="col-md-1">
                         <button class="btn btn-dark" id="but" type="submit" style="background-color: #3f294f; " >Показать</button>
