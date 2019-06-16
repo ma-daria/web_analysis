@@ -29,10 +29,14 @@ class LDA(object):
         for topic_idx, topic in enumerate(self.lda_data.components_):
             top_ag = topic.argsort()
             st = ''
+            st2 = ''
             for i in range(no_top_words):
                 if i != 0:
-                    st =st + str(names[top_ag[-i]]) + ' [' + str(Include.np.round_(topic[top_ag[-i]], 4)) + '] <br>'
-            otvet.append(st)
+                    # st =st + str(names[top_ag[-i]]) + ' [' + str(Include.np.round_(topic[top_ag[-i]], 4)) + '] <br>'
+                    st = st + str(names[top_ag[-i]]) + '<br>'
+                    st2 = st2 + str(Include.np.round_(topic[top_ag[-i]], 4)) + '<br>'
+            # otvet.append(st)
+            otvet.append([st, st2])
         return otvet
 
 
@@ -42,11 +46,15 @@ class LDA(object):
         for topic_idx, topic in enumerate(self.lda_data.components_):
             top_ag = topic.argsort()
             st = ''
+            st2 = ''
             for i in range(len(top_ag)):
                 if i !=0:
                     if topic[top_ag[-i]] >= value:
-                        st =st + str(names[top_ag[-i]]) + ' [' + str(Include.np.round_(topic[top_ag[-i]], 4)) + '] <br>'
+                        # st =st + str(names[top_ag[-i]]) + ' [' + str(Include.np.round_(topic[top_ag[-i]], 4)) + '] <br>'
+                        st = st + str(names[top_ag[-i]]) + '<br>'
+                        st2 = st2 + str(Include.np.round_(topic[top_ag[-i]], 4)) + '<br>'
                     else:
                         break
-            otvet.append(st)
+            # otvet.append(st)
+            otvet.append([st, st2])
         return otvet

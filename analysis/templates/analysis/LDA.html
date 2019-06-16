@@ -15,12 +15,17 @@
                 <thead>
                     <tr>
                         <th>Группы</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {% autoescape off %}
                     {% for otv in otvet %}
-                        <tr><td>{{ otv }} </td></tr>
+                        <tr>
+                            {% for ot in otv %}
+                                <td>{{ ot }}</td>
+                            {% endfor %}
+                        </tr>
                     {% endfor %}
                     {% endautoescape %}
                 </tbody>
@@ -45,12 +50,17 @@
                 <thead>
                     <tr>
                         <th>Группы</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {% autoescape off %}
                     {% for otv in otvet2 %}
-                        <tr><td>{{ otv }} </td></tr>
+                        <tr>
+                            {% for ot in otv %}
+                                <td>{{ ot }}</td>
+                            {% endfor %}
+                        </tr>
                     {% endfor %}
                     {% endautoescape %}
                 </tbody>
