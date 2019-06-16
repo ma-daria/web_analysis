@@ -31,7 +31,7 @@ class LDA(object):
             st = ''
             for i in range(no_top_words):
                 if i != 0:
-                    st =st + str(names[top_ag[-i]]) + ' [' + str(topic[top_ag[-i]]) + '] ||'
+                    st =st + str(names[top_ag[-i]]) + ' [' + str(topic[top_ag[-i]]) + '] <br>'
             otvet.append(st)
         return otvet
 
@@ -45,7 +45,7 @@ class LDA(object):
             for i in range(len(top_ag)):
                 if i !=0:
                     if topic[top_ag[-i]] >= value:
-                        st =st + str(names[top_ag[-i]]) + ' [' + str(topic[top_ag[-i]]) + '] ||'
+                        st =st + str(names[top_ag[-i]]) + ' [' + str(topic[top_ag[-i]]) + '] <br>'
                     else:
                         break
             otvet.append(st)

@@ -231,6 +231,7 @@ def LSAgroup(request):
     return render(request, 'analysis/LSA.html',{'Zooplankton': col, 'otvet': otvet, 'otvet2': otvet2, 'size': size, 'sizeI': sizeI, 'val': val})
 
 def LDA(request):
+
     data = Data_analysis.Data_analysis()
     data.LDA()
     otvet = data.NAnalysisLDA()

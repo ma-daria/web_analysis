@@ -81,6 +81,7 @@
                         <th>Значение корреляции</th>
                     </thead>
                     <tbody>
+                        {% autoescape off %}
                         {% for cor in corMax %}
                             <tr>
                                 {% for co in cor %}
@@ -88,6 +89,7 @@
                                 {% endfor %}
                             </tr>
                         {% endfor %}
+                        {% endautoescape %}
                     </tbody>
 
                 </table>
@@ -135,6 +137,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% autoescape off %}
                         {% for otv in otvet %}
                             <tr>
                                 {% for ot in otv %}
@@ -142,6 +145,7 @@
                                 {% endfor %}
                             </tr>
                         {% endfor %}
+                        {% endautoescape %}
                     </tbody>
                 </table>
         </div>

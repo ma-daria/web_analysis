@@ -26,7 +26,7 @@ class Dentogram(object):
 
     def _Save(self, clustering, id, size, col):
         if size > id:
-            return str(col[int(id)]) + ", "
+            return str(col[int(id)]) + "<br>"
         else:
             st = self._Save(clustering, clustering.iloc[id - size, 0], size, col)
             st = st + self._Save(clustering, clustering.iloc[id - size, 1], size, col)
@@ -141,7 +141,7 @@ class Dentogram(object):
         return st1+st2
 
     def _saveGr(self, id, col):
-        return str(col[id])+" || "
+        return str(col[id])+"<br>"
 
 
 
