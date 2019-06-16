@@ -230,12 +230,7 @@ def LSAgroup(request):
         otvet2 = data.GroupLSA(float(val))
     return render(request, 'analysis/LSA.html',{'Zooplankton': col, 'otvet': otvet, 'otvet2': otvet2, 'size': size, 'sizeI': sizeI, 'val': val})
 
-idr = 0
 def LDA(request):
-    global idr
-    idr = idr + 1
-    if idr == 2:
-        print('v')
     data = Data_analysis.Data_analysis()
     data.LDA()
     otvet = data.NAnalysisLDA()
