@@ -200,24 +200,24 @@ class Data_analysis(object):
         return self._createMasMax(ress)
 
 
+    def AnalysisClustering(self, names, fl):
+        cl = self.Clustering(fl)
+        if fl == 0:
+            col = self.data.GetNameZooplankton()
+            id = self._Search(names, col)
+            return self.clusteringData.GropupClustering(cl, id, col.size, col)
+        else:
+            if fl == 1:
+                col = self.data.GetNameZooplankton()
+                id = self._Search(names, col)
+                return self.lsaData.GropupClustering(cl, id, col.size, col)
+            else:
+                if fl == 2:
+                    col = self.data.GetNameChemistryRes()
+                    id = self._Search(names, col)
+                    return self.clusteringChemistryData.GropupClustering(cl, id, col.size, col)
 
-    def AnalysisClustering(self, names):
-        cl = self.Clustering(0)
-        col = self.data.GetNameZooplankton()
-        id = self._Search(names, col)
-        return self.clusteringData.GropupClustering(cl, id, col.size, col)
 
-    def AnalysisLSA(self, names):
-        cl = self.Clustering(1)
-        col = self.data.GetNameZooplankton()
-        id = self._Search(names, col)
-        return self.lsaData.GropupClustering(cl, id, col.size, col)
-
-    def AnalysisClusteringChemistry(self, names):
-        cl = self.Clustering(2)
-        col = self.data.GetNameChemistryRes()
-        id = self._Search(names, col)
-        return self.clusteringChemistryData.GropupClustering(cl, id, col.size, col)
 
     def GroupLSA(self, val):
         cl = self.Clustering(1)

@@ -157,12 +157,12 @@ def ClusteringPr(request):
         names = request.POST['name']
         if (type == Include.CL_ZOOPLANKTON):
             col = data.GetNameZooplankton()
-            otvet = data.AnalysisClustering(names)
+            otvet = data.AnalysisClustering(names, type)
             size = data.GetSizeZooplankton()
             sizeI = data.GetSizeData()
         else:
             col = data.GetNameChemistryRes()
-            otvet = data.AnalysisClusteringChemistry(names)
+            otvet = data.AnalysisClustering(names, type)
             size = data.GetSizeData()
             sizeI = data.GetSizeChemistry()
         col = col[col != names]
@@ -206,7 +206,7 @@ def LSAstr(request):
     val = str(0.2)
     if request.method == 'POST':
         names = request.POST['name']
-        otvet = data.AnalysisLSA(names)
+        otvet = data.AnalysisClustering(names, 1)
         col = col[col != names]
         col = [names] + col.tolist()
     return render(request, 'analysis/LSA.html', {'Zooplankton': col, 'otvet': otvet, 'otvet2': otvet2,'size': size, 'sizeI': sizeI, 'val': val})
