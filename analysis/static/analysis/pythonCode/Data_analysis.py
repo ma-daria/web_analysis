@@ -187,19 +187,32 @@ class Data_analysis(object):
         ress = Include.np.round_(ress, 4)
         return self._createMas(ress)
 
-
-
-    def CorrelationMaxChemistry(self):
-        ress = self.correlationChemistryData.corMax()
+    def CorrelationMax(self, fl):
+        ress = []
+        if fl == 0:
+            ress = self.correlationChemistryData.corMax()
+        else:
+            if fl == 1:
+                ress = self.correlationZooplanktonData.corMax()
+            else:
+                if fl == 2:
+                    ress = self.correlationMixData.corMax()
         return self._createMasMax(ress)
 
-    def CorrelationMaxZooplankton(self):
-        ress = self.correlationZooplanktonData.corMax()
-        return self._createMasMax(ress)
 
-    def CorrelationMaxMix(self):
-        ress = self.correlationMixData.corMax()
-        return self._createMasMax(ress)
+
+
+    # def CorrelationMaxChemistry(self):
+    #     ress = self.correlationChemistryData.corMax()
+    #     return self._createMasMax(ress)
+    #
+    # def CorrelationMaxZooplankton(self):
+    #     ress = self.correlationZooplanktonData.corMax()
+    #     return self._createMasMax(ress)
+    #
+    # def CorrelationMaxMix(self):
+    #     ress = self.correlationMixData.corMax()
+    #     return self._createMasMax(ress)
 
 
     def AnalysisClustering(self, names):

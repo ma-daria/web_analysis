@@ -47,7 +47,7 @@ def Correlation(request):
     col1 = data.GetNameChemistry()
     col2 = data.GetNameZooplankton()
     colS = col1.tolist() + col2.tolist()
-    corMax = data.CorrelationMaxChemistry()
+    corMax = data.CorrelationMax(0)
     id = data.GetType()
     size = data.GetSizeChemistry()
     if request.method == 'POST':
@@ -59,7 +59,7 @@ def Correlation(request):
             data.Correlation(id)
             col = data.GetNameChemistry()
             size = data.GetSizeChemistry()
-            corMax = data.CorrelationMaxChemistry()
+            corMax = data.CorrelationMax(id)
         else:
             if tip == 'Видовой состав':
                 data.SetType(Include.ZOOPLANKTON)
@@ -67,7 +67,7 @@ def Correlation(request):
                 data.Correlation(id)
                 col = data.GetNameZooplankton()
                 size = data.GetSizeZooplankton()
-                corMax = data.CorrelationMaxZooplankton()
+                corMax = data.CorrelationMax(id)
             else:
                 data.SetList(list)
                 data.SetType(Include.MIX)
@@ -75,7 +75,7 @@ def Correlation(request):
                 data.Correlation(id)
                 col = list
                 size = data.GetSizeMix()
-                corMax = data.CorrelationMaxMix()
+                corMax = data.CorrelationMax(id)
     return render(request, 'analysis/Correlation.html', {'col': col, 'colS':colS, 'otvet': otvet, 'form': form, 'type': id, 'size': size, 'sizeI': sizeI, 'corMax': corMax})
 
 def PrintListCorrelation(request):
