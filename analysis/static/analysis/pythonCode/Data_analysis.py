@@ -129,40 +129,6 @@ class Data_analysis(object):
         self.drawCorrelation(fl)
         return otv
 
-    # def CorrelationChemistry(self):
-    #     d = self.data.GetDataChemistry()
-    #     otv = self.correlationChemistryData.correlation(d)
-    #     self.drawCorrelation(0)
-    #     return otv
-    #
-    # def CorrelationZooplankton(self):
-    #     d = self.data.GetDataZooplankton()
-    #     otv = self.correlationZooplanktonData.correlation(d)
-    #     self.drawCorrelation(1)
-    #     return otv
-    #
-    # def CorrelationMix(self, name):
-    #     d = self.data.GetDataMix(name)
-    #     self.correlationMixData = Correlation.Correlation()
-    #     otv = self.correlationMixData.correlation(d)
-    #     self.drawCorrelation(2)
-    #     self.drawPairplotDescription()
-    #     self.drawPairplotPlace()
-    #     return otv
-    #
-    # def CorrelationLSA(self):
-    #     da = self.lsaData.GetMass()
-    #     db = Include.pd.DataFrame(Include.np.array(da))
-    #     name = self.data.GetNameZooplankton()
-    #     d = db
-    #     i = 0
-    #     for n in name:
-    #         d = d.rename(columns={i: n})
-    #         i = i + 1
-    #     otv = self.correlationLSAData.correlation(d)
-    #     self.drawCorrelation(3)
-    #     return otv
-
 
     def clustering(self):
         d = self.data.GetDataZooplankton()
