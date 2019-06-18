@@ -15,6 +15,7 @@ class GR_PCA(object):
 
     def _toDo(self, df1, colorField):
         X = df1.drop(columns=[colorField])
+        # X = Include.preprocessing.normalize(X)
         y = df1[colorField].copy()
         scaler = Include.StandardScaler()
         scaler.fit(X)

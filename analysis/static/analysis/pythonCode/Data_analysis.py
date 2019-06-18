@@ -25,7 +25,7 @@ class Data_analysis(object):
             cls.instance = super(Data_analysis, cls).__new__(cls)
         return cls.instance
 
-    def newCl(self):
+    def _newCl(self):
         self.data = Data.Data()
         self.lsaData = DentogramLSA.DentogramLSA()
         self.clusteringChemistryData = DentogramClustering.DentogramClustering()
@@ -101,43 +101,67 @@ class Data_analysis(object):
 
 
     def readFile(self, name):
-        self.newCl()
+        self._newCl()
         return self.data.readFile(name)
 
-
-    def CorrelationChemistry(self):
+    def Correlation(self, fl):
         d = self.data.GetDataChemistry()
-        otv = self.correlationChemistryData.correlation(d)
-        self.drawCorrelation(0)
+        if fl == 0:
+            otv = self.correlationChemistryData.correlation(d)
+        else:
+            if fl == 1:
+                otv = self.correlationZooplanktonData.correlation(d)
+            else:
+                if fl == 2:
+                    self.correlationMixData = Correlation.Correlation()
+                    otv = self.correlationMixData.correlation(d)
+                    self.drawPairplotDescription()
+                    self.drawPairplotPlace()
+                else:
+                    db = Include.pd.DataFrame(Include.np.array(self.list))
+                    name = self.data.GetNameZooplankton()
+                    d = db
+                    i = 0
+                    for n in name:
+                        d = d.rename(columns={i: n})
+                        i = i + 1
+                    otv = self.correlationLSAData.correlation(d)
+        self.drawCorrelation(fl)
         return otv
 
-    def CorrelationZooplankton(self):
-        d = self.data.GetDataZooplankton()
-        otv = self.correlationZooplanktonData.correlation(d)
-        self.drawCorrelation(1)
-        return otv
-
-    def CorrelationMix(self, name):
-        d = self.data.GetDataMix(name)
-        self.correlationMixData = Correlation.Correlation()
-        otv = self.correlationMixData.correlation(d)
-        self.drawCorrelation(2)
-        self.drawPairplotDescription()
-        self.drawPairplotPlace()
-        return otv
-
-    def CorrelationLSA(self):
-        da = self.lsaData.GetMass()
-        db = Include.pd.DataFrame(Include.np.array(da))
-        name = self.data.GetNameZooplankton()
-        d = db
-        i = 0
-        for n in name:
-            d = d.rename(columns={i: n})
-            i = i + 1
-        otv = self.correlationLSAData.correlation(d)
-        self.drawCorrelation(3)
-        return otv
+    # def CorrelationChemistry(self):
+    #     d = self.data.GetDataChemistry()
+    #     otv = self.correlationChemistryData.correlation(d)
+    #     self.drawCorrelation(0)
+    #     return otv
+    #
+    # def CorrelationZooplankton(self):
+    #     d = self.data.GetDataZooplankton()
+    #     otv = self.correlationZooplanktonData.correlation(d)
+    #     self.drawCorrelation(1)
+    #     return otv
+    #
+    # def CorrelationMix(self, name):
+    #     d = self.data.GetDataMix(name)
+    #     self.correlationMixData = Correlation.Correlation()
+    #     otv = self.correlationMixData.correlation(d)
+    #     self.drawCorrelation(2)
+    #     self.drawPairplotDescription()
+    #     self.drawPairplotPlace()
+    #     return otv
+    #
+    # def CorrelationLSA(self):
+    #     da = self.lsaData.GetMass()
+    #     db = Include.pd.DataFrame(Include.np.array(da))
+    #     name = self.data.GetNameZooplankton()
+    #     d = db
+    #     i = 0
+    #     for n in name:
+    #         d = d.rename(columns={i: n})
+    #         i = i + 1
+    #     otv = self.correlationLSAData.correlation(d)
+    #     self.drawCorrelation(3)
+    #     return otv
 
 
     def clustering(self):
@@ -183,13 +207,13 @@ class Data_analysis(object):
 
 
     def AnalysisCorrelationChemistry(self, name):
-        cor = self.CorrelationChemistry()
+        cor = self.Correlation(0)
         ress = self.correlationChemistryData.SortingCorrelation(cor[name])
         ress = Include.np.round_(ress, 4)
         return self._createMas(ress)
 
     def AnalysisCorrelationZooplankton(self, name):
-        cor = self.CorrelationZooplankton()
+        cor = self.Correlation(1)
         ress = self.correlationZooplanktonData.SortingCorrelation(cor[name])
         ress = Include.np.round_(ress, 4)
         return self._createMas(ress)

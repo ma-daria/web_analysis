@@ -40,7 +40,7 @@ def table(request):
 def Correlation(request):
     form=[]
     data = Data_analysis.Data_analysis()
-    data.CorrelationChemistry()
+    data.Correlation(0)
     otvet = []
     col = data.GetNameChemistry()
     sizeI = data.GetSizeData()
@@ -56,7 +56,7 @@ def Correlation(request):
         if tip == 'Химический состав':
             data.SetType(Include.CHEMISTRY)
             id = Include.CHEMISTRY
-            data.CorrelationChemistry()
+            data.Correlation(id)
             col = data.GetNameChemistry()
             size = data.GetSizeChemistry()
             corMax = data.CorrelationMaxChemistry()
@@ -64,7 +64,7 @@ def Correlation(request):
             if tip == 'Видовой состав':
                 data.SetType(Include.ZOOPLANKTON)
                 id = Include.ZOOPLANKTON
-                data.CorrelationZooplankton()
+                data.Correlation(id)
                 col = data.GetNameZooplankton()
                 size = data.GetSizeZooplankton()
                 corMax = data.CorrelationMaxZooplankton()
@@ -72,7 +72,7 @@ def Correlation(request):
                 data.SetList(list)
                 data.SetType(Include.MIX)
                 id = Include.MIX
-                data.CorrelationMix(list)
+                data.Correlation(id)
                 col = list
                 size = data.GetSizeMix()
                 corMax = data.CorrelationMaxMix()
