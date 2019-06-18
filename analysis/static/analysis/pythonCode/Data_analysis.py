@@ -104,17 +104,17 @@ class Data_analysis(object):
         self._newCl()
         return self.data.readFile(name)
 
-    def Correlation(self, fl):
+    def Correlation(self):
 
-        if fl == 0:
+        if self.type == 0:
             d = self.data.GetDataChemistry()
             otv = self.correlationChemistryData.correlation(d)
         else:
-            if fl == 1:
+            if self.type == 1:
                 d = self.data.GetDataZooplankton()
                 otv = self.correlationZooplanktonData.correlation(d)
             else:
-                if fl == 2:
+                if self.type == 2:
                     d = self.data.GetDataMix(self.list)
                     self.correlationMixData = Correlation.Correlation()
                     otv = self.correlationMixData.correlation(d)
@@ -130,7 +130,7 @@ class Data_analysis(object):
                         d = d.rename(columns={i: n})
                         i = i + 1
                     otv = self.correlationLSAData.correlation(d)
-        self.drawCorrelation(fl)
+        self.drawCorrelation()
         return otv
 
     def Clustering(self):
@@ -171,31 +171,31 @@ class Data_analysis(object):
         self.drawPCA()
 
 
-    def AnalysisCorrelation(self, name, fl):
+    def AnalysisCorrelation(self, name):
         ress = []
-        if fl == 0:
-            cor = self.Correlation(fl)
+        if self.type == 0:
+            cor = self.Correlation()
             ress = self.correlationChemistryData.SortingCorrelation(cor[name])
         else:
-            if fl == 1:
-                cor = self.Correlation(fl)
+            if self.type == 1:
+                cor = self.Correlation()
                 ress = self.correlationZooplanktonData.SortingCorrelation(cor[name])
             else:
-                if fl == 2:
+                if self.type == 2:
                     cor = self.correlationMixData.getData()
                     ress = self.correlationMixData.SortingCorrelation(cor[name])
         ress = Include.np.round_(ress, 4)
         return self._createMas(ress)
 
-    def CorrelationMax(self, fl):
+    def CorrelationMax(self):
         ress = []
-        if fl == 0:
+        if self.type == 0:
             ress = self.correlationChemistryData.corMax()
         else:
-            if fl == 1:
+            if self.type == 1:
                 ress = self.correlationZooplanktonData.corMax()
             else:
-                if fl == 2:
+                if self.type == 2:
                     ress = self.correlationMixData.corMax()
         return self._createMasMax(ress)
 
@@ -271,14 +271,14 @@ class Data_analysis(object):
         return otvet
 
 
-    def drawCorrelation(self, fl):
-        if fl == 0:
+    def drawCorrelation(self):
+        if self.type == 0:
             return self.correlationChemistryData.getPhoto(10)
         else:
-            if fl == 1:
+            if self.type == 1:
                 return self.correlationZooplanktonData.getPhoto(25)
             else:
-                if fl == 2:
+                if self.type == 2:
                     return self.correlationMixData.getPhoto(15)
                 else:
                     return self.correlationLSAData.getPhoto(20)

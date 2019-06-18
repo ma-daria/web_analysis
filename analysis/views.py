@@ -40,14 +40,15 @@ def table(request):
 def Correlation(request):
     form=[]
     data = Data_analysis.Data_analysis()
-    data.Correlation(Include.CO_CHEMISTRY)
+    data.SetType(Include.CO_CHEMISTRY)
+    data.Correlation()
     otvet = []
     col = data.GetNameChemistry()
     sizeI = data.GetSizeData()
     col1 = data.GetNameChemistry()
     col2 = data.GetNameZooplankton()
     colS = col1.tolist() + col2.tolist()
-    corMax = data.CorrelationMax(0)
+    corMax = data.CorrelationMax()
     id = data.GetType()
     size = data.GetSizeChemistry()
     if request.method == 'POST':
@@ -56,26 +57,26 @@ def Correlation(request):
         if tip == 'Химический состав':
             data.SetType(Include.CO_CHEMISTRY)
             id = Include.CO_CHEMISTRY
-            data.Correlation(id)
+            data.Correlation()
             col = data.GetNameChemistry()
             size = data.GetSizeChemistry()
-            corMax = data.CorrelationMax(id)
+            corMax = data.CorrelationMax()
         else:
             if tip == 'Видовой состав':
                 data.SetType(Include.CO_ZOOPLANKTON)
                 id = Include.CO_ZOOPLANKTON
-                data.Correlation(id)
+                data.Correlation()
                 col = data.GetNameZooplankton()
                 size = data.GetSizeZooplankton()
-                corMax = data.CorrelationMax(id)
+                corMax = data.CorrelationMax()
             else:
                 data.SetList(list)
                 data.SetType(Include.CO_MIX)
                 id = Include.CO_MIX
-                data.Correlation(id)
+                data.Correlation()
                 col = list
                 size = data.GetSizeMix()
-                corMax = data.CorrelationMax(id)
+                corMax = data.CorrelationMax()
     return render(request, 'analysis/Correlation.html', {'col': col, 'colS':colS, 'otvet': otvet, 'form': form, 'type': id, 'size': size, 'sizeI': sizeI, 'corMax': corMax})
 
 def PrintListCorrelation(request):
@@ -94,18 +95,18 @@ def PrintListCorrelation(request):
     if request.method == 'POST':
         names = request.POST['name']
         if type == Include.CO_CHEMISTRY:
-            otvet = data.AnalysisCorrelation(str(names), type)
+            otvet = data.AnalysisCorrelation(str(names))
             col = data.GetNameChemistry()
             size = data.GetSizeChemistry()
             corMax = data.CorrelationMaxChemistry()
         else:
             if type == Include.CO_ZOOPLANKTON:
-                otvet = data.AnalysisCorrelation(str(names), type)
+                otvet = data.AnalysisCorrelation(str(names))
                 col = data.GetNameZooplankton()
                 size = data.GetSizeZooplankton()
                 corMax = data.CorrelationMaxZooplankton()
             else:
-                otvet = data.AnalysisCorrelation(str(names), type)
+                otvet = data.AnalysisCorrelation(str(names))
                 col = Include.pd.Series(data.GetList())
                 size = data.GetSizeMix()
                 corMax = data.CorrelationMaxMix()
@@ -204,7 +205,8 @@ def LSAstr(request):
     otvet = []
     otvet2 = []
     col = data.GetNameZooplankton()
-    data.Correlation(Include.CO_LSA)
+    data.SetType(Include.CO_LSA)
+    data.Correlation()
     val = str(0.2)
     if request.method == 'POST':
         names = request.POST['name']
@@ -224,7 +226,7 @@ def LSAgroup(request):
     val = str(0.2)
     if request.method == 'POST':
         val = request.POST['name']
-        otvet2 = data.GroupClustering(float(val), 1)
+        otvet2 = data.GroupClustering(float(val))
     return render(request, 'analysis/LSA.html',{'Zooplankton': col, 'otvet': otvet, 'otvet2': otvet2, 'size': size, 'sizeI': sizeI, 'val': val})
 
 def LDA(request):
@@ -244,7 +246,7 @@ def photoCorrelation(request):
     data = Data_analysis.Data_analysis()
     type = data.GetType()
     try:
-        buffer = data.drawCorrelation(type)
+        buffer = data.drawCorrelation()
     except:
         buffer = Include.io.BytesIO()
         print("Не удалось загрузить график")
@@ -307,7 +309,7 @@ def photoPairplot2(request):
 def photoCorLSA(request):
     data = Data_analysis.Data_analysis()
     try:
-        buffer = data.drawCorrelation(4)
+        buffer = data.drawCorrelation()
     except:
         buffer = Include.io.BytesIO()
         print("Не удалось загрузить график")
