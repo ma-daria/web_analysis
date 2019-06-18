@@ -40,7 +40,7 @@ def table(request):
 def Correlation(request):
     form=[]
     data = Data_analysis.Data_analysis()
-    data.Correlation(0)
+    data.Correlation(Include.CO_CHEMISTRY)
     otvet = []
     col = data.GetNameChemistry()
     sizeI = data.GetSizeData()
@@ -54,24 +54,24 @@ def Correlation(request):
         list = request.POST.getlist('states[]')
         tip = request.POST['name3']
         if tip == 'Химический состав':
-            data.SetType(Include.CHEMISTRY)
-            id = Include.CHEMISTRY
+            data.SetType(Include.CO_CHEMISTRY)
+            id = Include.CO_CHEMISTRY
             data.Correlation(id)
             col = data.GetNameChemistry()
             size = data.GetSizeChemistry()
             corMax = data.CorrelationMax(id)
         else:
             if tip == 'Видовой состав':
-                data.SetType(Include.ZOOPLANKTON)
-                id = Include.ZOOPLANKTON
+                data.SetType(Include.CO_ZOOPLANKTON)
+                id = Include.CO_ZOOPLANKTON
                 data.Correlation(id)
                 col = data.GetNameZooplankton()
                 size = data.GetSizeZooplankton()
                 corMax = data.CorrelationMax(id)
             else:
                 data.SetList(list)
-                data.SetType(Include.MIX)
-                id = Include.MIX
+                data.SetType(Include.CO_MIX)
+                id = Include.CO_MIX
                 data.Correlation(id)
                 col = list
                 size = data.GetSizeMix()
@@ -93,13 +93,13 @@ def PrintListCorrelation(request):
     corMax = []
     if request.method == 'POST':
         names = request.POST['name']
-        if type == Include.CHEMISTRY:
+        if type == Include.CO_CHEMISTRY:
             otvet = data.AnalysisCorrelation(str(names), type)
             col = data.GetNameChemistry()
             size = data.GetSizeChemistry()
             corMax = data.CorrelationMaxChemistry()
         else:
-            if type == Include.ZOOPLANKTON:
+            if type == Include.CO_ZOOPLANKTON:
                 otvet = data.AnalysisCorrelation(str(names), type)
                 col = data.GetNameZooplankton()
                 size = data.GetSizeZooplankton()
@@ -118,7 +118,8 @@ def ClusteringStr(request):
     data = Data_analysis.Data_analysis()
     size = data.GetSizeZooplankton()
     sizeI = data.GetSizeData()
-    data.Clustering(0)
+    data.SetType_cla(Include.CL_CHEMISTRY)
+    data.Clustering()
     otvet = []
     names = ''
     col = data.GetNameZooplankton()
@@ -129,7 +130,7 @@ def ClusteringStr(request):
         tip = request.POST['name3']
         if tip == 'Точки измерения':
             data.SetType_cla(Include.CL_CHEMISTRY)
-            data.Clustering(Include.CL_CHEMISTRY)
+            data.Clustering()
             col = data.GetNameChemistryRes()
             size = data.GetSizeData()
             sizeI = data.GetSizeChemistry()
@@ -138,7 +139,7 @@ def ClusteringStr(request):
             data.SetType_cla(Include.CL_ZOOPLANKTON)
             size = data.GetSizeZooplankton()
             sizeI = data.GetSizeData()
-            data.Clustering(Include.CL_ZOOPLANKTON)
+            data.Clustering()
             col = data.GetNameZooplankton()
             type = Include.CL_ZOOPLANKTON
     return render(request, 'analysis/Clustering.html', {'Zooplankton': col, 'otvet': otvet, 'selec': names, 'size': size, 'sizeI': sizeI, 'type': type, 'otvet2': otvet2, 'val': val})
@@ -157,12 +158,12 @@ def ClusteringPr(request):
         names = request.POST['name']
         if (type == Include.CL_ZOOPLANKTON):
             col = data.GetNameZooplankton()
-            otvet = data.AnalysisClustering(names, type)
+            otvet = data.AnalysisClustering(names)
             size = data.GetSizeZooplankton()
             sizeI = data.GetSizeData()
         else:
             col = data.GetNameChemistryRes()
-            otvet = data.AnalysisClustering(names, type)
+            otvet = data.AnalysisClustering(names)
             size = data.GetSizeData()
             sizeI = data.GetSizeChemistry()
         col = col[col != names]
@@ -183,12 +184,12 @@ def CLUSgroup(request):
         type = data.GetType_cla()
         val = request.POST['name']
         if (type == Include.CL_ZOOPLANKTON):
-            otvet2 = data.GroupClustering(float(val), type)
+            otvet2 = data.GroupClustering(float(val))
             size = data.GetSizeZooplankton()
             sizeI = data.GetSizeData()
             col = data.GetNameZooplankton()
         else:
-            otvet2 = data.GroupClustering(float(val), type)
+            otvet2 = data.GroupClustering(float(val))
             size = data.GetSizeData()
             sizeI = data.GetSizeChemistry()
             col = data.GetNameChemistryRes()
@@ -198,15 +199,16 @@ def LSAstr(request):
     data = Data_analysis.Data_analysis()
     sizeI = data.GetSizeData()
     size = data.GetSizeZooplankton()
-    data.Clustering(1)
+    data.SetType_cla(Include.CL_LSA)
+    data.Clustering()
     otvet = []
     otvet2 = []
     col = data.GetNameZooplankton()
-    data.Correlation(3)
+    data.Correlation(Include.CO_LSA)
     val = str(0.2)
     if request.method == 'POST':
         names = request.POST['name']
-        otvet = data.AnalysisClustering(names, 1)
+        otvet = data.AnalysisClustering(names)
         col = col[col != names]
         col = [names] + col.tolist()
     return render(request, 'analysis/LSA.html', {'Zooplankton': col, 'otvet': otvet, 'otvet2': otvet2,'size': size, 'sizeI': sizeI, 'val': val})
@@ -255,7 +257,7 @@ def photoClustrering(request):
     data = Data_analysis.Data_analysis()
     try:
         type = data.GetType_cla()
-        buffer = data.drawDentogram(type)
+        buffer = data.drawDentogram()
     except:
         buffer = Include.io.BytesIO()
         print("Не удалось загрузить график")
@@ -265,7 +267,7 @@ def photoClustrering(request):
 def photoLSA(request):
     data = Data_analysis.Data_analysis()
     try:
-        buffer = data.drawDentogram(1)
+        buffer = data.drawDentogram()
     except:
         buffer = Include.io.BytesIO()
         print("Не удалось загрузить график")
@@ -274,7 +276,7 @@ def photoLSA(request):
 
 def photoPairplot(request):
     data = Data_analysis.Data_analysis()
-    if data.GetType() == Include.MIX:
+    if data.GetType() == Include.CO_MIX:
         try:
             buffer = data.drawPairplotDescription()
         except:
@@ -289,7 +291,7 @@ def photoPairplot(request):
 
 def photoPairplot2(request):
     data = Data_analysis.Data_analysis()
-    if data.GetType() == Include.MIX:
+    if data.GetType() == Include.CO_MIX:
         try:
             buffer = data.drawPairplotPlace()
         except:
@@ -316,7 +318,7 @@ def photoPCA(request):
     data = Data_analysis.Data_analysis()
     try:
         type = data.GetType_cla()
-        buffer = data.drawPCA(type)
+        buffer = data.drawPCA()
     except:
         buffer = Include.io.BytesIO()
         print("Не удалось загрузить график")
@@ -326,7 +328,7 @@ def photoPCA(request):
 def photoPCAlsa(request):
     data = Data_analysis.Data_analysis()
     try:
-        buffer = data.drawPCA(1)
+        buffer = data.drawPCA()
     except:
         buffer = Include.io.BytesIO()
         print("Не удалось загрузить график")
