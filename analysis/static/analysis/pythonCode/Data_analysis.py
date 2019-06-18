@@ -217,22 +217,21 @@ class Data_analysis(object):
                     id = self._Search(names, col)
                     return self.clusteringChemistryData.GropupClustering(cl, id, col.size, col)
 
+    def GroupClustering(self, val, fl):
+        cl = self.Clustering(fl)
+        if fl == 0:
+            col = self.data.GetNameZooplankton()
+            return self.clusteringData.Group(cl, val, col.size, col)
+        else:
+            if fl == 1:
+                col = self.data.GetNameZooplankton()
+                return self.lsaData.Group(cl, val, col.size, col)
+            else:
+                if fl == 2:
+                    col = self.data.GetNameChemistryRes()
+                    return self.clusteringChemistryData.Group(cl, val, col.size, col)
 
 
-    def GroupLSA(self, val):
-        cl = self.Clustering(1)
-        col = self.data.GetNameZooplankton()
-        return self.lsaData.Group(cl, val, col.size, col)
-
-    def GroupClustering(self, val):
-        cl = self.Clustering(0)
-        col = self.data.GetNameZooplankton()
-        return self.clusteringData.Group(cl, val, col.size, col)
-
-    def GroupClusteringChemistry(self, val):
-        cl = self.Clustering(2)
-        col = self.data.GetNameChemistryRes()
-        return self.clusteringChemistryData.Group(cl, val, col.size, col)
 
     def LDA(self):
         d = self.data.GetDataZooplankton()

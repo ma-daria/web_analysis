@@ -183,12 +183,12 @@ def CLUSgroup(request):
         type = data.GetType_cla()
         val = request.POST['name']
         if (type == Include.CL_ZOOPLANKTON):
-            otvet2 = data.GroupClustering(float(val))
+            otvet2 = data.GroupClustering(float(val), type)
             size = data.GetSizeZooplankton()
             sizeI = data.GetSizeData()
             col = data.GetNameZooplankton()
         else:
-            otvet2 = data.GroupClusteringChemistry(float(val))
+            otvet2 = data.GroupClustering(float(val), type)
             size = data.GetSizeData()
             sizeI = data.GetSizeChemistry()
             col = data.GetNameChemistryRes()
@@ -222,7 +222,7 @@ def LSAgroup(request):
     val = str(0.2)
     if request.method == 'POST':
         val = request.POST['name']
-        otvet2 = data.GroupLSA(float(val))
+        otvet2 = data.GroupClustering(float(val), 1)
     return render(request, 'analysis/LSA.html',{'Zooplankton': col, 'otvet': otvet, 'otvet2': otvet2, 'size': size, 'sizeI': sizeI, 'val': val})
 
 def LDA(request):
