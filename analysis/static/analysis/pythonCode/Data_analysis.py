@@ -111,11 +111,11 @@ class Data_analysis(object):
             otv = self.correlationChemistryData.correlation(d)
         else:
             if fl == 1:
-                d = self.data.GetDataChemistry()
+                d = self.data.GetDataZooplankton()
                 otv = self.correlationZooplanktonData.correlation(d)
             else:
                 if fl == 2:
-                    d = self.data.GetDataChemistry()
+                    d = self.data.GetDataMix(self.list)
                     self.correlationMixData = Correlation.Correlation()
                     otv = self.correlationMixData.correlation(d)
                     self.drawPairplotDescription()
@@ -171,24 +171,22 @@ class Data_analysis(object):
         self.drawPCA(fl)
 
 
-
-    def AnalysisCorrelationChemistry(self, name):
-        cor = self.Correlation(0)
-        ress = self.correlationChemistryData.SortingCorrelation(cor[name])
+    def AnalysisCorrelation(self, name, fl):
+        ress = []
+        if fl == 0:
+            cor = self.Correlation(fl)
+            ress = self.correlationChemistryData.SortingCorrelation(cor[name])
+        else:
+            if fl == 1:
+                cor = self.Correlation(fl)
+                ress = self.correlationZooplanktonData.SortingCorrelation(cor[name])
+            else:
+                if fl == 2:
+                    cor = self.correlationMixData.getData()
+                    ress = self.correlationMixData.SortingCorrelation(cor[name])
         ress = Include.np.round_(ress, 4)
         return self._createMas(ress)
 
-    def AnalysisCorrelationZooplankton(self, name):
-        cor = self.Correlation(1)
-        ress = self.correlationZooplanktonData.SortingCorrelation(cor[name])
-        ress = Include.np.round_(ress, 4)
-        return self._createMas(ress)
-
-    def AnalysisCorrelationMix(self, name):
-        cor = self.correlationMixData.getData()
-        ress = self.correlationMixData.SortingCorrelation(cor[name])
-        ress = Include.np.round_(ress, 4)
-        return self._createMas(ress)
 
 
     def CorrelationMaxChemistry(self):

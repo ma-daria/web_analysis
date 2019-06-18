@@ -94,18 +94,18 @@ def PrintListCorrelation(request):
     if request.method == 'POST':
         names = request.POST['name']
         if type == Include.CHEMISTRY:
-            otvet = data.AnalysisCorrelationChemistry(str(names))
+            otvet = data.AnalysisCorrelation(str(names), type)
             col = data.GetNameChemistry()
             size = data.GetSizeChemistry()
             corMax = data.CorrelationMaxChemistry()
         else:
             if type == Include.ZOOPLANKTON:
-                otvet = data.AnalysisCorrelationZooplankton(str(names))
+                otvet = data.AnalysisCorrelation(str(names), type)
                 col = data.GetNameZooplankton()
                 size = data.GetSizeZooplankton()
                 corMax = data.CorrelationMaxZooplankton()
             else:
-                otvet = data.AnalysisCorrelationMix(str(names))
+                otvet = data.AnalysisCorrelation(str(names), type)
                 col = Include.pd.Series(data.GetList())
                 size = data.GetSizeMix()
                 corMax = data.CorrelationMaxMix()
