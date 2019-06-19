@@ -1,4 +1,5 @@
 from analysis.static.analysis.pythonCode import Include
+from abc import abstractmethod
 
 class Dentogram(object):
     def __init__(self):
@@ -15,8 +16,9 @@ class Dentogram(object):
             self.data = self._toDo(measurement)
         return self.data
 
+    @abstractmethod
     def _toDo(self, measurement):
-        return []
+        pass
 
     def _ClusteringMetod(self, measurement):
         distance_mat = Include.distance.pdist(measurement, 'cosine')
