@@ -98,18 +98,18 @@ def PrintListCorrelation(request):
             otvet = data.AnalysisCorrelation(str(names))
             col = data.GetNameChemistry()
             size = data.GetSizeChemistry()
-            corMax = data.CorrelationMaxChemistry()
+            corMax = data.CorrelationMax()
         else:
             if type == Include.CO_ZOOPLANKTON:
                 otvet = data.AnalysisCorrelation(str(names))
                 col = data.GetNameZooplankton()
                 size = data.GetSizeZooplankton()
-                corMax = data.CorrelationMaxZooplankton()
+                corMax = data.CorrelationMax()
             else:
                 otvet = data.AnalysisCorrelation(str(names))
                 col = Include.pd.Series(data.GetList())
                 size = data.GetSizeMix()
-                corMax = data.CorrelationMaxMix()
+                corMax = data.CorrelationMax()
         col = col[col != names]
         col = [names] + col.tolist()
     return render(request, 'analysis/Correlation.html', {'col': col, 'colS':colS, 'otvet': otvet, 'form': form, 'type': type, 'size': size, 'sizeI': sizeI, 'corMax': corMax})
@@ -119,7 +119,7 @@ def ClusteringStr(request):
     data = Data_analysis.Data_analysis()
     size = data.GetSizeZooplankton()
     sizeI = data.GetSizeData()
-    data.SetType_cla(Include.CL_CHEMISTRY)
+    data.SetType_cla(Include.CL_ZOOPLANKTON)
     data.Clustering()
     otvet = []
     names = ''

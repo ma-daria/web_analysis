@@ -6,7 +6,7 @@ class DentogramLSA(Dentogram.Dentogram):
     def __init__(self):
         super().__init__()
 
-    def _toDo(self, measurement):
+    def _toDo(self,  measurement, nameCol):
         self.col = measurement.columns
         measurement = measurement.T
         measurement = Include.preprocessing.normalize(measurement)

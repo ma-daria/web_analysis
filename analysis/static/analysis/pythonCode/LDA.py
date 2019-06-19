@@ -1,22 +1,24 @@
-from analysis.static.analysis.pythonCode import Include
+from analysis.static.analysis.pythonCode import Include, Analysis
 
-class LDA(object):
+class LDA(Analysis.Analysis):
+    gro =''
 
     def __init__(self):
-        self.lda_data = Include.LatentDirichletAllocation()
-        self.fla = 0
-        self.gro = ''
+        super().__init__()
+        # self.data = Include.LatentDirichletAllocation()
+        # self.fla = 0
+        # self.gro = ''
 
-    def lda(self, toTopics, no_topics = 10):
-        if self.fla ==0:
-            self.fla = 1
-            self._toDo(toTopics, no_topics)
+    # def lda(self, toTopics, no_topics = 10):
+    #     if self.fla ==0:
+    #         self.fla = 1
+    #         self._toDo(toTopics, no_topics)
 
-    def _toDo(self, toTopics, no_topics):
-        self.lda_data = Include.LatentDirichletAllocation(n_components=no_topics, max_iter=5, learning_method='online',
-                                                          learning_offset=50., random_state=0)
-        self.lda_data = self.lda_data.fit(toTopics)
-
+    def _toDo(self, measurement, nameCol):
+        self.data = Include.LatentDirichletAllocation(n_components=10, max_iter=5, learning_method='online',
+                                                      learning_offset=50., random_state=0)
+        self.data = self.data.fit(measurement)
+        return self.data
 
     def group_n(self,  names, no_top_words = 10 ):
         if self.gro == '':
@@ -26,7 +28,7 @@ class LDA(object):
     def _group_N(self,  names, no_top_words):
         names = names.tolist()
         otvet =[]
-        for topic_idx, topic in enumerate(self.lda_data.components_):
+        for topic_idx, topic in enumerate(self.data.components_):
             top_ag = topic.argsort()
             st = ''
             st2 = ''
@@ -43,7 +45,7 @@ class LDA(object):
     def group(self,  names, value):
         names = names.tolist()
         otvet =[]
-        for topic_idx, topic in enumerate(self.lda_data.components_):
+        for topic_idx, topic in enumerate(self.data.components_):
             top_ag = topic.argsort()
             st = ''
             st2 = ''
@@ -58,3 +60,6 @@ class LDA(object):
             # otvet.append(st)
             otvet.append([st, st2])
         return otvet
+
+    def _draw(selfm, size, nameCol, component1, component2):
+        return Include.io.BytesIO()

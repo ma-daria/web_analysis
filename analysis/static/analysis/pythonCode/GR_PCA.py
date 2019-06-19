@@ -1,35 +1,40 @@
-from analysis.static.analysis.pythonCode import Include
+from analysis.static.analysis.pythonCode import Include, Analysis
 
-class GR_PCA(object):
+class GR_PCA(Analysis.Analysis):
+    X_pca = []
+    c = []
+
 
     def __init__(self):
-        self.pca = Include.PCA()
-        self.X_pca = []
-        self.c = []
-        self.flag = 0
-        self.buffer = []
+        super().__init__()
+        # self.X_pca = []
+        # self.c = []
+        # self.flag = 0
+        # self.buffer = []
 
-    def gr_pca(self, df1, colorField):
-        if self.flag == 0:
-            self._toDo(df1, colorField)
+    # def gr_pca(self, df1, colorField):
+    #     if self.flag == 0:
+    #         self._toDo(df1, colorField)
 
     def _toDo(self, df1, colorField):
+        self.data = Include.PCA()
         X = df1.drop(columns=[colorField])
         # X = Include.preprocessing.normalize(X)
         y = df1[colorField].copy()
         scaler = Include.StandardScaler()
         scaler.fit(X)
         X = scaler.transform(X)
-        self.X_pca = self.pca.fit_transform(X)
+        self.X_pca = self.data.fit_transform(X)
         self.c = Include.np.asarray(y)
+        return self.data
 
-    def getPhoto(self, col, component1, component2, size):
-        if self.buffer == []:
-            self._draw(col, component1, component2, size)
-        return self.buffer
+    # def getPhoto(self, col, component1, component2, size):
+    #     if self.buffer == []:
+    #         self._draw(col, component1, component2, size)
+    #     return self.buffer
 
-    def _draw(self, col, component1, component2, size):
-        coeff = Include.np.transpose(self.pca.components_[[component1 - 1, component2 - 1], :])
+    def _draw(self, size, nameCol, component1, component2):
+        coeff = Include.np.transpose(self.data.components_[[component1 - 1, component2 - 1], :])
         Include.plt.figure(figsize=(16, 16))
         Include.plt.xlim(size[0], size[1])
         Include.plt.ylim(size[2], size[3])
@@ -37,7 +42,7 @@ class GR_PCA(object):
         Include.plt.ylabel("PC{}".format(component2))
         Include.plt.grid()
 
-        self._biplot(self.X_pca[:, [component1 - 1, component2 - 1]], coeff, col, self.c)
+        self._biplot(self.X_pca[:, [component1 - 1, component2 - 1]], coeff, nameCol, self.c)
 
         self.buffer = Include.io.BytesIO()
         Include.plt.savefig(self.buffer, format='png')

@@ -1,23 +1,29 @@
-from analysis.static.analysis.pythonCode import Include
+from analysis.static.analysis.pythonCode import Include, Analysis
 from abc import abstractmethod
 
-class Dentogram(object):
-    def __init__(self):
-        self.data = Include.np.asarray([])
-        self.buffer = []
-        self.col = Include.np.asarray([])
-        self.otvet = []
-        self.us_couples = Include.np.asarray([])
-        self.us_options = Include.np.asarray([])
+class Dentogram(Analysis.Analysis):
+    col = Include.np.asarray([])
+    otvet = []
+    us_couples = Include.np.asarray([])
+    us_options = Include.np.asarray([])
 
-    def dentogram(self, measurement):
-        if len(self.data) == 0:
-        # if self.data.size == 0:
-            self.data = self._toDo(measurement)
-        return self.data
+    def __init__(self):
+        super().__init__()
+        # self.data = Include.np.asarray([])
+        # self.buffer = []
+        # self.col = Include.np.asarray([])
+        # self.otvet = []
+        # self.us_couples = Include.np.asarray([])
+        # self.us_options = Include.np.asarray([])
+
+    # def dentogram(self, measurement):
+    #     if len(self.data) == 0:
+    #     # if self.data.size == 0:
+    #         self.data = self._toDo(measurement)
+    #     return self.data
 
     @abstractmethod
-    def _toDo(self, measurement):
+    def _toDo(self,  measurement, nameCol):
         pass
 
     def _ClusteringMetod(self, measurement):
@@ -147,14 +153,14 @@ class Dentogram(object):
 
 
 
-    def getPhoto(self, index):
-        if self.buffer == []:
-            self._draw(index)
-        return self.buffer
+    # def getPhoto(self, index):
+    #     if self.buffer == []:
+    #         self._draw(index)
+    #     return self.buffer
 
-    def _draw(self, index):
+    def _draw(self, size, nameCol, component1, component2):
         Include.plt.figure(figsize=(20, 15), dpi=200)
-        dn = Include.hierarchy.dendrogram(self.data, labels=self.col, color_threshold=index)
+        dn = Include.hierarchy.dendrogram(self.data, labels=self.col, color_threshold=size)
         self.buffer = Include.io.BytesIO()
         Include.plt.savefig(self.buffer, format='png')
 

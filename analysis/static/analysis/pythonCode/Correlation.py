@@ -1,14 +1,18 @@
-from analysis.static.analysis.pythonCode import Include
+from analysis.static.analysis.pythonCode import Include, Analysis
 
-class Correlation(object):
+class Correlation(Analysis.Analysis):
     def __init__(self):
-        self.data = Include.pd.DataFrame([])
-        self.buffer = []
+        super().__init__()
+        # self.data = Include.pd.DataFrame([])
+        # self.buffer = []
 
-    def correlation(self, measurement):
-        if len(self.data) == 0:
-            self.data = measurement.corr()
-        return self.data
+    # def correlation(self, measurement):
+    #     if len(self.data) == 0:
+    #         self.data = measurement.corr()
+    #     return self.data
+
+    def _toDo(selfm,  measurement, nameCol):
+        return measurement.corr()
 
     def getData(self):
         return self.data
@@ -20,12 +24,12 @@ class Correlation(object):
             correlation_mod[name] = correlati[name]
         return correlation_mod
 
-    def getPhoto(self, size):
-        if self.buffer == []:
-            self._draw(size)
-        return self.buffer
+    # def getPhoto(self, size):
+    #     if self.buffer == []:
+    #         self._draw(size)
+    #     return self.buffer
 
-    def _draw(self, size):
+    def _draw(self, size, nameCol, component1, component2):
         mapPalette = Include.sns.diverging_palette(10, 240, sep=10, as_cmap=True)
         Include.plt.figure(figsize=(size, size), dpi=200)
         Include.sns.heatmap(self.data, cmap=mapPalette, vmin=-1, vmax=1)

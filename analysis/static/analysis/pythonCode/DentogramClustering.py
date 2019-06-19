@@ -5,7 +5,7 @@ class DentogramClustering(Dentogram.Dentogram):
     def __init__(self):
         super().__init__()
 
-    def _toDo(self, measurement):
+    def _toDo(self,  measurement, nameCol):
         self.col = measurement.columns
         measurement = measurement.T
         measurementN = Include.preprocessing.normalize(measurement)
