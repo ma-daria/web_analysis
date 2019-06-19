@@ -100,7 +100,7 @@ class Data_analysis(object):
         return self.data.GetNameChemistryRes()
 
 
-    def readFile(self, name):
+    def ReadFile(self, name):
         self._newCl()
         return self.data.readFile(name)
 
@@ -147,12 +147,12 @@ class Data_analysis(object):
                     d = self.data.GetDataChemistryRes()
                     otv = self.clusteringChemistryData.dentogram(d)
         self.drawDentogram()
-        self.pca()
+        self.PCA()
         return otv
 
 
 
-    def pca(self):
+    def PCA(self):
         if self.type_cla == 0:
             d = self.data.GetDataZooplankton()
             d['pH'] = self.data.GetDataMix(['pH'])

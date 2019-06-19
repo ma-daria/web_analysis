@@ -23,7 +23,7 @@ def index(request):
         fs = FileSystemStorage()
         fs.save(file.name, file)
         data = Data_analysis.Data_analysis()
-        data.readFile(str(settings.MEDIA_ROOT) + '/' + str(file))
+        data.ReadFile(str(settings.MEDIA_ROOT) + '/' + str(file))
         return redirect('/table')
     return render(request, 'analysis/index.html')
 
