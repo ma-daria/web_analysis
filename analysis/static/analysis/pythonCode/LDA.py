@@ -61,5 +61,5 @@ class LDA(Analysis.Analysis):
             otvet.append([st, st2])
         return otvet
 
-    def _draw(selfm, size, nameCol, component1, component2):
-        return Include.io.BytesIO()
+    # def _draw(selfm, size, nameCol, component1, component2):
+    #     return Include.io.BytesIO()

@@ -1,38 +1,42 @@
-from analysis.static.analysis.pythonCode import Include
+from analysis.static.analysis.pythonCode import Include, ReadFileCSV
 
 
 class Data(object):
     data = Include.pd.DataFrame([])
 
     def readFile(self, name):
-        measurement = Include.pd.read_csv(name, sep=';', decimal=',', header=1)
-        measurement = measurement.rename(columns={'Unnamed: 0': 'Водоем'})
-        measurement = measurement.rename(columns={'Unnamed: 1': 'Дата'})
-        measurement = measurement.rename(columns={'Unnamed: 2': 'Место измерения'})
-        measurement = measurement.rename(columns={'Unnamed: 3': 'Описание точки измерения'})
-        measurement = measurement.rename(columns={'Unnamed: 4': 'pH'})
-        measurement = measurement.rename(columns={'Unnamed: 5': 'Минерализация'})
-        measurement = measurement.rename(columns={'Unnamed: 6': 't'})
-        measurement = measurement.rename(columns={'Unnamed: 16': 'биомасса ФП'})
-
-        measurement.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'] = self._ToFloat(
-            measurement.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'])
-
-        new_measurement = measurement
-        for number in measurement.columns:
-            if measurement[number].dtypes == 'float64':
-                if measurement[number].sum() == 0:
-                    del new_measurement[number]
-        measurement = new_measurement
-
-        for number in measurement.columns:
-            measurement = measurement.rename(columns={number: number.strip()})
-
-        measurement.loc[measurement['Описание точки измерения'] == "заросли тростника, рогоза, погружен раст", 'Описание точки измерения'] = "заросли"
-
-
-        self.data = measurement
+        red = ReadFileCSV.ReadFileCSV()
+        self.data = red.readFile(name)
         return self.data
+
+    # def readFile(self, name):
+    #     measurement = Include.pd.read_csv(name, sep=';', decimal=',', header=1)
+    #     measurement = measurement.rename(columns={'Unnamed: 0': 'Водоем'})
+    #     measurement = measurement.rename(columns={'Unnamed: 1': 'Дата'})
+    #     measurement = measurement.rename(columns={'Unnamed: 2': 'Место измерения'})
+    #     measurement = measurement.rename(columns={'Unnamed: 3': 'Описание точки измерения'})
+    #     measurement = measurement.rename(columns={'Unnamed: 4': 'pH'})
+    #     measurement = measurement.rename(columns={'Unnamed: 5': 'Минерализация'})
+    #     measurement = measurement.rename(columns={'Unnamed: 6': 't'})
+    #     measurement = measurement.rename(columns={'Unnamed: 16': 'биомасса ФП'})
+    #
+    #     measurement.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'] = self._ToFloat(
+    #         measurement.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'])
+    #
+    #     new_measurement = measurement
+    #     for number in measurement.columns:
+    #         if measurement[number].dtypes == 'float64':
+    #             if measurement[number].sum() == 0:
+    #                 del new_measurement[number]
+    #     measurement = new_measurement
+    #
+    #     for number in measurement.columns:
+    #         measurement = measurement.rename(columns={number: number.strip()})
+    #
+    #     measurement.loc[measurement['Описание точки измерения'] == "заросли тростника, рогоза, погружен раст", 'Описание точки измерения'] = "заросли"
+    #
+    #     self.data = measurement
+    #     return self.data
 
     def _ToFloat(self, measurement):
         for name in measurement:

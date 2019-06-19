@@ -3,7 +3,8 @@ from analysis.static.analysis.pythonCode import Include
 
 class Analysis(object):
     def __init__(self):
-        self.data = Include.np.asarray([])
+        self.data = Include.pd.DataFrame([])
+        # self.data = Include.np.asarray([])
         self.buffer = []
         self.data_flag = 0
 
