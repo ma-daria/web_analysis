@@ -276,11 +276,11 @@ def photoLSA(request):
     response = HttpResponse(buffer.getvalue(), content_type='image/png')
     return response
 
-def photoPairplot(request):
+def photoPairplotDescription(request):
     data = Data_analysis.Data_analysis()
     if data.GetType() == Include.CO_MIX:
         try:
-            buffer = data.drawPairplotDescription()
+            buffer = data.drawPairplot(Include.PA_DESCRIPTION)
         except:
             buffer = Include.io.BytesIO()
             print("Не удалось загрузить график")
@@ -291,11 +291,11 @@ def photoPairplot(request):
         response = HttpResponse(buffer.getvalue(), content_type='image/png')
         return response
 
-def photoPairplot2(request):
+def photoPairplotPlace(request):
     data = Data_analysis.Data_analysis()
     if data.GetType() == Include.CO_MIX:
         try:
-            buffer = data.drawPairplotPlace()
+            buffer = data.drawPairplot(Include.PA_PLACE)
         except:
             buffer = Include.io.BytesIO()
             print("Не удалось загрузить график")

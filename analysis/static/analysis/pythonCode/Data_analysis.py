@@ -118,8 +118,8 @@ class Data_analysis(object):
                     d = self.data.GetDataMix(self.list)
                     self.correlationMixData = Correlation.Correlation()
                     otv = self.correlationMixData.correlation(d)
-                    self.drawPairplotDescription()
-                    self.drawPairplotPlace()
+                    self.drawPairplot(Include.PA_DESCRIPTION)
+                    self.drawPairplot(Include.PA_PLACE)
                 else:
                     da = self.lsaData.GetMass()
                     db = Include.pd.DataFrame(Include.np.array(da))
@@ -293,15 +293,17 @@ class Data_analysis(object):
                 if self.type_cla == 2:
                     return self.clusteringChemistryData.getPhoto(0.021)
 
-    def drawPairplotDescription(self):
+    def drawPairplot(self, fl):
         dat = self.data.GetDataMix(self.list)
-        dat['Описание точки измерения'] = self.data.GetDataMix(['Описание точки измерения'])
-        return self.pairplotDescriptionData.getPhoto(dat, 'Описание точки измерения')
+        if fl == 0:
+            dat['Описание точки измерения'] = self.data.GetDataMix(['Описание точки измерения'])
+            return self.pairplotDescriptionData.getPhoto(dat, 'Описание точки измерения')
+        else:
+            if fl == 1:
+                dat['Место измерения'] = self.data.GetDataMix(['Место измерения'])
+                return self.pairplotPlaceData.getPhoto(dat, 'Место измерения')
 
-    def drawPairplotPlace(self):
-        dat = self.data.GetDataMix(self.list)
-        dat['Место измерения'] = self.data.GetDataMix(['Место измерения'])
-        return self.pairplotPlaceData.getPhoto(dat, 'Место измерения')
+
 
     def drawPCA(self):
         if self.type_cla == 0:
