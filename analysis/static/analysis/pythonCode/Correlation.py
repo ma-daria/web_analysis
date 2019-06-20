@@ -14,8 +14,8 @@ class Correlation(Analysis.Analysis):
     def _toDo(selfm,  measurement, nameCol):
         return measurement.corr()
 
-    # def getData(self):
-    #     return self.data
+    def getData(self):
+        return self.data
 
     def SortingCorrelation(self, correlati):
         correlation_mod = correlati.abs()
@@ -48,7 +48,7 @@ class Correlation(Analysis.Analysis):
             id2 = (mod.idxmax())[(mod.max()).idxmax()]
             otv.loc[i, 0] = id1
             otv.loc[i, 1] = id2
-            otv.loc[i, 2] = ma.loc[id1, id2]
+            otv.loc[i, 2] = Include.np.round_(ma.loc[id1, id2], 4)
             i = i + 1
             mod.loc[id1, id2] = 0
             mod.loc[id2, id1] = 0
