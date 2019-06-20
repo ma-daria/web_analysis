@@ -3,6 +3,7 @@ from analysis.static.analysis.pythonCode import Include, ReadFileCSV
 
 class Data(object):
     data = Include.pd.DataFrame([])
+    list = []
 
     def readFile(self, name):
         red = ReadFileCSV.ReadFileCSV()
@@ -44,7 +45,11 @@ class Data(object):
         measurement = measurement.fillna(0)
         return measurement
 
+    def SetList(self, li):
+        self.list = li
 
+    def GetList(self):
+        return self.list
 
     def GetData(self):
         return self.data
@@ -58,9 +63,12 @@ class Data(object):
         d = self.GetData()
         return d.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae']
 
-    def GetDataMix(self, name):
+    def GetDataMix(self, li = []):
+        if li == []:
+            li = self.list
         d = self.GetData()
-        return d[name]
+        return d[li]
+
 
     def GetDataChemistryRes(self):
         dd = self.GetData()
@@ -99,3 +107,6 @@ class Data(object):
 
     def GetSizeZooplankton(self):
         return self.GetNameZooplankton().size
+
+    def GetSizeMix(self):
+        return self.GetDataMix().size

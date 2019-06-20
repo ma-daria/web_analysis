@@ -49,6 +49,7 @@ class Data_analysis(object):
 
     def SetList(self, li):
         self.list = li
+        self.data.SetList(li)
 
 
     def GetType(self):
@@ -83,7 +84,7 @@ class Data_analysis(object):
                 # otv = self.correlationZooplanktonData.correlation(d)
             else:
                 if self.type == 2:
-                    d = self.data.GetDataMix(self.list)
+                    d = self.data.GetDataMix()
                     self.correlationMixData = Correlation.Correlation()
                     otv = self.correlationMixData.Analyze(d)
                     # otv = self.correlationMixData.correlation(d)
