@@ -29,11 +29,12 @@ def index(request):
 
 def table(request):
     data = Data_analysis.Data_analysis()
-    name = data.GetNameAll()
-    size = data.GetSizeData()
+    dat = data.GetData()
+    name = dat.GetNameAll()
+    size = dat.GetSizeData()
     sizeP = name.size
-    sizeI = data.GetSizeChemistry()
-    sizeV = data.GetSizeZooplankton()
+    sizeI = dat.GetSizeChemistry()
+    sizeV = dat.GetSizeZooplankton()
     return render(request, 'analysis/table.html', { 'nameC': name, 'size': size, 'sizeP': sizeP, 'sizeI': sizeI, 'sizeV': sizeV})
 
 
@@ -43,14 +44,15 @@ def Correlation(request):
     data.SetType(Include.CO_CHEMISTRY)
     data.Correlation()
     otvet = []
-    col = data.GetNameChemistry()
-    sizeI = data.GetSizeData()
-    col1 = data.GetNameChemistry()
-    col2 = data.GetNameZooplankton()
+    dat = data.GetData()
+    col = dat.GetNameChemistry()
+    sizeI = dat.GetSizeData()
+    col1 = dat.GetNameChemistry()
+    col2 = dat.GetNameZooplankton()
     colS = col1.tolist() + col2.tolist()
     corMax = data.CorrelationMax()
     id = data.GetType()
-    size = data.GetSizeChemistry()
+    size = dat.GetSizeChemistry()
     if request.method == 'POST':
         list = request.POST.getlist('states[]')
         tip = request.POST['name3']
@@ -58,16 +60,16 @@ def Correlation(request):
             data.SetType(Include.CO_CHEMISTRY)
             id = Include.CO_CHEMISTRY
             data.Correlation()
-            col = data.GetNameChemistry()
-            size = data.GetSizeChemistry()
+            col = dat.GetNameChemistry()
+            size = dat.GetSizeChemistry()
             corMax = data.CorrelationMax()
         else:
             if tip == 'Видовой состав':
                 data.SetType(Include.CO_ZOOPLANKTON)
                 id = Include.CO_ZOOPLANKTON
                 data.Correlation()
-                col = data.GetNameZooplankton()
-                size = data.GetSizeZooplankton()
+                col = dat.GetNameZooplankton()
+                size = dat.GetSizeZooplankton()
                 corMax = data.CorrelationMax()
             else:
                 data.SetList(list)
@@ -75,40 +77,41 @@ def Correlation(request):
                 id = Include.CO_MIX
                 data.Correlation()
                 col = list
-                size = data.GetSizeMix()
+                size = dat.GetSizeMix()
                 corMax = data.CorrelationMax()
     return render(request, 'analysis/Correlation.html', {'col': col, 'colS':colS, 'otvet': otvet, 'form': form, 'type': id, 'size': size, 'sizeI': sizeI, 'corMax': corMax})
 
 def PrintListCorrelation(request):
     data = Data_analysis.Data_analysis()
-    size = data.GetSizeChemistry()
+    dat = data.GetData()
+    size = dat.GetSizeChemistry()
     form=[]
     data = Data_analysis.Data_analysis()
     type = data.GetType()
     otvet = []
-    col = data.GetNameChemistry()
-    sizeI = data.GetSizeData()
-    col1 = data.GetNameChemistry()
-    col2 = data.GetNameZooplankton()
+    col = dat.GetNameChemistry()
+    sizeI = dat.GetSizeData()
+    col1 = dat.GetNameChemistry()
+    col2 = dat.GetNameZooplankton()
     colS = col1.tolist() + col2.tolist()
     corMax = []
     if request.method == 'POST':
         names = request.POST['name']
         if type == Include.CO_CHEMISTRY:
             otvet = data.AnalysisCorrelation(str(names))
-            col = data.GetNameChemistry()
-            size = data.GetSizeChemistry()
+            col = dat.GetNameChemistry()
+            size = dat.GetSizeChemistry()
             corMax = data.CorrelationMax()
         else:
             if type == Include.CO_ZOOPLANKTON:
                 otvet = data.AnalysisCorrelation(str(names))
-                col = data.GetNameZooplankton()
-                size = data.GetSizeZooplankton()
+                col = dat.GetNameZooplankton()
+                size = dat.GetSizeZooplankton()
                 corMax = data.CorrelationMax()
             else:
                 otvet = data.AnalysisCorrelation(str(names))
                 col = Include.pd.Series(data.GetList())
-                size = data.GetSizeMix()
+                size = dat.GetSizeMix()
                 corMax = data.CorrelationMax()
         col = col[col != names]
         col = [names] + col.tolist()
@@ -117,13 +120,14 @@ def PrintListCorrelation(request):
 
 def ClusteringStr(request):
     data = Data_analysis.Data_analysis()
-    size = data.GetSizeZooplankton()
-    sizeI = data.GetSizeData()
+    dat = data.GetData()
+    size = dat.GetSizeZooplankton()
+    sizeI = dat.GetSizeData()
     data.SetType_cla(Include.CL_ZOOPLANKTON)
     data.Clustering()
     otvet = []
     names = ''
-    col = data.GetNameZooplankton()
+    col = dat.GetNameZooplankton()
     type = Include.CL_ZOOPLANKTON
     otvet2 = []
     val = str(0.2)
@@ -132,23 +136,24 @@ def ClusteringStr(request):
         if tip == 'Точки измерения':
             data.SetType_cla(Include.CL_CHEMISTRY)
             data.Clustering()
-            col = data.GetNameChemistryRes()
-            size = data.GetSizeData()
-            sizeI = data.GetSizeChemistry()
+            col = dat.GetNameChemistryRes()
+            size = dat.GetSizeData()
+            sizeI = dat.GetSizeChemistry()
             type = Include.CL_CHEMISTRY
         else:
             data.SetType_cla(Include.CL_ZOOPLANKTON)
-            size = data.GetSizeZooplankton()
-            sizeI = data.GetSizeData()
+            size = dat.GetSizeZooplankton()
+            sizeI = dat.GetSizeData()
             data.Clustering()
-            col = data.GetNameZooplankton()
+            col = dat.GetNameZooplankton()
             type = Include.CL_ZOOPLANKTON
     return render(request, 'analysis/Clustering.html', {'Zooplankton': col, 'otvet': otvet, 'selec': names, 'size': size, 'sizeI': sizeI, 'type': type, 'otvet2': otvet2, 'val': val})
 
 def ClusteringPr(request):
     data = Data_analysis.Data_analysis()
-    size = data.GetSizeZooplankton()
-    sizeI = data.GetSizeData()
+    dat = data.GetData()
+    size = dat.GetSizeZooplankton()
+    sizeI = dat.GetSizeData()
     otvet = []
     names = ''
     col = []
@@ -158,23 +163,24 @@ def ClusteringPr(request):
         type = data.GetType_cla()
         names = request.POST['name']
         if (type == Include.CL_ZOOPLANKTON):
-            col = data.GetNameZooplankton()
+            col = dat.GetNameZooplankton()
             otvet = data.AnalysisClustering(names)
-            size = data.GetSizeZooplankton()
-            sizeI = data.GetSizeData()
+            size = dat.GetSizeZooplankton()
+            sizeI = dat.GetSizeData()
         else:
-            col = data.GetNameChemistryRes()
+            col = dat.GetNameChemistryRes()
             otvet = data.AnalysisClustering(names)
-            size = data.GetSizeData()
-            sizeI = data.GetSizeChemistry()
+            size = dat.GetSizeData()
+            sizeI = dat.GetSizeChemistry()
         col = col[col != names]
         col = [names] + col.tolist()
     return render(request, 'analysis/Clustering.html', {'Zooplankton': col, 'otvet': otvet, 'selec': names, 'size': size, 'sizeI': sizeI, 'type': type, 'otvet2': otvet2, 'val': val})
 
 def CLUSgroup(request):
     data = Data_analysis.Data_analysis()
-    size = data.GetSizeZooplankton()
-    sizeI = data.GetSizeData()
+    dat = data.GetData()
+    size = dat.GetSizeZooplankton()
+    sizeI = dat.GetSizeData()
     otvet = []
     names = ''
     col = []
@@ -186,25 +192,26 @@ def CLUSgroup(request):
         val = request.POST['name']
         if (type == Include.CL_ZOOPLANKTON):
             otvet2 = data.GroupClustering(float(val))
-            size = data.GetSizeZooplankton()
-            sizeI = data.GetSizeData()
-            col = data.GetNameZooplankton()
+            size = dat.GetSizeZooplankton()
+            sizeI = dat.GetSizeData()
+            col = dat.GetNameZooplankton()
         else:
             otvet2 = data.GroupClustering(float(val))
-            size = data.GetSizeData()
-            sizeI = data.GetSizeChemistry()
-            col = data.GetNameChemistryRes()
+            size = dat.GetSizeData()
+            sizeI = dat.GetSizeChemistry()
+            col = dat.GetNameChemistryRes()
     return render(request, 'analysis/Clustering.html', {'Zooplankton': col, 'otvet': otvet, 'selec': names, 'size': size, 'sizeI': sizeI, 'type': type,'otvet2': otvet2, 'val': val})
 
 def LSAstr(request):
     data = Data_analysis.Data_analysis()
-    sizeI = data.GetSizeData()
-    size = data.GetSizeZooplankton()
+    dat = data.GetData()
+    sizeI = dat.GetSizeData()
+    size = dat.GetSizeZooplankton()
     data.SetType_cla(Include.CL_LSA)
     data.Clustering()
     otvet = []
     otvet2 = []
-    col = data.GetNameZooplankton()
+    col = dat.GetNameZooplankton()
     data.SetType(Include.CO_LSA)
     data.Correlation()
     val = str(0.2)
@@ -218,11 +225,12 @@ def LSAstr(request):
 
 def LSAgroup(request):
     data = Data_analysis.Data_analysis()
-    sizeI = data.GetSizeData()
-    size = data.GetSizeZooplankton()
+    dat = data.GetData()
+    sizeI = dat.GetSizeData()
+    size = dat.GetSizeZooplankton()
     otvet = []
     otvet2 = []
-    col = data.GetNameZooplankton()
+    col = dat.GetNameZooplankton()
     val = str(0.2)
     if request.method == 'POST':
         val = request.POST['name']

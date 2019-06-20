@@ -60,45 +60,11 @@ class Data_analysis(object):
     def GetType_cla(self):
         return self.type_cla
 
-    def GetDataTable(self):
-        meas = []
-        measur = self.data.GetData()
-        reservoir = measur['Водоем']
-        date = measur['Дата']
-        plase = measur['Место измерения']
-        point = measur['Описание точки измерения']
-        mass = measur['биомасса ФП']
-        for i in range(len(reservoir)):
-            meas.append([reservoir[i], date[i], plase[i], point[i], mass[i]])
-        return meas
-
-    def GetSizeData(self):
-        return self.data.GetSizeData()
-
-    def GetSizeChemistry(self):
-        return self.data.GetSizeChemistry()
-
-    def GetSizeZooplankton(self):
-        return self.data.GetSizeZooplankton()
-
-    def GetSizeMix(self):
-        return len(self.list)
+    def GetData(self):
+        return self.data
 
     def GetList(self):
         return self.list
-
-    def GetNameChemistry(self):
-        return self.data.GetNameChemistry()
-
-    def GetNameZooplankton(self):
-        return self.data.GetNameZooplankton()
-
-    def GetNameAll(self):
-        return self.data.GetNameAll()
-
-    def GetNameChemistryRes(self):
-        return self.data.GetNameChemistryRes()
-
 
     def ReadFile(self, name):
         self._newCl()
