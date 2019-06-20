@@ -18,7 +18,7 @@ class Data_analysis(object):
 
     type = 0
     type_cla = 0
-    list = []
+    # list = []
 
     def __new__(cls):
         if not hasattr(cls, 'instance'):
@@ -41,14 +41,14 @@ class Data_analysis(object):
         self.pairplotPlaceData = Pairplot.Pairplot()
         self.type = 0
         self.type_cla = 0
-        self.list = []
+        # self.list = []
 
 
     def SetType_cla(self, t):
         self.type_cla = t
 
     def SetList(self, li):
-        self.list = li
+        # self.list = li
         self.data.SetList(li)
 
 
@@ -64,8 +64,8 @@ class Data_analysis(object):
     def GetData(self):
         return self.data
 
-    def GetList(self):
-        return self.list
+    # def GetList(self):
+    #     return self.list
 
     def ReadFile(self, name):
         self._newCl()
@@ -272,7 +272,7 @@ class Data_analysis(object):
                     return self.clusteringChemistryData.getPhoto(size=0.021)
 
     def drawPairplot(self, fl):
-        dat = self.data.GetDataMix(self.list)
+        dat = self.data.GetDataMix()
         if fl == 0:
             dat['Описание точки измерения'] = self.data.GetDataMix(['Описание точки измерения'])
             self.pairplotDescriptionData.Analyze(dat, 'Описание точки измерения')

@@ -110,7 +110,7 @@ def PrintListCorrelation(request):
                 corMax = data.CorrelationMax()
             else:
                 otvet = data.AnalysisCorrelation(str(names))
-                col = Include.pd.Series(data.GetList())
+                col = Include.pd.Series(dat.GetList())
                 size = dat.GetSizeMix()
                 corMax = data.CorrelationMax()
         col = col[col != names]

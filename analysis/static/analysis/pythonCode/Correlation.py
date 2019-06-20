@@ -14,8 +14,8 @@ class Correlation(Analysis.Analysis):
     def _toDo(selfm,  measurement, nameCol):
         return measurement.corr()
 
-    def getData(self):
-        return self.data
+    # def getData(self):
+    #     return self.data
 
     def SortingCorrelation(self, correlati):
         correlation_mod = correlati.abs()
