@@ -5,14 +5,7 @@ class Pairplot(Analysis.Analysis):
 
     def __init__(self):
         super().__init__()
-        # self.buffer= []
-        # self.flag = 0
 
-    # def getPhoto(self, dat, name):
-    #     if self.flag == 0:
-    #         self.flag = 1
-    #         self._draw(dat, name)
-    #     return self.buffer
     def _toDo(selfm,  measurement, nameCol):
         selfm.name = nameCol
         return measurement

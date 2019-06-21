@@ -1,4 +1,6 @@
 disabledSelect();
+check_name3();
+tab();
 
 function disabledButton(){
     but = document.getElementById("but");
@@ -15,7 +17,6 @@ function hidePairplot() {
 }
 
 $('img').on( "error", function() {
-  // $(this).hide();
     hidePairplot()
 });
 
@@ -42,30 +43,24 @@ $("#name2").change(function(){
 
 $("#name3").change(function(){
     check_name3();
-
 });
-check_name3();
+
 function check_name3() {
     text = document.getElementById("name3");
     if (text.value === 'Задать вручную') {
         undisabledSelect();
         disabledButton();
-        // showPairplot();
     }else {
         disabledSelect();
         undisabledButton();
-        // hidePairplot();
     }
 }
 
-tab();
 function tab() {
-
     var table=document.getElementById('corMax');
     console.log(table.rows.length);
     if (table.rows.length === 1){
 
         $('#corMax tbody').prepend("<tr><td>Таких значений нет</td></tr>")
     }
-
 }

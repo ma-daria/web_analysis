@@ -22,7 +22,6 @@ urlpatterns = [
     path('corLSA.png', views.photoCorLSA, name='corLSA'),
     path('PCA.png', views.photoPCA, name='PCA'),
     path('PCAlsa.png', views.photoPCAlsa, name='PCAlsa')
-
 ]
 
 if settings.DEBUG:

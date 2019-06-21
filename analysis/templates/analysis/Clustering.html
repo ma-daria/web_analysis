@@ -1,14 +1,10 @@
 {% extends "analysis/template.html" %}
-
 {% block title %}
     <title>Кластерный анализ</title>
 {% endblock %}
-
-
 {% block content %}
 <div class="container">
     <div class="row">
-
         <div class="col-md-6 order-md-1">
             <div >
                 <br>
@@ -32,8 +28,6 @@
                 </form>
                 <br>
             </div>
-
-
             <div class="col-md-12 order-md-1">
                 <br>
                 <h4>Количество измерений:  {{ sizeI }}</h4>
@@ -46,13 +40,11 @@
                 <a href="{% url 'PCA' %}" target="_blank"><img src="{% url 'PCA' %}" style='width: 100%; ' ></a>
             </div>
         </div>
-
         <div class="col-md-6 order-md-1">
             <div class="col-md-12 order-md-1">
                 <br>
                 <label for="exampleFormControlSelect1">Укажите исследуемый параметр</label>
             </div>
-
             <div class="col-md-12 order-md-1">
                 <form action="PrintListClustering" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -62,19 +54,14 @@
                                 <option>{{ Сhe }}</option>
                             {% endfor %}
                         </select>
-
                         <div class="input-group-append">
                             <button class="btn btn-dark " id="but" type="submit" style="background-color: #3f294f;" >Показать</button>
                         </div>
                     </div>
-
-
                 </form>
             </div>
-
             <div class="col-md-12 order-md-1">
                 <br>
-
                 <table class="table">
                     <thead>
                         <tr>
@@ -90,16 +77,12 @@
                     </tbody>
                 </table>
             </div>
-
-
             <div class="col-md-12 order-md-1">
                         <br>
                         <label for="exampleFormControlSelect1">Укажите максимальное расстояние внутри кластеров</label>
                     </div>
             <div class="col-md-12 order-md-1">
                 <form action = 'CLUSgroup' method="post" enctype="multipart/form-data">
-
-
                     <div class="row">
                     {% csrf_token %}
                         <div class="col-md-8">
@@ -111,7 +94,6 @@
                     </div>
                 </form>
             </div>
-
             <div class="col-md-12 order-md-1">
                 <br>
                 <table class="table">
@@ -130,7 +112,6 @@
                 </table>
             </div>
         </div>
-
     </div>
 </div>
 {% endblock %}

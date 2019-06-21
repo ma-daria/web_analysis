@@ -2,11 +2,8 @@ from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 from django.http import HttpResponse
-
 from analysis.static.analysis.pythonCode import Data_analysis, Include
 import os
-
-
 
 def index(request):
     if request.method == 'POST':
@@ -16,7 +13,6 @@ def index(request):
             try:
                 if os.path.isfile(file_path):
                     os.unlink(file_path)
-                # elif os.path.isdir(file_path): shutil.rmtree(file_path)
             except Exception as e:
                 print(e)
         file = request.FILES['document']
@@ -36,7 +32,6 @@ def table(request):
     sizeI = dat.GetSizeChemistry()
     sizeV = dat.GetSizeZooplankton()
     return render(request, 'analysis/table.html', { 'nameC': name, 'size': size, 'sizeP': sizeP, 'sizeI': sizeI, 'sizeV': sizeV})
-
 
 def Correlation(request):
     form=[]
@@ -116,7 +111,6 @@ def PrintListCorrelation(request):
         col = col[col != names]
         col = [names] + col.tolist()
     return render(request, 'analysis/Correlation.html', {'col': col, 'colS':colS, 'otvet': otvet, 'form': form, 'type': type, 'size': size, 'sizeI': sizeI, 'corMax': corMax})
-
 
 def ClusteringStr(request):
     data = Data_analysis.Data_analysis()
@@ -222,7 +216,6 @@ def LSAstr(request):
         col = [names] + col.tolist()
     return render(request, 'analysis/LSA.html', {'Zooplankton': col, 'otvet': otvet, 'otvet2': otvet2,'size': size, 'sizeI': sizeI, 'val': val})
 
-
 def LSAgroup(request):
     data = Data_analysis.Data_analysis()
     dat = data.GetData()
@@ -238,7 +231,6 @@ def LSAgroup(request):
     return render(request, 'analysis/LSA.html',{'Zooplankton': col, 'otvet': otvet, 'otvet2': otvet2, 'size': size, 'sizeI': sizeI, 'val': val})
 
 def LDA(request):
-
     data = Data_analysis.Data_analysis()
     data.LDA()
     otvet = data.NAnalysisLDA()
@@ -248,7 +240,6 @@ def LDA(request):
         val = request.POST['vali']
         otvet2 = data.AnalysisLDA(float(val))
     return render(request, 'analysis/LDA.html', {'otvet':  otvet, 'otvet2':  otvet2, 'val':val})
-
 
 def photoCorrelation(request):
     data = Data_analysis.Data_analysis()
@@ -260,8 +251,6 @@ def photoCorrelation(request):
         print("Не удалось загрузить график")
     response = HttpResponse(buffer.getvalue(), content_type='image/png')
     return response
-
-
 
 def photoClustrering(request):
     data = Data_analysis.Data_analysis()

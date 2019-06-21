@@ -11,7 +11,6 @@ function hide_loader(){
 }
 
 $('#but').click(function () {
-
     show_loader();
 });
 

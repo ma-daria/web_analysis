@@ -1,20 +1,16 @@
 {% extends "analysis/template.html" %}
-
 {% block title %}
     <title>Корреляция</title>
 {% endblock %}
-
 {% block content %}
 <div class="container">
     <div class="row" >
         <div class="col-md-7 order-md-1">
             <form action="Correlation" method="post" enctype="multipart/form-data">
                 <div class="row">
-
                         <div class="col-md-5 order-md-1">
                             <br>
                             <label for="exampleFormControlSelect1">Данные кореляции</label>
-
                             {% csrf_token %}
                                 <div class="input-group">
                                     <select class="custom-select" id="name3" name="name3"  style="width:100%">
@@ -37,11 +33,9 @@
                                 </div>
                             <br>
                         </div>
-
                         <div class="col-md-5 order-md-1">
                             <br>
                             <label for="exampleFormControlSelect1">Параметры</label>
-
                             {% csrf_token %}
                                 <div class="input-group">
                                     <select class="js-example-basic-multiple" id="name2" name="states[]" multiple="multiple"  style="width:100%">
@@ -49,30 +43,20 @@
                                             <option >{{ Сhe }}</option>
                                         {% endfor %}
                                     </select>
-
-
                                 </div>
                         </div>
-
                         <div class="col-md-2 order-md-1">
                             <br>
                             <label for="exampleFormControlSelect1">&nbsp;</label>
                             <button class="btn btn-dark " id="but" type="submit" style="background-color: #3f294f;" >Показать</button>
                         </div>
-
                 </div>
-
                 <h4>Количество измерений:  {{ sizeI }}</h4>
                 <h4>Количество исследуемых параметров:  {{ size }} </h4>
             </form>
-
                 <br>
                 <h4 >Корреляция:</h4>
                 <a href="{% url 'photoCorrelation' %}" target="_blank"><img src="{% url 'photoCorrelation' %}" style='width: 100%; ' ></a>
-{#                {% load staticfiles %}#}
-{#                <a href="{% static 'analysis/img/icon.png' %}" target="_blank"><img src="{% static 'analysis/img/icon.png' %}" style='width: 100%; ' ></a>#}
-
-
                 <h4 >Параметры с большой корреляцией:</h4>
                 <table class="table" id="corMax" >
                     <thead>
@@ -91,9 +75,7 @@
                         {% endfor %}
                         {% endautoescape %}
                     </tbody>
-
                 </table>
-
                 <div class="additional">
                     <br>
                     <h4 >Попарные диаграммы рассеяния [Описание точки измерения]:</h4>
@@ -103,15 +85,11 @@
                     <a href="{% url 'pairplot2' %}" target="_blank"><img src="{% url 'pairplot2' %}" style='width: 100%; ' ></a>
                 </div>
         </div>
-
-
         <div class="col-md-1 order-md-1">
         </div>
-
         <div class="col-md-4 order-md-1">
                 <br>
                 <label for="exampleFormControlSelect1">Укажите исследуемый параметр</label>
-
                 <form action="PrintListCorrelation" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                     <div class="input-group">
@@ -120,15 +98,12 @@
                                 <option >{{ Сhe }}</option>
                             {% endfor %}
                         </select>
-
                         <div class="input-group-append">
                             <button class="btn btn-dark " id="but" type="submit" style="background-color: #3f294f;" >Показать</button>
                         </div>
                     </div>
                 </form>
-
                 <br>
-
                 <table class="table">
                     <thead>
                         <tr>

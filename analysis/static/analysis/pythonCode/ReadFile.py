@@ -16,13 +16,11 @@ class ReadFile(object):
     def _OpenFile(self, name):
         pass
 
-
     def _ToFloat(self, data):
         for name in data:
             data[name] = Include.pd.to_numeric(data[name], errors='coerce')
         data = data.fillna(0)
         return data
-
 
     def _ClearData(self):
         new_measurement = self.measurement
@@ -37,4 +35,3 @@ class ReadFile(object):
 
         self.measurement.loc[self.measurement[
                             'Описание точки измерения'] == "заросли тростника, рогоза, погружен раст", 'Описание точки измерения'] = "заросли"
-

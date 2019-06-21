@@ -4,22 +4,12 @@ class GR_PCA(Analysis.Analysis):
     X_pca = []
     c = []
 
-
     def __init__(self):
         super().__init__()
-        # self.X_pca = []
-        # self.c = []
-        # self.flag = 0
-        # self.buffer = []
-
-    # def gr_pca(self, df1, colorField):
-    #     if self.flag == 0:
-    #         self._toDo(df1, colorField)
 
     def _toDo(self, df1, colorField):
         self.data = Include.PCA()
         X = df1.drop(columns=[colorField])
-        # X = Include.preprocessing.normalize(X)
         y = df1[colorField].copy()
         scaler = Include.StandardScaler()
         scaler.fit(X)
@@ -27,11 +17,6 @@ class GR_PCA(Analysis.Analysis):
         self.X_pca = self.data.fit_transform(X)
         self.c = Include.np.asarray(y)
         return self.data
-
-    # def getPhoto(self, col, component1, component2, size):
-    #     if self.buffer == []:
-    #         self._draw(col, component1, component2, size)
-    #     return self.buffer
 
     def _draw(self, size, nameCol, component1, component2):
         coeff = Include.np.transpose(self.data.components_[[component1 - 1, component2 - 1], :])
@@ -41,9 +26,7 @@ class GR_PCA(Analysis.Analysis):
         Include.plt.xlabel("PC{}".format(component1))
         Include.plt.ylabel("PC{}".format(component2))
         Include.plt.grid()
-
         self._biplot(self.X_pca[:, [component1 - 1, component2 - 1]], coeff, nameCol, self.c)
-
         self.buffer = Include.io.BytesIO()
         Include.plt.savefig(self.buffer, format='png')
 
@@ -55,7 +38,6 @@ class GR_PCA(Analysis.Analysis):
         scaley = 1.0 / (ys.max() - ys.min())
         Include.plt.scatter(xs * scalex, ys * scaley, c=colors)
         Include.plt.colorbar()
-
         for i in range(n):
             Include.plt.arrow(0, 0, coeff[i, 0], coeff[i, 1], color='r', alpha=0.2)
             if labels is None:

@@ -15,10 +15,8 @@ class Data_analysis(object):
     pairplotDescriptionData = Pairplot.Pairplot()
     pairplotPlaceData = Pairplot.Pairplot()
     ldaData= LDA.LDA()
-
     type = 0
     type_cla = 0
-    # list = []
 
     def __new__(cls):
         if not hasattr(cls, 'instance'):
@@ -41,16 +39,12 @@ class Data_analysis(object):
         self.pairplotPlaceData = Pairplot.Pairplot()
         self.type = 0
         self.type_cla = 0
-        # self.list = []
-
 
     def SetType_cla(self, t):
         self.type_cla = t
 
     def SetList(self, li):
-        # self.list = li
         self.data.SetList(li)
-
 
     def GetType(self):
         return self.type
@@ -64,30 +58,23 @@ class Data_analysis(object):
     def GetData(self):
         return self.data
 
-    # def GetList(self):
-    #     return self.list
-
     def ReadFile(self, name):
         self._newCl()
         return self.data.readFile(name)
 
     def Correlation(self):
-
         if self.type == 0:
             d = self.data.GetDataChemistry()
             otv = self.correlationChemistryData.Analyze(d)
-            # otv = self.correlationChemistryData.correlation(d)
         else:
             if self.type == 1:
                 d = self.data.GetDataZooplankton()
                 otv = self.correlationZooplanktonData.Analyze(d)
-                # otv = self.correlationZooplanktonData.correlation(d)
             else:
                 if self.type == 2:
                     d = self.data.GetDataMix()
                     self.correlationMixData = Correlation.Correlation()
                     otv = self.correlationMixData.Analyze(d)
-                    # otv = self.correlationMixData.correlation(d)
                     self.drawPairplot(Include.PA_DESCRIPTION)
                     self.drawPairplot(Include.PA_PLACE)
                 else:
@@ -100,7 +87,6 @@ class Data_analysis(object):
                         d = d.rename(columns={i: n})
                         i = i + 1
                     otv = self.correlationLSAData.Analyze(d)
-                    # otv = self.correlationLSAData.correlation(d)
         self.drawCorrelation()
         return otv
 
@@ -109,44 +95,34 @@ class Data_analysis(object):
         if self.type_cla == 0:
             d = self.data.GetDataZooplankton()
             otv = self.clusteringData.Analyze(d)
-            # otv = self.clusteringData.dentogram(d)
         else:
             if self.type_cla == 1:
                 d = self.data.GetDataZooplankton()
                 otv = self.lsaData.Analyze(d)
-                # otv = self.lsaData.dentogram(d)
             else:
                 if self.type_cla == 2:
                     d = self.data.GetDataChemistryRes()
                     otv = self.clusteringChemistryData.Analyze(d)
-                    # otv = self.clusteringChemistryData.dentogram(d)
         self.drawDentogram()
         self.PCA()
         return otv
-
-
 
     def PCA(self):
         if self.type_cla == 0:
             d = self.data.GetDataZooplankton()
             d['pH'] = self.data.GetDataMix(['pH'])
             self.pcaData.Analyze(d, 'pH')
-            # self.pcaData.gr_pca(d, 'pH')
         else:
             if self.type_cla == 1:
                 d = self.data.GetDataZooplankton()
                 d['pH'] = self.data.GetDataMix(['pH'])
                 self.pcaLsaData.Analyze(d, 'pH')
-                # self.pcaLsaData.gr_pca(d, 'pH')
             else:
                 if self.type_cla == 2:
                     d = self.data.GetDataChemistryRes()
-                    # d['pH'] = self.data.GetDataMix(['pH'])
                     d['pH'] = Include.pd.Series([1, 1, 1, 1, 1, 1, 1, 1, 1])
                     self.pcaChemistryData.Analyze(d, 'pH')
-                    # self.pcaChemistryData.gr_pca(d, 'pH')
         self.drawPCA()
-
 
     def AnalysisCorrelation(self, name):
         ress = []
@@ -208,12 +184,9 @@ class Data_analysis(object):
                     col = self.data.GetNameChemistryRes()
                     return self.clusteringChemistryData.Group(cl, val, col.size, col)
 
-
-
     def LDA(self):
         d = self.data.GetDataZooplankton()
         self.ldaData.Analyze(d)
-        # self.ldaData.lda(d)
 
     def NAnalysisLDA(self):
         col = self.data.GetNameZooplankton()
@@ -222,8 +195,6 @@ class Data_analysis(object):
     def AnalysisLDA(self, val):
         col = self.data.GetNameZooplankton()
         return self.ldaData.group(col, val)
-
-
 
     def _Search(self, names, col):
         i = 0
@@ -247,7 +218,6 @@ class Data_analysis(object):
         for i in range(len(res)):
             otvet.append([res[i], res1[i], res2[i]])
         return otvet
-
 
     def drawCorrelation(self):
         if self.type == 0:
@@ -277,15 +247,11 @@ class Data_analysis(object):
             dat['Описание точки измерения'] = self.data.GetDataMix(['Описание точки измерения'])
             self.pairplotDescriptionData.Analyze(dat, 'Описание точки измерения')
             return self.pairplotDescriptionData.getPhoto()
-            # return self.pairplotDescriptionData.getPhoto(dat, 'Описание точки измерения')
         else:
             if fl == 1:
                 dat['Место измерения'] = self.data.GetDataMix(['Место измерения'])
                 self.pairplotPlaceData.Analyze(dat, 'Место измерения')
                 return self.pairplotPlaceData.getPhoto()
-                # return self.pairplotPlaceData.getPhoto(dat, 'Место измерения')
-
-
 
     def drawPCA(self):
         if self.type_cla == 0:
@@ -298,5 +264,3 @@ class Data_analysis(object):
             else:
                 name = self.data.GetNameChemistryRes()
                 return self.pcaChemistryData.getPhoto([-0.6, 0.6, 0.02, 0.115], name, 0, 1)
-
-

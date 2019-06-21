@@ -1,9 +1,7 @@
 {% extends "analysis/template.html" %}
-
 {% block title %}
     <title>Латентно-семантический анализ</title>
 {% endblock %}
-
 {% block content %}
 <div class="container">
     <div class="row">
@@ -21,16 +19,13 @@
                 <br>
                 <h4 >Корреляция:</h4>
                 <a href="{% url 'corLSA' %}" target="_blank" class="additional"><img src="{% url 'corLSA' %}" style='width: 100%; ' ></a>
-
             </div>
         </div>
-
         <div class="col-md-6 order-md-1">
             <div class="col-md-12 order-md-1">
                 <br>
                 <label for="exampleFormControlSelect1">Укажите исследуемый параметр</label>
             </div>
-
             <div class="col-md-12 order-md-1">
                 <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -44,10 +39,8 @@
                             <button class="btn btn-dark " id="but" type="submit" style="background-color: #3f294f; " >Показать</button>
                         </div>
                     </div>
-
                 </form>
             </div>
-
             <div class="col-md-12 order-md-1">
                 <br>
                 <table class="table">
@@ -65,12 +58,10 @@
                     </tbody>
                 </table>
             </div>
-
             <div class="col-md-12 order-md-1">
                         <br>
                         <label for="exampleFormControlSelect1">Укажите максимальное расстояние внутри кластеров</label>
             </div>
-
             <div class="col-md-12 order-md-1">
                 <form action = 'LSAgroup' method="post" enctype="multipart/form-data">
                     <div class="row">
@@ -84,7 +75,6 @@
                     </div>
                 </form>
             </div>
-
             <div class="col-md-12 order-md-1">
                 <br>
                 <table class="table">
@@ -102,7 +92,6 @@
                     </tbody>
                 </table>
             </div>
-
         </div>
 
     </div>
