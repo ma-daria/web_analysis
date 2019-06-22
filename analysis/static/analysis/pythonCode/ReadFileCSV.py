@@ -1,9 +1,11 @@
 from analysis.static.analysis.pythonCode import Include, ReadFile
 
+# класс потомок класса ReadFile для чтения CSV файлов
 class ReadFileCSV(ReadFile.ReadFile):
     def __init__(self):
         super().__init__()
 
+    # метод открытия файла csv
     def _OpenFile(self, name):
         self.measurement = Include.pd.read_csv(name, sep=';', decimal=',', header=1)
         self.measurement = self.measurement.rename(columns={'Unnamed: 0': 'Водоем'})

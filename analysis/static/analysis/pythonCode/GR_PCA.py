@@ -1,12 +1,15 @@
 from analysis.static.analysis.pythonCode import Include, Analysis
 
+# класс потомок класса Analysis, для алгоритма метода главных компонент
 class GR_PCA(Analysis.Analysis):
-    X_pca = []
-    c = []
+    X_pca = [] #результаты работы алгоритма
+    c = [] #массив по которому будет происходить окрашивание точек
 
+    #  инициализация
     def __init__(self):
         super().__init__()
 
+    # метод реализующий алгоритм  метод главных компонент
     def _toDo(self, df1, colorField):
         self.data = Include.PCA()
         X = df1.drop(columns=[colorField])
@@ -18,6 +21,7 @@ class GR_PCA(Analysis.Analysis):
         self.c = Include.np.asarray(y)
         return self.data
 
+    # метод реализующий генерацию графика
     def _draw(self, size, nameCol, component1, component2):
         coeff = Include.np.transpose(self.data.components_[[component1 - 1, component2 - 1], :])
         Include.plt.figure(figsize=(16, 16))
@@ -30,6 +34,7 @@ class GR_PCA(Analysis.Analysis):
         self.buffer = Include.io.BytesIO()
         Include.plt.savefig(self.buffer, format='png')
 
+    # вспомогательный метод построения графика
     def _biplot(self, score, coeff, labels=None, colors=None):
         xs = score[:, 0]
         ys = score[:, 1]

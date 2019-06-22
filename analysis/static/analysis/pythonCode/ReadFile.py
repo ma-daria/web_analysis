@@ -1,10 +1,13 @@
 from analysis.static.analysis.pythonCode import Include
 from abc import abstractmethod
 
+# класс работы с чтением и предпроцессингом данных исследования
 class ReadFile(object):
+    # инициализация
     def __init__(self):
-        self.measurement = Include.pd.DataFrame([])
+        self.measurement = Include.pd.DataFrame([]) #данные чтения
 
+    # метод с последовательностью выполнения шагов для чтения и предпроцессинга
     def readFile(self, name):
         self._OpenFile(name)
         self.measurement.loc[:, 'Acroperus harpae (Baird)':'copepoditae Diaptomidae'] = self._ToFloat(
@@ -12,16 +15,19 @@ class ReadFile(object):
         self._ClearData()
         return self.measurement
 
+    # метод открытия файла
     @abstractmethod
     def _OpenFile(self, name):
         pass
 
+    #  метод приведения типов данных
     def _ToFloat(self, data):
         for name in data:
             data[name] = Include.pd.to_numeric(data[name], errors='coerce')
         data = data.fillna(0)
         return data
 
+    # метод очистки от факторов, снижающих качество данных
     def _ClearData(self):
         new_measurement = self.measurement
         for number in self.measurement.columns:

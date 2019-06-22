@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from analysis.static.analysis.pythonCode import Data_analysis, Include
 import os
 
+# GET, POST Главная страница, загрузка файлов
 def index(request):
     if request.method == 'POST':
         folder = settings.MEDIA_ROOT
@@ -23,6 +24,7 @@ def index(request):
         return redirect('/table')
     return render(request, 'analysis/index.html')
 
+# GET Вывод описания исследуемых данных
 def table(request):
     data = Data_analysis.Data_analysis()
     dat = data.GetData()
@@ -33,6 +35,7 @@ def table(request):
     sizeV = dat.GetSizeZooplankton()
     return render(request, 'analysis/table.html', { 'nameC': name, 'size': size, 'sizeP': sizeP, 'sizeI': sizeI, 'sizeV': sizeV})
 
+# GET, POST Корреляционный анализ для указанных параметров
 def Correlation(request):
     form=[]
     data = Data_analysis.Data_analysis()
@@ -76,6 +79,7 @@ def Correlation(request):
                 corMax = data.CorrelationMax()
     return render(request, 'analysis/Correlation.html', {'col': col, 'colS':colS, 'otvet': otvet, 'form': form, 'type': id, 'size': size, 'sizeI': sizeI, 'corMax': corMax})
 
+# GET, POST  Вывод списка коррелируемых параметров заданного параметра
 def PrintListCorrelation(request):
     data = Data_analysis.Data_analysis()
     dat = data.GetData()
@@ -112,6 +116,7 @@ def PrintListCorrelation(request):
         col = [names] + col.tolist()
     return render(request, 'analysis/Correlation.html', {'col': col, 'colS':colS, 'otvet': otvet, 'form': form, 'type': type, 'size': size, 'sizeI': sizeI, 'corMax': corMax})
 
+# GET, POST Кластерный анализ для указанных параметров
 def ClusteringStr(request):
     data = Data_analysis.Data_analysis()
     dat = data.GetData()
@@ -143,6 +148,7 @@ def ClusteringStr(request):
             type = Include.CL_ZOOPLANKTON
     return render(request, 'analysis/Clustering.html', {'Zooplankton': col, 'otvet': otvet, 'selec': names, 'size': size, 'sizeI': sizeI, 'type': type, 'otvet2': otvet2, 'val': val})
 
+# GET, POST Вывод групп в которые входит заданный параметр, выявленных в процессе кластеризации
 def ClusteringPr(request):
     data = Data_analysis.Data_analysis()
     dat = data.GetData()
@@ -170,6 +176,7 @@ def ClusteringPr(request):
         col = [names] + col.tolist()
     return render(request, 'analysis/Clustering.html', {'Zooplankton': col, 'otvet': otvet, 'selec': names, 'size': size, 'sizeI': sizeI, 'type': type, 'otvet2': otvet2, 'val': val})
 
+# GET, POST Вывод групп, выявленных в процессе кластеризации, заданной точности
 def CLUSgroup(request):
     data = Data_analysis.Data_analysis()
     dat = data.GetData()
@@ -196,6 +203,8 @@ def CLUSgroup(request):
             col = dat.GetNameChemistryRes()
     return render(request, 'analysis/Clustering.html', {'Zooplankton': col, 'otvet': otvet, 'selec': names, 'size': size, 'sizeI': sizeI, 'type': type,'otvet2': otvet2, 'val': val})
 
+# GET Латентно семантический анализ
+# GET, POST Вывод групп в которые входит заданный параметр, выявленных в процессе кластеризации
 def LSAstr(request):
     data = Data_analysis.Data_analysis()
     dat = data.GetData()
@@ -216,6 +225,7 @@ def LSAstr(request):
         col = [names] + col.tolist()
     return render(request, 'analysis/LSA.html', {'Zooplankton': col, 'otvet': otvet, 'otvet2': otvet2,'size': size, 'sizeI': sizeI, 'val': val})
 
+# GET, POST Вывод групп, выявленных в процессе кластеризации, заданной точности
 def LSAgroup(request):
     data = Data_analysis.Data_analysis()
     dat = data.GetData()
@@ -230,6 +240,8 @@ def LSAgroup(request):
         otvet2 = data.GroupClustering(float(val))
     return render(request, 'analysis/LSA.html',{'Zooplankton': col, 'otvet': otvet, 'otvet2': otvet2, 'size': size, 'sizeI': sizeI, 'val': val})
 
+# GET латентного размещения Дирихле. вывод первые 10 параметров входящие в выявлены темы
+# GET, POST вывод первые N параметров выявленных тем, заданной точности
 def LDA(request):
     data = Data_analysis.Data_analysis()
     data.LDA()
@@ -241,6 +253,7 @@ def LDA(request):
         otvet2 = data.AnalysisLDA(float(val))
     return render(request, 'analysis/LDA.html', {'otvet':  otvet, 'otvet2':  otvet2, 'val':val})
 
+# GET генерация матрицы корреляции
 def photoCorrelation(request):
     data = Data_analysis.Data_analysis()
     type = data.GetType()
@@ -252,6 +265,7 @@ def photoCorrelation(request):
     response = HttpResponse(buffer.getvalue(), content_type='image/png')
     return response
 
+# GET генерация дендрограммы для кластеризации
 def photoClustrering(request):
     data = Data_analysis.Data_analysis()
     try:
@@ -263,6 +277,7 @@ def photoClustrering(request):
     response = HttpResponse(buffer.getvalue(), content_type='image/png')
     return response
 
+# GET генерация дендрограммы для латентно семантического анализа
 def photoLSA(request):
     data = Data_analysis.Data_analysis()
     try:
@@ -273,6 +288,7 @@ def photoLSA(request):
     response = HttpResponse(buffer.getvalue(), content_type='image/png')
     return response
 
+# GET генерация попарных диаграмм рассеяния [Описание точки измерения]
 def photoPairplotDescription(request):
     data = Data_analysis.Data_analysis()
     if data.GetType() == Include.CO_MIX:
@@ -288,6 +304,7 @@ def photoPairplotDescription(request):
         response = HttpResponse(buffer.getvalue(), content_type='image/png')
         return response
 
+# GET генерация попарных диаграмм рассеяния [Место измерения]
 def photoPairplotPlace(request):
     data = Data_analysis.Data_analysis()
     if data.GetType() == Include.CO_MIX:
@@ -303,6 +320,7 @@ def photoPairplotPlace(request):
         response = HttpResponse(buffer.getvalue(), content_type='image/png')
         return response
 
+# GET генерация матрицы корреляции для данных после латентно-семантического анализа
 def photoCorLSA(request):
     data = Data_analysis.Data_analysis()
     try:
@@ -313,6 +331,7 @@ def photoCorLSA(request):
     response = HttpResponse(buffer.getvalue(), content_type='image/png')
     return response
 
+# GET генерация визуализации данных  методом главных компонент
 def photoPCA(request):
     data = Data_analysis.Data_analysis()
     try:
@@ -324,6 +343,7 @@ def photoPCA(request):
     response = HttpResponse(buffer.getvalue(), content_type='image/png')
     return response
 
+# GET  генерация визуализации данных после латентно-семантического анализа методом главных компонент
 def photoPCAlsa(request):
     data = Data_analysis.Data_analysis()
     try:

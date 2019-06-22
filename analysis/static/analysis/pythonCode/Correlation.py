@@ -1,15 +1,20 @@
 from analysis.static.analysis.pythonCode import Include, Analysis
 
+#  класс потомок класса Analysis, для алгоритма корреляции
 class Correlation(Analysis.Analysis):
+    # инициализация
     def __init__(self):
         super().__init__()
 
+    # метод реализующий алгоритм корреляции
     def _toDo(selfm,  measurement, nameCol):
         return measurement.corr()
 
+    # метод возврата данных
     def getData(self):
         return self.data
 
+    # метод реализующий алгоритм упорядочения коррелируемых параметров по возрастанию в массиве (correlati)
     def SortingCorrelation(self, correlati):
         correlation_mod = correlati.abs()
         correlation_mod = correlation_mod.sort_values(ascending=False)
@@ -17,6 +22,7 @@ class Correlation(Analysis.Analysis):
             correlation_mod[name] = correlati[name]
         return correlation_mod
 
+    # метод реализующий генерацию матрицы корреляции
     def _draw(self, size, nameCol, component1, component2):
         mapPalette = Include.sns.diverging_palette(10, 240, sep=10, as_cmap=True)
         Include.plt.figure(figsize=(size, size), dpi=200)
@@ -24,6 +30,7 @@ class Correlation(Analysis.Analysis):
         self.buffer = Include.io.BytesIO()
         Include.plt.savefig(self.buffer, format='png')
 
+    # метод реализующий алгоритм получения параметров с высокой корреляцией
     def corMax(self):
         ma = self.data.copy()
         otv = Include.pd.DataFrame(columns=list([0, 1, 2]))
