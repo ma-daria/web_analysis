@@ -26,7 +26,7 @@ class Data(object):
     #  метод получения данных для ионов
     def GetDataChemistry(self):
         d = self.GetData()
-        return d.loc[:, 'О2':'Са+2']
+        return d.loc[:, 'pH':'Са+2']
 
     # метод для получения данных для всех видов зоопланктона
     def GetDataZooplankton(self):
@@ -47,7 +47,7 @@ class Data(object):
         d = d.T
         cl = d.columns
         for col in cl:
-            name = str(dd.loc[col, 'Водоем']) + '_' + str(dd.loc[col, 'Дата']) + '_' + str(dd.loc[col, 'Место измерения'])+ '_' + str(dd.loc[col, 'Описание точки измерения']) + '_' + str(dd.loc[col, 'pH'])
+            name = str(dd.loc[col, 'Водоем']) + '_' + str(dd.loc[col, 'Дата']) + '_' + str(dd.loc[col, 'Место измерения'])+ '_' + str(dd.loc[col, 'Описание точки измерения']) + '_' + str(dd.loc[col, 'pH'])  + '_' + str(Include.np.round_(dd.loc[col, 'Минерализация'], 4))
             d = d.rename(columns={col: name})
         return d
 

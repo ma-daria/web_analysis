@@ -269,11 +269,13 @@ class Data_analysis(object):
     def drawPairplot(self, fl):
         dat = self.data.GetDataMix()
         if fl == 0:
+            self.pairplotDescriptionData = Pairplot.Pairplot()
             dat['Описание точки измерения'] = self.data.GetDataMix(['Описание точки измерения'])
             self.pairplotDescriptionData.Analyze(dat, 'Описание точки измерения')
             return self.pairplotDescriptionData.getPhoto()
         else:
             if fl == 1:
+                self.pairplotPlaceData = Pairplot.Pairplot()
                 dat['Место измерения'] = self.data.GetDataMix(['Место измерения'])
                 self.pairplotPlaceData.Analyze(dat, 'Место измерения')
                 return self.pairplotPlaceData.getPhoto()

@@ -9,8 +9,8 @@ class Pairplot(Analysis.Analysis):
         super().__init__()
 
     # метод подготовки данных
-    def _toDo(selfm,  measurement, nameCol):
-        selfm.name = nameCol
+    def _toDo(self,  measurement, nameCol):
+        self.name = nameCol
         return measurement
 
     # метод построение попарных диаграмм рассеяния
