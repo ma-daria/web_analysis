@@ -86,8 +86,8 @@ class Data_analysis(object):
                     d = self.data.GetDataMix()
                     self.correlationMixData = Correlation.Correlation()
                     otv = self.correlationMixData.Analyze(d)
-                    self.drawPairplot(Include.PA_DESCRIPTION)
-                    self.drawPairplot(Include.PA_PLACE)
+                    self.drawPairplot(Include.PA_DESCRIPTION, 1)
+                    self.drawPairplot(Include.PA_PLACE, 1)
                 else:
                     da = self.lsaData.GetMass()
                     db = Include.pd.DataFrame(Include.np.array(da))
@@ -266,16 +266,18 @@ class Data_analysis(object):
                     return self.clusteringChemistryData.getPhoto(size=0.021)
 
     # метод вызывающий алгоритм построения попарных диаграмм рассеяния
-    def drawPairplot(self, fl):
+    def drawPairplot(self, fl, ff = 0):
         dat = self.data.GetDataMix()
         if fl == 0:
-            self.pairplotDescriptionData = Pairplot.Pairplot()
+            if ff == 1:
+                self.pairplotDescriptionData = Pairplot.Pairplot()
             dat['Описание точки измерения'] = self.data.GetDataMix(['Описание точки измерения'])
             self.pairplotDescriptionData.Analyze(dat, 'Описание точки измерения')
             return self.pairplotDescriptionData.getPhoto()
         else:
             if fl == 1:
-                self.pairplotPlaceData = Pairplot.Pairplot()
+                if ff == 1:
+                    self.pairplotPlaceData = Pairplot.Pairplot()
                 dat['Место измерения'] = self.data.GetDataMix(['Место измерения'])
                 self.pairplotPlaceData.Analyze(dat, 'Место измерения')
                 return self.pairplotPlaceData.getPhoto()
